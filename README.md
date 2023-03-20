@@ -21,6 +21,8 @@ $ yarn
 > **Step 3** - Start in development mode
 
 ```bash
+$ npm start
+// OR
 $ yarn start
 ```
 
