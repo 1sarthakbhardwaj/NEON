@@ -53,18 +53,10 @@ export default function SidebarDocs() {
           textAlign='center'
           px='10px'
           mb='14px'>
-          Horizon React
-        </Text>
-        <Text
-          fontSize='14px'
-          color={"white"}
-          px='10px'
-          mb='14px'
-          textAlign='center'>
-          Open-Source React App styled with Chakra UI.
+          Neon Commerce
         </Text>
       </Flex>
-      <Link href='https://appseed.us/support/'>
+      <Link href='neoncommerce.netlify.app'>
         <Button
           bg='whiteAlpha.300'
           _hover={{ bg: "whiteAlpha.200" }}
@@ -75,7 +67,7 @@ export default function SidebarDocs() {
           fontSize='sm'
           minW='185px'
           mx='auto'>
-          Get Support
+          Get a Demo
         </Button>
       </Link>
     </Flex>

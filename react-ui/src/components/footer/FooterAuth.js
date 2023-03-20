@@ -42,16 +42,8 @@ export default function Footer() {
             href='https://www.simmmple.com'
             target='_blank'
             fontWeight='700'>
-            Simmmple!
-          </Link>
-          - Coded by 
-          <Link
-            mx='3px'
-            color={textColor}
-            href='https://appseed.us'
-            target='_blank'>
-            AppSeed
-          </Link>           
+            Neon Commerce
+          </Link>         
         </Text>
       </Text>
       <List display='flex'>

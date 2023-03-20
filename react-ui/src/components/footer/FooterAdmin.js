@@ -43,15 +43,7 @@ export default function Footer() {
             color={textColor}
             href='https://www.simmmple.com'
             target='_blank'>
-            Simmmple
-          </Link> 
-          - Coded by 
-          <Link
-            mx='3px'
-            color={textColor}
-            href='https://appseed.us'
-            target='_blank'>
-            AppSeed
+            Neon Commerce  
           </Link> 
         </Text>
       </Text>
