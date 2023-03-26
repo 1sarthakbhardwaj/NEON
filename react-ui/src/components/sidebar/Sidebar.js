@@ -1,4 +1,5 @@
 import React from "react";
+import MiniSidebar from './MiniSidebar';
 
 // chakra imports
 import {
@@ -39,16 +40,20 @@ function Sidebar(props) {
 
   // SIDEBAR
   return (
-    <Box display={{ sm: "none", xl: "block" }} position='fixed' minH='100%'>
+    // <Box display={{ sm: "none", xl: "block" }} position='fixed' minH='100%'>
+      <>
+      <MiniSidebar />
       <Box
-        bg={sidebarBg}
-        transition={variantChange}
-        w='300px'
-        h='100vh'
-        m={sidebarMargins}
-        minH='100%'
-        overflowX='hidden'
-        boxShadow={shadow}>
+          bg={sidebarBg}
+          transition={variantChange}
+          w='250px'
+          h='100vh'
+          minH='100%'
+          overflowX='hidden'
+          boxShadow={shadow}
+          position='fixed'
+          ml='60px' >
+            
         <Scrollbars
           autoHide
           renderTrackVertical={renderTrack}
@@ -57,7 +62,8 @@ function Sidebar(props) {
           <Content routes={routes} />
         </Scrollbars>
       </Box>
-    </Box>
+      </>
+    // </Box>
   );
 }
 
