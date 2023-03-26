@@ -141,7 +141,7 @@ function SignIn() {
             color={textColorSecondary}
             fontWeight='400'
             fontSize='md'>
-            Open-source Full-stack Starter built with React and Chakra 
+            Fill your Credentials to Sign In 
           </Text>
         </Box>
         <Flex
