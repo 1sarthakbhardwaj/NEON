@@ -4,8 +4,8 @@ import {
   Button,
   Flex,
   Icon,
-  Image,
-  Link,
+  // Image,
+  // Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -15,9 +15,9 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 // Custom Components
-import { ItemContent } from "components/menu/ItemContent";
-import { SearchBar } from "components/navbar/searchBar/SearchBar";
-import { SidebarResponsive } from "components/sidebar/Sidebar";
+// import { ItemContent } from "components/menu/ItemContent";
+// import { SearchBar } from "components/navbar/searchBar/SearchBar";
+// import { SidebarResponsive } from "components/sidebar/Sidebar";
 import PropTypes from "prop-types";
 import React from "react";
 // Assets
@@ -26,10 +26,10 @@ import { useAuth } from "../../auth-context/auth.context";
 import AuthApi from "../../api/auth";
 
 import navImage from "assets/img/layout/Navbar.png";
-import { MdNotificationsNone, MdInfoOutline } from "react-icons/md";
+// import { MdNotificationsNone, MdInfoOutline } from "react-icons/md";
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
-import { FaEthereum } from "react-icons/fa";
-import routes from "routes.js";
+// import { FaEthereum } from "react-icons/fa";
+// import routes from "routes.js";
 export default function HeaderLinks(props) {
   const history = useHistory();
   const { setUser } = useAuth();
@@ -40,11 +40,11 @@ export default function HeaderLinks(props) {
   const navbarIcon = useColorModeValue("gray.400", "white");
   let menuBg = useColorModeValue("white", "navy.800");
   const textColor = useColorModeValue("secondaryGray.900", "white");
-  const textColorBrand = useColorModeValue("brand.700", "brand.400");
-  const ethColor = useColorModeValue("gray.700", "white");
+  // const textColorBrand = useColorModeValue("brand.700", "brand.400");
+  // const ethColor = useColorModeValue("gray.700", "white");
   const borderColor = useColorModeValue("#E6ECFA", "rgba(135, 140, 189, 0.3)");
-  const ethBg = useColorModeValue("secondaryGray.300", "navy.900");
-  const ethBox = useColorModeValue("white", "navy.800");
+  // const ethBg = useColorModeValue("secondaryGray.300", "navy.900");
+  // const ethBox = useColorModeValue("white", "navy.800");
   const shadow = useColorModeValue(
     "14px 17px 40px 4px rgba(112, 144, 176, 0.18)",
     "14px 17px 40px 4px rgba(112, 144, 176, 0.06)"
@@ -66,12 +66,13 @@ export default function HeaderLinks(props) {
       p='10px'
       borderRadius='30px'
       boxShadow={shadow}>
-      <SearchBar
+
+      {/* <SearchBar
         mb={secondary ? { base: "10px", md: "unset" } : "unset"}
         me='10px'
         borderRadius='30px'
-      />
-      <Flex
+      /> */}
+      {/* <Flex
         bg={ethBg}
         display={secondary ? "flex" : "none"}
         borderRadius='30px'
@@ -101,8 +102,8 @@ export default function HeaderLinks(props) {
             ETH
           </Text>
         </Text>
-      </Flex>
-      <SidebarResponsive routes={routes} />
+      </Flex> */}
+      {/* <SidebarResponsive routes={routes} />
       <Menu>
         <MenuButton p='0px'>
           <Icon
@@ -113,8 +114,8 @@ export default function HeaderLinks(props) {
             h='18px'
             me='10px'
           />
-        </MenuButton>
-        <MenuList
+        </MenuButton> */}
+        {/* <MenuList
           boxShadow={shadow}
           p='20px'
           borderRadius='20px'
@@ -158,10 +159,10 @@ export default function HeaderLinks(props) {
               />
             </MenuItem>
           </Flex>
-        </MenuList>
-      </Menu>
+        </MenuList> */}
+      {/* </Menu> */}
 
-      <Menu>
+      {/* <Menu>
         <MenuButton p='0px'>
           <Icon
             mt='6px'
@@ -216,7 +217,7 @@ export default function HeaderLinks(props) {
             </Link>
           </Flex>
         </MenuList>
-      </Menu>
+      </Menu> */}
 
       <Button
         variant='no-hover'

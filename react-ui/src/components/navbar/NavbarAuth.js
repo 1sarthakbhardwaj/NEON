@@ -437,8 +437,9 @@ export default function AuthNavbar(props) {
   return (
     <SidebarContext.Provider value={{ sidebarWidth }}>
       <Flex
-        position={navbarPosition}
-        top='16px'
+        position="fixed"
+        top="0"
+        // top='16px'
         left='50%'
         transform='translate(-50%, 0px)'
         background={navbarBg}
