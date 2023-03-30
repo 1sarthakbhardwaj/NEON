@@ -12,11 +12,13 @@ import tiki from '../../assets/img/MiniSidebar/tiki.jpeg';
 import { Image } from '@chakra-ui/react';
 import { Box, Icon, VStack, useColorModeValue, Tooltip } from '@chakra-ui/react';
 import { AiFillHome, AiOutlineSetting } from 'react-icons/ai';
+import { useHistory } from 'react-router-dom';
 
 const MiniSidebar = () => {
   const backgroundColor = useColorModeValue('white', 'navy.800');
   const iconColor = useColorModeValue('gray.600', 'white');
   const [selectedIcon, setSelectedIcon] = useState(null);
+  const history = useHistory();
 
   const handleIconClick = (iconName) => {
     setSelectedIcon(iconName);
@@ -24,6 +26,10 @@ const MiniSidebar = () => {
 
   const isSelected = (iconName) => {
     return iconName === selectedIcon;
+  };
+
+  const handleButtonClick = () => {
+    history.push('/admin/add-platform');
   };
 
   return (
@@ -43,14 +49,15 @@ const MiniSidebar = () => {
         h="100%"
         pt="1.5rem"
       >
-        <Tooltip label='Add New Platform' placement='right' hasArrow>
-          <Icon
-            as={AddIcon}
-            color={iconColor}
-            boxSize={6}
-            _hover={{ boxSize: 8, cursor: 'pointer' }}
-          />
-        </Tooltip>
+     <Tooltip label='Add New Platform' placement='right' hasArrow>
+      <Icon
+        as={AddIcon}
+        color={iconColor}
+        boxSize={6}
+        _hover={{ boxSize: 8, cursor: 'pointer' }}
+        onClick={handleButtonClick}
+      />
+    </Tooltip>
 
         {/* Shopee */}
         <Tooltip label='Shopee' placement='right' hasArrow>

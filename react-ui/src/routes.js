@@ -16,6 +16,7 @@ import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
 import RTL from "views/admin/rtl";
+import ButtonClickMessage from "./components/Marketplace/ButtonClickMessage";
 
 // Auth Imports
 // import SignInCentered from "views/auth/signIn";
@@ -80,6 +81,13 @@ const routes = [
     component: SignUp,
     hide: true
   },
+  {
+    name: "Add Platform",
+    layout: "/admin",
+    path: "/add-platform",
+    // icon: <Icon as={YourDesiredIcon} width="20px" height="20px" color="inherit" />,
+    component: ButtonClickMessage,
+  }
 ];
 
 export const Logout = [
