@@ -16,6 +16,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'consistent-return': 'off',
     'no-console': 'off',
+    "no-unused-vars": "off",
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     'class-methods-use-this': 'off',

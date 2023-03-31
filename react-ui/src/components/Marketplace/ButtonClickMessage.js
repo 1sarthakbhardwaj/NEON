@@ -9,21 +9,23 @@ import {
   Center,
   Flex,
 } from '@chakra-ui/react';
+import FormStep1 from './FormStep1';
+import FormStep2 from './FormStep2';
+import FormStep3 from './FormStep3';
 
 const stepsArray = [
-  { label: 'Select campaign settings' },
-  { label: 'Create an ad group' },
-  { label: 'Create an ad' },
+  { label: 'Step 1', component: FormStep1 },
+  { label: 'Step 2', component: FormStep2 },
+  { label: 'Step 3', component: FormStep3 },
 ];
 
-function StepIndicator({ step, activeStep, isStepOptional }) {
+function StepIndicator({ step, activeStep }) {
   const isActive = step === activeStep;
   const isCompleted = step < activeStep;
 
   return (
     <Flex direction="column" align="center">
       <Center
-        mt="100px"
         w="32px"
         h="32px"
         borderRadius="50%"
@@ -31,28 +33,20 @@ function StepIndicator({ step, activeStep, isStepOptional }) {
         fontWeight="bold"
         bg={isActive || isCompleted ? 'teal.500' : 'gray.200'}
         color={isActive || isCompleted ? 'white' : 'gray.500'}
+        position="relative"
+        zIndex={1}
       >
         {step + 1}
       </Center>
       <Text mt={2} fontSize="sm" color={isCompleted ? 'gray.500' : 'black'}>
         {stepsArray[step].label}
-        {isStepOptional && <Text as="span" fontWeight="normal"> (Optional)</Text>}
       </Text>
-      {step < stepsArray.length - 1 && (
-        <Center w="100%" borderBottom="4px solid" borderColor="teal.500">
-          <Progress value={isCompleted ? 100 : 0} w="100%" h="4px" />
-        </Center>
-      )}
     </Flex>
   );
 }
 
-export default function HorizontalLinearStepper() {
+export default function ButtonClickMessage() {
   const [activeStep, setActiveStep] = useState(0);
-
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -66,51 +60,45 @@ export default function HorizontalLinearStepper() {
     setActiveStep(0);
   };
 
+  const StepComponent = stepsArray[activeStep].component;
+
   return (
-    <Box width="100%">
-      <Flex justify="space-between">
+    <Box width="100%" mt="120px">
+      <HStack justify="space-between" mb={5} position="relative">
+        <Progress
+          value={(activeStep / (stepsArray.length - 1)) * 100}
+          size="sm"
+          colorScheme="teal"
+          width="100%"
+          position="absolute"
+          top="16px"
+          zIndex={0}
+        />
         {stepsArray.map((_, index) => (
-          <StepIndicator
-            key={index}
-            step={index}
-            activeStep={activeStep}
-            isStepOptional={isStepOptional(index)}
-          />
+          <StepIndicator key={index} step={index} activeStep={activeStep} />
         ))}
-      </Flex>
-      <VStack mt={4} spacing={4} alignItems="flex-start">
-        {activeStep === stepsArray.length ? (
-          <>
-            <Text>All steps completed - you're finished</Text>
-            <HStack alignSelf="flex-end">
-              <Button variant="outline" onClick={handleReset}>
-                Reset
-              </Button>
-            </HStack>
-          </>
-        ) : (
-          <>
-            <center><Text>Step {activeStep + 1}</Text></center>
-            <HStack alignSelf="flex-end" spacing={4}>
-              <Button
-                variant="outline"
-                isDisabled={activeStep === 0}
-                onClick={handleBack}
-              >
-                Back
-              </Button>
-              {isStepOptional(activeStep) && (
-                 <Button variant="outline" onClick={handleNext}>
-                 Skip
-               </Button>
-               )}
-               <Button colorScheme="teal" onClick={handleNext}>
-                 {activeStep === stepsArray.length - 1 ? 'Finish' : 'Next'}
-               </Button>
-             </HStack>
-           </>
-         )}
-       </VStack>
-     </Box>
-   );
- }
+      </HStack>
+      <VStack spacing={5} alignItems="flex-start">
+        <StepComponent />
+        <HStack alignSelf="flex-end" spacing={4}>
+          <Button
+            variant="outline"
+            isDisabled={activeStep === 0}
+            onClick={handleBack}
+          >
+            Back
+          </Button>
+          {activeStep === stepsArray.length - 1 ? (
+            <Button colorScheme="teal" onClick={handleReset}>
+              Reset
+            </Button>
+          ) : (
+            <Button colorScheme="teal" onClick={handleNext}>
+              Next
+            </Button>
+          )}
+        </HStack>
+      </VStack>
+    </Box>
+  );
+}
