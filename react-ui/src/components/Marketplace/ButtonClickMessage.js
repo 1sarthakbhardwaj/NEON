@@ -5,10 +5,12 @@ import {
   HStack,
   Button,
   Text,
-  Progress,
   Center,
   Flex,
+  Spacer,
+  Icon,
 } from '@chakra-ui/react';
+import { CheckIcon, TimeIcon } from '@chakra-ui/icons';
 import FormStep1 from './FormStep1';
 import FormStep2 from './FormStep2';
 import FormStep3 from './FormStep3';
@@ -24,19 +26,22 @@ function StepIndicator({ step, activeStep }) {
   const isCompleted = step < activeStep;
 
   return (
-    <Flex direction="column" align="center">
+    <Flex direction="column" align="center" position="relative">
       <Center
         w="32px"
         h="32px"
         borderRadius="50%"
         fontSize="sm"
         fontWeight="bold"
-        bg={isActive || isCompleted ? 'teal.500' : 'gray.200'}
+        bg={isActive || isCompleted ? 'blue.500' : 'gray.200'}
         color={isActive || isCompleted ? 'white' : 'gray.500'}
-        position="relative"
-        zIndex={1}
+        zIndex="2"
       >
-        {step + 1}
+        {isCompleted ? (
+          <Icon as={CheckIcon} boxSize="16px" color="white" />
+        ) : (
+          <Icon as={TimeIcon} boxSize="16px" color="gray.500" />
+        )}
       </Center>
       <Text mt={2} fontSize="sm" color={isCompleted ? 'gray.500' : 'black'}>
         {stepsArray[step].label}
@@ -45,6 +50,22 @@ function StepIndicator({ step, activeStep }) {
   );
 }
 
+function StepConnector({ step, activeStep }) {
+    const isPreviousStepCompleted = step < activeStep;
+  
+    return (
+      <Flex
+        bg={isPreviousStepCompleted ? 'blue.500' : 'gray.200'}
+        height="1px"
+        flexGrow="1"
+        alignSelf="center"
+        borderRadius="full"
+        zIndex="1"
+        mt="-16px"
+      />
+    );
+  }
+  
 export default function ButtonClickMessage() {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -63,22 +84,19 @@ export default function ButtonClickMessage() {
   const StepComponent = stepsArray[activeStep].component;
 
   return (
-    <Box width="100%" mt="120px">
-      <HStack justify="space-between" mb={5} position="relative">
-        <Progress
-          value={(activeStep / (stepsArray.length - 1)) * 100}
-          size="sm"
-          colorScheme="teal"
-          width="100%"
-          position="absolute"
-          top="16px"
-          zIndex={0}
-        />
-        {stepsArray.map((_, index) => (
-          <StepIndicator key={index} step={index} activeStep={activeStep} />
-        ))}
-      </HStack>
-      <VStack spacing={5} alignItems="flex-start">
+    <Box width="100%" mt="100px">
+     <HStack justifyContent="center" alignItems="center">
+  {stepsArray.map((_, index) => (
+    <React.Fragment key={index}>
+      <StepIndicator step={index} activeStep={activeStep} />
+      {index < stepsArray.length - 1 && (
+        <StepConnector step={index} activeStep={activeStep} />
+      )}
+    </React.Fragment>
+  ))}
+</HStack>
+
+      <VStack spacing={4} alignItems="flex-start" mt={6}>
         <StepComponent />
         <HStack alignSelf="flex-end" spacing={4}>
           <Button
@@ -89,16 +107,16 @@ export default function ButtonClickMessage() {
             Back
           </Button>
           {activeStep === stepsArray.length - 1 ? (
-            <Button colorScheme="teal" onClick={handleReset}>
+            <Button colorScheme="blue" onClick={handleReset}>
               Reset
             </Button>
           ) : (
-            <Button colorScheme="teal" onClick={handleNext}>
+            <Button colorScheme="blue" onClick={handleNext}>
               Next
-            </Button>
-          )}
-        </HStack>
-      </VStack>
-    </Box>
-  );
-}
+              </Button>
+              )}
+            </HStack>
+          </VStack>
+        </Box>
+        );
+        }
