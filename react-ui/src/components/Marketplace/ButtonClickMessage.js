@@ -51,25 +51,33 @@ function StepIndicator({ step, activeStep }) {
 }
 
 function StepConnector({ step, activeStep }) {
-    const isPreviousStepCompleted = step < activeStep;
-  
-    return (
-      <Flex
-        bg={isPreviousStepCompleted ? 'blue.500' : 'gray.200'}
-        height="1px"
-        flexGrow="1"
-        alignSelf="center"
-        borderRadius="full"
-        zIndex="1"
-        mt="-16px"
-      />
-    );
-  }
-  
-export default function ButtonClickMessage() {
+  const isPreviousStepCompleted = step < activeStep;
+
+  return (
+    <Flex
+      bg={isPreviousStepCompleted ? 'blue.500' : 'gray.200'}
+      height="1px"
+      flexGrow="1"
+      alignSelf="center"
+      borderRadius="full"
+      zIndex="1"
+      mt="-16px"
+    />
+  );
+}
+
+function ButtonClickMessage() {
   const [activeStep, setActiveStep] = useState(0);
+  const [platform, setPlatform] = useState('');
+
+  const handlePlatformChange = (platform) => {
+    console.log(`Selected platform: ${platform}`);
+  };
 
   const handleNext = () => {
+    if (activeStep === 0) {
+      console.log('Selected platform:', platform);
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -85,19 +93,21 @@ export default function ButtonClickMessage() {
 
   return (
     <Box width="100%" mt="100px">
-     <HStack justifyContent="center" alignItems="center">
-  {stepsArray.map((_, index) => (
-    <React.Fragment key={index}>
-      <StepIndicator step={index} activeStep={activeStep} />
-      {index < stepsArray.length - 1 && (
-        <StepConnector step={index} activeStep={activeStep} />
-      )}
-    </React.Fragment>
-  ))}
-</HStack>
+      <HStack justifyContent="center" alignItems="center">
+        {stepsArray.map((_, index) => (
+          <React.Fragment key={index}>
+            <StepIndicator step={index} activeStep={activeStep} />
+            {index < stepsArray.length - 1 && (
+              <StepConnector step={index} activeStep={activeStep} />
+            )}
+          </React.Fragment>
+        ))}
+      </HStack>
 
       <VStack spacing={4} alignItems="flex-start" mt={6}>
-        <StepComponent />
+        {React.createElement(StepComponent, {
+            onPlatformSelect: activeStep === 0 ? handlePlatformChange : undefined,
+})}
         <HStack alignSelf="flex-end" spacing={4}>
           <Button
             variant="outline"
@@ -113,10 +123,13 @@ export default function ButtonClickMessage() {
           ) : (
             <Button colorScheme="blue" onClick={handleNext}>
               Next
-              </Button>
-              )}
-            </HStack>
-          </VStack>
-        </Box>
-        );
-        }
+            </Button>
+          )}
+        </HStack>
+      </VStack>
+    </Box>
+  );
+}
+
+export default ButtonClickMessage;
+
