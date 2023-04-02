@@ -40,11 +40,12 @@ function FormStep1({ onPlatformSelect }) {
   const handlePlatformSelect = (platform) => {
     setSelectedPlatform(platform);
     onPlatformSelect(platform);
+    localStorage.setItem('selectedPlatform', JSON.stringify(platform));
   };
 
   return (
-    <Flex justifyContent="center" mt={6} ml="600px">
-    <VStack spacing={6}>
+    <Flex justifyContent="center" w="100%" mt={6}>
+    <VStack spacing={6} w="80%" bg="white" borderRadius="md" p={6}>
       <Box
         bg="white"
         borderRadius="md"
