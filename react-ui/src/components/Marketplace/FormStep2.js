@@ -21,24 +21,18 @@ const continents = [
   'Antarctica',
 ];
 
-function FormStep2(/* { onRegionSelect } */) {
+function FormStep2() {
   const [selectedContinent, setSelectedContinent] = useState(null);
 
   const handleContinentSelect = (continent) => {
     setSelectedContinent(continent);
-    // onRegionSelect(continent);
+    localStorage.setItem('selectedContinent', JSON.stringify(continent));
   };
 
   return (
-    <Flex justifyContent="center" mt={6} alignItems="center" ml="510px">
-      <VStack spacing={6}>
-        <Box
-          bg="white"
-          borderRadius="md"
-          borderWidth="1px"
-          borderColor="gray.200"
-          p={6}
-        >
+    <Flex justifyContent="center" w="100%" mt={6}>
+      <VStack spacing={6} w="80%">
+        <Box bg="white" borderRadius="md" borderWidth="1px" borderColor="gray.200" p={6}>
           <VStack alignItems="flex-start" spacing={4}>
             <Text fontSize="4xl" fontWeight="bold">
               What region is this account in?
@@ -60,9 +54,9 @@ function FormStep2(/* { onRegionSelect } */) {
                     _active={{ bg: 'blue.700' }}
                     onClick={() => handleContinentSelect(continent)}
                   >
-                    <HStack spacing={2}>
+                    <HStack spacing={2} alignItems="flex-start">
                       <Box
-                        boxSize="6"
+                        boxSize="7"
                         borderRadius="full"
                         bg="blue.500"
                         display="flex"
@@ -79,6 +73,12 @@ function FormStep2(/* { onRegionSelect } */) {
             </Grid>
           </VStack>
         </Box>
+        <HStack>
+          <Text>Your e-commerce platform is not listed?</Text>
+          <Text fontWeight="bold" color="blue.500">
+            Let us know
+          </Text>
+        </HStack>
       </VStack>
     </Flex>
   );

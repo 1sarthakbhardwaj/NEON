@@ -89,6 +89,10 @@ function ButtonClickMessage() {
     setActiveStep(0);
   };
 
+  const handleAdd = () => {
+    console.log('Add button clicked');
+  };
+
   const StepComponent = stepsArray[activeStep].component;
 
   return (
@@ -103,33 +107,38 @@ function ButtonClickMessage() {
           </React.Fragment>
         ))}
       </HStack>
-
       <VStack spacing={4} alignItems="flex-start" mt={6}>
-        {React.createElement(StepComponent, {
-            onPlatformSelect: activeStep === 0 ? handlePlatformChange : undefined,
-})}
-        <HStack alignSelf="flex-end" spacing={4}>
-          <Button
-            variant="outline"
-            isDisabled={activeStep === 0}
-            onClick={handleBack}
-          >
-            Back
+    {React.createElement(StepComponent, {
+      onPlatformSelect:
+        activeStep === 0 ? handlePlatformChange : undefined,
+    })}
+    <HStack alignSelf="center" spacing={4} mt={6}>
+      <Button
+        variant="outline"
+        isDisabled={activeStep === 0}
+        onClick={handleBack}
+      >
+        Back
+      </Button>
+      {activeStep === stepsArray.length - 1 ? (
+        <>
+          <Button colorScheme="blue" onClick={handleReset}>
+            Reset
           </Button>
-          {activeStep === stepsArray.length - 1 ? (
-            <Button colorScheme="blue" onClick={handleReset}>
-              Reset
-            </Button>
-          ) : (
-            <Button colorScheme="blue" onClick={handleNext}>
-              Next
-            </Button>
-          )}
-        </HStack>
-      </VStack>
-    </Box>
-  );
+          <Button colorScheme="green" onClick={handleAdd}>
+            Add
+          </Button>
+        </>
+      ) : (
+        <Button colorScheme="blue" onClick={handleNext}>
+          Next
+        </Button>
+      )}
+    </HStack>
+  </VStack>
+</Box>
+);
 }
 
 export default ButtonClickMessage;
-
+          
