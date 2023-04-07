@@ -1,0 +1,6 @@
+.active-link {
+    background-color: transparent !important;
+    border-right: 2px solid blue !important;
+    color: blue !important;
+  }
+  

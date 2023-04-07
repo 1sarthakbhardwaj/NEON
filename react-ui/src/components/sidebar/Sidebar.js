@@ -1,26 +1,26 @@
+import './sidebar.css'; 
 import React, { useState } from "react";
-import MiniSidebar from './MiniSidebar';
+import MiniSidebar from "./MiniSidebar";
+import CollapseButton from "./CollapseButton";
 import {
   Box,
   Flex,
-  IconButton,
   useColorModeValue,
-  Link,
-  VStack,
+  IconButton,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import { renderThumb, renderTrack, renderView } from "components/scrollbar/Scrollbar";
+import {
+  renderThumb,
+  renderTrack,
+  renderView,
+} from "components/scrollbar/Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import PropTypes from "prop-types";
 import { FiMenu } from "react-icons/fi";
 
 function Sidebar(props) {
   const { routes } = props;
-
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  const [collapsed, setCollapsed] = useState(false);
 
   let variantChange = "0.2s linear";
   let shadow = useColorModeValue(
@@ -28,22 +28,32 @@ function Sidebar(props) {
     "unset"
   );
   let sidebarBg = useColorModeValue("white", "navy.800");
-  let sidebarWidth = isCollapsed ? "60px" : "250px";
+  let textColor = useColorModeValue("gray.500", "white");
+
+  const handleCollapse = () => {
+    setCollapsed(!collapsed);
+  };
 
   const renderRoutes = (routes) => {
     return routes.map((route, key) => (
-      <VStack key={key} alignItems="start" spacing={1}>
-        <Link as={NavLink} to={route.layout + route.path} activeClassName="active-link" exact>
-          <Flex alignItems="center" px={isCollapsed ? 3 : 4} py={3}>
-            {route.icon}
-            {!isCollapsed && (
-              <Box ml={4} fontWeight="semibold">
-                {route.name}
-              </Box>
-            )}
-          </Flex>
-        </Link>
-      </VStack>
+      <Flex
+        key={key}
+        alignItems="center"
+        py={3}
+        px={collapsed ? 3 : 4}
+        as={NavLink}
+        to={route.layout + route.path}
+        activeClassName="active-link"
+        exact
+        style={{  color: 'teal.700' }}
+      >
+        {React.cloneElement(route.icon, { color: textColor })}
+        {!collapsed && (
+          <Box ml={4} fontWeight="semibold">
+            {route.name}
+          </Box>
+        )}
+      </Flex>
     ));
   };
 
@@ -53,33 +63,28 @@ function Sidebar(props) {
       <Box
         bg={sidebarBg}
         transition={variantChange}
-        w={sidebarWidth}
+        w={collapsed ? "60px" : "250px"}
         h="100vh"
         minH="100%"
-        mt={4}
-        pt={4}
         overflowX="hidden"
         boxShadow={shadow}
         position="fixed"
         ml="60px"
+        pt="20px"
       >
         <Scrollbars
           autoHide
           renderTrackVertical={renderTrack}
           renderThumbVertical={renderThumb}
           renderView={renderView}
+          style={{ paddingTop: "1rem" }}
         >
           {renderRoutes(routes)}
-        </Scrollbars>
-        <Flex position="absolute" bottom="10rem" left="50%" transform="translateX(-50%)">
-          <IconButton
-            aria-label="Toggle sidebar"
-            icon={<FiMenu />}
-            onClick={toggleSidebar}
-            size="sm"
-            colorScheme="blue"
+          <CollapseButton
+            isCollapsed={collapsed}
+            toggleSidebar={handleCollapse}
           />
-        </Flex>
+        </Scrollbars>
       </Box>
     </>
   );

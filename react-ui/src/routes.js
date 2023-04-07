@@ -7,8 +7,11 @@ import {
   MdHome,
   MdLock,
   MdLogout,
+  MdAddCircle,
+  MdLogin,
   MdOutlineShoppingCart,
 } from "react-icons/md";
+import { FiArrowDown } from "react-icons/fi";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
@@ -23,7 +26,6 @@ import ButtonClickMessage from "./components/Marketplace/ButtonClickMessage";
 import SignIn from "views/auth/signIn/index.jsx";
 import SignUp from "views/auth/signUp/index.jsx";
 
-
 const routes = [
   {
     name: "PPC Dashboard",
@@ -32,64 +34,35 @@ const routes = [
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard,
   },
-  // {
-  //   name: "NFT Marketplace",
-  //   layout: "/admin",
-  //   path: "/nft-marketplace",
-  //   icon: (
-  //     <Icon
-  //       as={MdOutlineShoppingCart}
-  //       width='20px'
-  //       height='20px'
-  //       color='inherit'
-  //     />
-  //   ),
-  //   component: NFTMarketplace,
-  //   secondary: true,
-  // },
-  // {
-  //   name: "Data Tables",
-  //   layout: "/admin",
-  //   icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-  //   path: "/data-tables",
-  //   component: DataTables,
-  // },
-  // {
-  //   name: "Profile",
-  //   layout: "/admin",
-  //   path: "/profile",
-  //   icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-  //   component: Profile,
-  // },
+  {
+    name: "Add Platform",
+    layout: "/admin",
+    path: "/add-platform",
+    icon: (
+      <Icon as={MdAddCircle} width='16px' height='16px' color='inherit' />
+    ),
+    component: ButtonClickMessage,
+  },
   {
     name: "Signin",
     layout: "/auth",
     path: "/sign-in",
     icon: (
-      <Icon as={MdHome} width='16px' height='16px' color='inherit' />
+      <Icon as={MdLogin} width='16px' height='16px' color='inherit' />
     ),
     component: SignIn,
-    hide: true
+    hide: true,
   },
   {
     name: "Sign up",
     layout: "/auth",
     path: "/sign-up",
     icon: (
-      <Icon as={MdHome} width='16px' height='16px' color='inherit' />
+      <Icon as={MdPerson} width='16px' height='16px' color='inherit' />
     ),
     component: SignUp,
-    hide: true
+    hide: true,
   },
-  {
-    name: "Add Platform",
-    layout: "/admin",
-    path: "/add-platform",
-    icon: (
-      <Icon as={MdHome} width='16px' height='16px' color='inherit' />
-    ),
-    component: ButtonClickMessage,
-  }
 ];
 
 export const Logout = [
@@ -101,6 +74,6 @@ export const Logout = [
       <Icon as={MdLogout} width='16px' height='16px' color='inherit' />
     ),
     component: SignIn,
-  }
+  },
 ];
 export default routes;
