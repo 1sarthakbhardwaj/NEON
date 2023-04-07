@@ -16,6 +16,10 @@ const CollapseButton = ({ isCollapsed, toggleSidebar }) => {
         backgroundColor: 'gray.200',
         cursor: 'pointer',
       }}
+      position="sticky"
+      bottom="0"
+      borderTop="1px solid"
+      borderColor="gray.200"
     >
       {isCollapsed ? (
         <FiChevronRight size={24} />
