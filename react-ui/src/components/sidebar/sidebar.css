@@ -1,6 +1,7 @@
 .active-link {
     background-color: transparent !important;
-    border-right: 2px solid blue !important;
-    color: blue !important;
+    border-right: 4px solid rgb(63, 117, 197) !important;
+    color: rgb(11, 11, 51) !important;
+    border-radius: 4px;
   }
   

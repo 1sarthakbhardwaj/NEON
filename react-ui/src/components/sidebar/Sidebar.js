@@ -1,12 +1,16 @@
-import './sidebar.css'; 
+import "./sidebar.css";
 import React, { useState } from "react";
 import MiniSidebar from "./MiniSidebar";
 import CollapseButton from "./CollapseButton";
+import { MdBarChart, MdOutlineArrowDropDown } from "react-icons/md";
+import DummyList from "./DummyList";
 import {
   Box,
   Flex,
   useColorModeValue,
   IconButton,
+  Collapse,
+  VStack,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import {
@@ -45,9 +49,9 @@ function Sidebar(props) {
         to={route.layout + route.path}
         activeClassName="active-link"
         exact
-        style={{  color: 'teal.700' }}
+        color="gray.500"
       >
-        {React.cloneElement(route.icon, { color: textColor })}
+        {route.icon}
         {!collapsed && (
           <Box ml={4} fontWeight="semibold">
             {route.name}
@@ -80,6 +84,7 @@ function Sidebar(props) {
           style={{ paddingTop: "1rem" }}
         >
           {renderRoutes(routes)}
+          <DummyList collapsed={collapsed} />
           <CollapseButton
             isCollapsed={collapsed}
             toggleSidebar={handleCollapse}
