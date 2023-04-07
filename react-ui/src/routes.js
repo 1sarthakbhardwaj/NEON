@@ -85,7 +85,9 @@ const routes = [
     name: "Add Platform",
     layout: "/admin",
     path: "/add-platform",
-    // icon: <Icon as={YourDesiredIcon} width="20px" height="20px" color="inherit" />,
+    icon: (
+      <Icon as={MdHome} width='16px' height='16px' color='inherit' />
+    ),
     component: ButtonClickMessage,
   }
 ];
