@@ -1,9 +1,9 @@
-import "./sidebar.css";
+import "./components/sidebar.css";
 import React, { useState } from "react";
 import MiniSidebar from "./MiniSidebar";
-import CollapseButton from "./CollapseButton";
+import CollapseButton from "./components/CollapseButton";
 import { MdBarChart, MdOutlineArrowDropDown } from "react-icons/md";
-import DummyList from "./DummyList";
+import DummyList from "./components/DummyList";
 import {
   Box,
   Flex,
