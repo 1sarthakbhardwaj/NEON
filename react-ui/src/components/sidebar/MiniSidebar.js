@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import { AddIcon } from '@chakra-ui/icons';
 import ShopeeLogo from '../../assets/img/MiniSidebar/Shopee_logo.svg';
 import lazada from '../../assets/img/MiniSidebar/lazada.png';
@@ -13,6 +13,8 @@ import { Image } from '@chakra-ui/react';
 import { Box, Icon, VStack, useColorModeValue, Tooltip } from '@chakra-ui/react';
 import { AiFillHome, AiOutlineSetting } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
+
+export const PlatformContext = createContext();
 
 const MiniSidebar = () => {
   const backgroundColor = useColorModeValue('white', 'navy.800');
