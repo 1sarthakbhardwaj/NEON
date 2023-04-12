@@ -20,7 +20,7 @@ export default function Default(props) {
   
 
   return (
-    <Card py='4px'>
+    <Card py='2px'>
       <Flex
         my='auto'
         h='100%'

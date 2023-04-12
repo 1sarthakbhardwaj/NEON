@@ -7,15 +7,12 @@ import { LineChart, Line, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, R
 
 import {
   MdAddTask,  MdAttachMoney,  MdBarChart,  MdFileCopy,} from "react-icons/md";
-import Usa from "assets/img/dashboards/usa.png";
 import React, { useState, useEffect, useRef  } from 'react';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PaidCampaignData from '../variables/Paid_Campaign.json';
 import 'react-date-range/dist/styles.css'; // main styles
 import 'react-date-range/dist/theme/default.css'; // theme styles
 import { DateRangePicker } from 'react-date-range';
-import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { usePopper } from 'react-popper';
 
@@ -124,6 +121,8 @@ const ECommerceCampaignReport = () => {
   
     return Object.values(aggregatedData);
   };
+
+  
 
   {/* CustomTooltip */}
   const CustomTooltip = ({ active, payload, label }) => {
@@ -268,7 +267,7 @@ const ECommerceCampaignReport = () => {
       {/* Simple-grid section */}
       
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }} gap="20px" mb="10px">
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }} gap="20px" mb="px">
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Impression')}
             startContent={
@@ -354,8 +353,8 @@ const ECommerceCampaignReport = () => {
           <IconBox
             w="56px"
             h="56px"
-            bg={boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
+            
+            
           />
           }
           name="CTR(%)"
@@ -502,41 +501,40 @@ const ECommerceCampaignReport = () => {
       
       <Box width="100%" minW='75%' pt="40px" height="400px"backgroundColor="white"  borderRadius="xl" >
       <ResponsiveContainer width="100%" height={300}>
-  <PieChart>
-    <Pie
-      data={calculateExpensesByType ()}
-      dataKey="value"
-      nameKey="name"
-      cx="50%"
-      cy="50%"
-      outerRadius={80}
-      fill="#8884d8"
-      label
-    >
-      {calculateExpensesByType ().map((entry, index) => (
-        <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
-      ))}
-    </Pie>
-    <Legend
-      verticalAlign="top"
-      height={36}
-      onClick={(e) => setSelectedValue(e.payload.value)}
-      payload={[
-        {
-          value: 'GMV',
-          type: 'square',
-          color: selectedValue === 'GMV' ? COLORS[0] : '#ddd',
-        },
-        {
-          value: 'Expense',
-          type: 'square',
-          color: selectedValue === 'Expense' ? COLORS[1] : '#ddd',
-        },
-      ]}
-    />
-  </PieChart>
-</ResponsiveContainer>
-
+          <PieChart>
+            <Pie
+              data={calculateExpensesByType ()}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              fill="#8884d8"
+              label
+            >
+              {calculateExpensesByType ().map((entry, index) => (
+                <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Legend
+              verticalAlign="top"
+              height={36}
+              onClick={(e) => setSelectedValue(e.payload.value)}
+              payload={[
+                {
+                  value: 'GMV',
+                  type: 'square',
+                  color: selectedValue === 'GMV' ? COLORS[0] : '#ddd',
+                },
+                {
+                  value: 'Expense',
+                  type: 'square',
+                  color: selectedValue === 'Expense' ? COLORS[1] : '#ddd',
+                },
+              ]}
+            />
+          </PieChart>
+        </ResponsiveContainer>
       </Box>
     </div>
     );
