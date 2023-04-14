@@ -93,7 +93,7 @@ const ECommerceCampaignReport = () => {
   const handleMetricSelection = (metricName) => {
     if (selectedMetrics.includes(metricName)) {
       setSelectedMetrics(selectedMetrics.filter((metric) => metric !== metricName));
-    } else if (selectedMetrics.length < 4) {
+    } else if (selectedMetrics.length < 2) {
       setSelectedMetrics([...selectedMetrics, metricName]);
     }
   };
@@ -208,7 +208,7 @@ const ECommerceCampaignReport = () => {
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }} gap="20px" mb="10px">
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Impression')}
-            startContent={
+          startContent={
           <IconBox
             w="56px"
             h="56px"
@@ -313,8 +313,8 @@ const ECommerceCampaignReport = () => {
           <MiniStatistics
           startContent={
           <IconBox
-            w="40px"
-            h="40px"
+            w="56px"
+            h="56px"
             bg={boxBg}
             icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
           />
