@@ -15,7 +15,6 @@ import { FiArrowDown } from "react-icons/fi";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
-import Profile from "views/admin/profile";
 import ButtonClickMessage from "./components/Marketplace/ButtonClickMessage";
 
 // Auth Imports

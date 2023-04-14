@@ -18,7 +18,10 @@ import { DateRangePicker } from 'react-date-range';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { usePopper } from 'react-popper';
-
+import {
+  CustomTooltip,
+  formatChartData
+} from './PaidCampaignUtils';
 
 
 const ECommerceCampaignReport = () => {
@@ -94,60 +97,6 @@ const ECommerceCampaignReport = () => {
       setSelectedMetrics([...selectedMetrics, metricName]);
     }
   };
-  const formatChartData = () => {
-    const aggregatedData = {};
-  
-    filteredData.forEach((entry) => {
-      const date = new Date(entry.Date).toLocaleDateString();
-  
-      if (!aggregatedData[date]) {
-        aggregatedData[date] = {
-          Date: date,
-          Impression: 0,
-          Clicks: 0,
-          Conversions: 0,
-          "Items Sold": 0,
-          GMV: 0,
-          Expense: 0,
-          // Add other metrics if needed
-        };
-      }
-  
-      aggregatedData[date].Impression += parseFloat(entry.Impression);
-      aggregatedData[date].Clicks += parseFloat(entry.Clicks);
-      aggregatedData[date].Conversions += parseFloat(entry.Conversions);
-      aggregatedData[date] ["Items Sold"] += parseFloat(entry["Items Sold"]);
-      aggregatedData[date].GMV += parseFloat(entry.GMV);
-      aggregatedData[date].Expense += parseFloat(entry.Expense);
-      // Add aggregation logic for other metrics if needed
-    });
-  
-    return Object.values(aggregatedData);
-  };
-
-  {/* CustomTooltip */}
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="custom-tooltip">
-          <p className="label" style={{ fontSize: "12px", color: {brandColor} }}>
-            {`Date: ${label}`}
-          </p>
-          {selectedMetrics.map((metric) => (
-            <p
-              key={metric}
-              className="metric"
-              style={{ fontSize: "12px", color: metricColor[metric] }}
-            >
-              {`${metric}: ${formatTooltipValue(payload, metric)}`}
-            </p>
-          ))}
-        </div>
-      );
-    }
-  
-    return null;
-  };
   
   const formatTooltipValue = (payload, metricName) => {
     const metric = payload.find((p) => p.name === metricName);
@@ -186,18 +135,6 @@ const ECommerceCampaignReport = () => {
   };
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
   const [selectedValue, setSelectedValue] = useState('GMV');
-  const calculateExpensesByType = (valueType) => {
-    const types = {};
-    filteredData.forEach((entry) => {
-      if (!types[entry.Type]) {
-        types[entry.Type] = parseFloat(entry[valueType]);
-      } else {
-        types[entry.Type] += parseFloat(entry[valueType]);
-      }
-    });
-    return Object.keys(types).map((type) => ({ name: type, value: types[type] }));
-  };
-  
 
   {/*colour Code*/}
   const brandColor = useColorModeValue("brand.500", "white");
@@ -393,7 +330,7 @@ const ECommerceCampaignReport = () => {
       <Box width="100%" minW='75%' pt="40px" height="400px"backgroundColor="white"  borderRadius="xl" >
         <ResponsiveContainer>
         <LineChart
-          data={formatChartData()}
+          data={formatChartData(filteredData)}
           margin={{ top: 5, right: 15, left: -10, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -419,7 +356,16 @@ const ECommerceCampaignReport = () => {
             tick={false}
             scale="auto" 
             />
-          <Tooltip content={<CustomTooltip />} />
+            <Tooltip
+        content={
+          <CustomTooltip
+            selectedMetrics={selectedMetrics}
+            brandColor={brandColor}
+            metricColor={metricColor}
+            formatTooltipValue={formatTooltipValue} // Pass the existing formatTooltipValue function from the CustomTooltip component
+          />
+        }
+      />
           <Legend />
           {selectedMetrics.includes('Impression') && (
             <Line
@@ -503,7 +449,7 @@ const ECommerceCampaignReport = () => {
       <Box width="100%" minW='75%' pt="40px" height="400px"backgroundColor="white"  borderRadius="xl" >
       <ResponsiveContainer width="100%" height={300}>
   <PieChart>
-    <Pie
+    {/* <Pie
       data={calculateExpensesByType ()}
       dataKey="value"
       nameKey="name"
@@ -516,7 +462,7 @@ const ECommerceCampaignReport = () => {
       {calculateExpensesByType ().map((entry, index) => (
         <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
       ))}
-    </Pie>
+    </Pie> */}
     <Legend
       verticalAlign="top"
       height={36}
