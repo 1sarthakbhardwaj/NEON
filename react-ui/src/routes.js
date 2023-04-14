@@ -28,7 +28,7 @@ import SignUp from "views/auth/signUp/index.jsx";
 
 const routes = [
   {
-    name: "PPC Dashboard",
+    name: "Main Dashboard",
     layout: "/admin",
     path: "/default",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,

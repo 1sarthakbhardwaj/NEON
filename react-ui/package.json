@@ -27,7 +27,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "chakra-ui-steps": "^1.4.0",
-    "framer-motion": "^4.1.17",
+    "framer-motion": "^6",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-bootstrap": "^2.7.2",

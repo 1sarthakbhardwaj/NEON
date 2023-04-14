@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { MdBarChart, MdOutlineArrowDropDown } from "react-icons/md";
 import { Box, Flex, VStack, Collapse, useColorModeValue } from "@chakra-ui/react";
 
-const DummyList = ({ collapsed }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const DummyList = ({
+  collapsed,
+  isDummyListOpen,
+  setIsDummyListOpen,
+  dummyName,
+  subItems,
+}) => {
   const textColor = useColorModeValue("gray.500", "white");
   const hoverColor = useColorModeValue("blue.500", "blue.200");
 
   const handleToggle = () => {
-    setIsOpen(!isOpen);
+    setIsDummyListOpen(!isDummyListOpen);
   };
 
   return (
@@ -25,7 +30,7 @@ const DummyList = ({ collapsed }) => {
         <MdBarChart />
         {!collapsed && (
           <Box ml={4} fontWeight="semibold" color={textColor}>
-            Dummy Item
+            {dummyName}
           </Box>
         )}
 
@@ -35,30 +40,22 @@ const DummyList = ({ collapsed }) => {
           </Box>
         )}
       </Flex>
-      <Collapse in={isOpen}>
+      <Collapse in={isDummyListOpen}>
         <VStack align="start" spacing={1} ml={collapsed ? 4 : 8}>
-          <Flex
-            alignItems="center"
-            py={3}
-            px={collapsed ? 3 : 4}
-            color="gray.400"
-            _hover={{ color: hoverColor }}
-          >
-            <Box fontWeight="semibold" color={textColor}>
-              Sub Item 1
-            </Box>
-          </Flex>
-          <Flex
-            alignItems="center"
-            py={3}
-            px={collapsed ? 3 : 4}
-            color="gray.400"
-            _hover={{ color: hoverColor }}
-          >
-            <Box fontWeight="semibold" color={textColor}>
-              Sub Item 2
-            </Box>
-          </Flex>
+          {subItems.map((subItem, index) => (
+            <Flex
+              key={index}
+              alignItems="center"
+              py={3}
+              px={collapsed ? 3 : 4}
+              color="gray.400"
+              _hover={{ color: hoverColor }}
+            >
+              <Box fontWeight="semibold" color={textColor}>
+                {subItem}
+              </Box>
+            </Flex>
+          ))}
         </VStack>
       </Collapse>
     </VStack>
