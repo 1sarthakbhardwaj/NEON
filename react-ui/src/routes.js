@@ -15,10 +15,7 @@ import { FiArrowDown } from "react-icons/fi";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
-import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
-import DataTables from "views/admin/dataTables";
-import RTL from "views/admin/rtl";
 import ButtonClickMessage from "./components/Marketplace/ButtonClickMessage";
 
 // Auth Imports
