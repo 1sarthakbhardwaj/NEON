@@ -1,22 +1,17 @@
 import { Avatar, Box, Flex, FormLabel, Icon, Select, SimpleGrid, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
-import MiniStatistics from "components/card/MiniStatistics";
 import ClickableMiniStatistics from 'components/card/ClickableMiniStatistics';
 import IconBox from "components/icons/IconBox";
 import { LineChart, Line, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { MdAddTask, MdAttachMoney, MdBarChart, MdFileCopy } from "react-icons/md";
-import Usa from "assets/img/dashboards/usa.png";
 import React, { useState, useEffect, useRef } from 'react';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { renderLineComponents, createLegendPayload, formatChartData, CustomTooltip } from "./PaidCampaignUtils";
 import PaidCampaignData from '../variables/Paid_Campaign.json';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
-import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { usePopper } from 'react-popper';
-import { CustomTooltip, formatChartData } from './PaidCampaignUtils';
-
 const ECommerceCampaignReport = () => {
   const minDate = new Date(Math.min.apply(null, PaidCampaignData.map(d => new Date(d.Date))));
   const maxDate = new Date(Math.max.apply(null, PaidCampaignData.map(d => new Date(d.Date))));
@@ -284,148 +279,46 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
       <Box width="100%" minW='75%' pt="40px" height="400px"backgroundColor="white"  borderRadius="xl" >
         <ResponsiveContainer>
         <LineChart
-          data={formatChartData(filteredData)}
-          margin={{ top: 5, right: 15, left: -10, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis 
-            dataKey="Date"
-            axisLine={false}
-            tickLine={false}
-            style={{
-            fontSize: "12px",
-            fontWeight: "500",
-                color: "#A3AED0"
-              }}
-              tickFormatter={(tick) => {
-                const date = new Date(tick);
-                const day = date.getDate();
-                const month = date.toLocaleString("default", { month: "short" });
-                return `${day} ${month}`;
-              }}
-            />
-          <YAxis
-            axisLine={false}
-            tickLine={false}
-            tick={false}
-            scale="auto" 
-            />
-            <Tooltip
-        content={
-          <CustomTooltip
-            selectedMetrics={selectedMetrics}
-            brandColor={brandColor}
-            metricColor={metricColor}
-            formatTooltipValue={formatTooltipValue} // Pass the existing formatTooltipValue function from the CustomTooltip component
-          />
-        }
+    data={formatChartData(filteredData)}
+    margin={{ top: 5, right: 15, left: -10, bottom: 5 }}
+  >
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis
+      dataKey="Date"
+      axisLine={false}
+      tickLine={false}
+      style={{
+        fontSize: "12px",
+        fontWeight: "500",
+        color: "#A3AED0"
+      }}
+      tickFormatter={(tick) => {
+        const date = new Date(tick);
+        const day = date.getDate();
+        const month = date.toLocaleString("default", { month: "short" });
+        return `${day} ${month}`;
+      }}
+    />
+  <YAxis
+  axisLine={false}
+  tickLine={false}
+  tick={false}
+  scale="auto"
+/>
+    <Tooltip
+    content={
+      <CustomTooltip
+        selectedMetrics={selectedMetrics}
+        brandColor={brandColor}
+        metricColor={metricColor}
+        formatTooltipValue={formatTooltipValue} // Pass the existing formatTooltipValue function from the CustomTooltip component
       />
-          <Legend />
-          {selectedMetrics.includes('Impression') && (
-            <Line
-              type="monotone"
-              
-              dataKey="Impression"
-              stroke="#ff0000"
-              strokeWidth={3}
-              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
-              activeDot={{ r: 8 }}
-              name="Impression"
-              legendType="line"
-              
-            >
-            <Label
-             value="Impression"
-             position="top"
-             dy={-10}
-             dx={-5}
-             style={{ fontSize: "12px", border: "none" }}
-            />
-            </Line>
-          )}
-          {selectedMetrics.includes('Clicks') && (
-            <Line
-              type="monotone"
-              dataKey="Clicks"
-              stroke="#8884d8"
-              strokeWidth={3}
-              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
-              activeDot={{ r: 8 }}
-            />
-          )}
-          {selectedMetrics.includes('Conversions') && (
-            <Line
-              type="monotone"
-              dataKey="Conversions"
-              stroke="#8884d8"
-              strokeWidth={3}
-              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
-              activeDot={{ r: 8 }}
-            />
-          )}
-          {selectedMetrics.includes('Items Sold') && (
-            <Line
-              type="monotone"
-              dataKey="Items Sold"
-              stroke="#8884d8"
-              strokeWidth={3}
-              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
-              activeDot={{ r: 8 }}
-            />
-          )}
-          {selectedMetrics.includes('GMV') && (
-            <Line
-              type="monotone"
-              dataKey="GMV"
-              stroke="#8884d8"
-              strokeWidth={3}
-              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
-              activeDot={{ r: 8 }}
-            />
-          )}
-          {selectedMetrics.includes('Expense') && (
-            <Line
-              type="monotone"
-              dataKey="Expense"
-              stroke="#8884d8"
-              strokeWidth={3}
-              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
-              activeDot={{ r: 8 }}
-            />
-          )}
-          {selectedMetrics.includes('CTR') && (
-            <Line
-              type="monotone"
-              dataKey="CTR"
-              stroke="#82ca9d"
-              strokeWidth={3}
-              dot={{ r: 2, fill: "white", stroke: "#82ca9d", strokeWidth: 2 }}
-              activeDot={{ r: 8 }}
-            />
-          )}
-          {selectedMetrics.includes('CR') && (
-            <Line
-              type="monotone"
-              dataKey="CR"
-              stroke="#a67f00"
-              strokeWidth={3}
-              dot={{ r: 2, fill: "white", stroke: "#a67f00", strokeWidth: 2 }}
-              activeDot={{ r: 8 }}
-            />
-          )}
-          {selectedMetrics.includes('ROAS') && (
-            <Line
-              type="monotone"
-              dataKey="ROAS"
-              stroke="#e91e63"
-              strokeWidth={3}
-              dot={{ r: 2, fill: "white", stroke: "#e91e63", strokeWidth: 2 }}
-              activeDot={{ r: 8 }}
-            />
-          )}
+    }
+  />
+  <Legend />
+  {renderLineComponents(selectedMetrics)}
+</LineChart>
 
-          {/* Add other lines for the remaining metrics */}
-          </LineChart>
         </ResponsiveContainer>
         <Tooltip />
         </Box>
@@ -438,18 +331,7 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
       verticalAlign="top"
       height={36}
       onClick={(e) => setSelectedValue(e.payload.value)}
-      payload={[
-        {
-          value: 'GMV',
-          type: 'square',
-          color: selectedValue === 'GMV' ? COLORS[0] : '#ddd',
-        },
-        {
-          value: 'Expense',
-          type: 'square',
-          color: selectedValue === 'Expense' ? COLORS[1] : '#ddd',
-        },
-      ]}
+      payload={createLegendPayload(selectedValue)}
     />
   </PieChart>
 </ResponsiveContainer>

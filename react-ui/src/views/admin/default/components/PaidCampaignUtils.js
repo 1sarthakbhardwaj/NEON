@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tooltip } from 'recharts';
+import { Tooltip, Line } from 'recharts';
 
 export const formatChartData = (filteredData) => {
     const aggregatedData = {};
@@ -69,7 +69,7 @@ export const CustomTooltip = ({
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
-          <p className="label" style={{ fontSize: "12px", color: {brandColor} }}>
+<       p className="label" style={{ fontSize: "12px", color: brandColor }}>
             {`Date: ${label}`}
           </p>
           {selectedMetrics.map((metric) => (
@@ -86,4 +86,54 @@ export const CustomTooltip = ({
     }
   
     return null;
+  };
+
+  export const renderLineComponents = (selectedMetrics) => {
+    const lineComponents = selectedMetrics.map((metric) => {
+      const metricSettings = {
+        Impression: { stroke: "#ff0000", dotStroke: "#ff0000" },
+        Clicks: { stroke: "#8884d8", dotStroke: "#ff0000" },
+        Conversions: { stroke: "#8884d8", dotStroke: "#ff0000" },
+        "Items Sold": { stroke: "#8884d8", dotStroke: "#ff0000" },
+        GMV: { stroke: "#8884d8", dotStroke: "#ff0000" },
+        Expense: { stroke: "#8884d8", dotStroke: "#ff0000" },
+        CTR: { stroke: "#82ca9d", dotStroke: "#82ca9d" },
+        CR: { stroke: "#a67f00", dotStroke: "#a67f00" },
+        ROAS: { stroke: "#e91e63", dotStroke: "#e91e63" },
+      };
+  
+      const { stroke, dotStroke } = metricSettings[metric];
+  
+      return (
+        <Line
+          key={metric}
+          type="monotone"
+          dataKey={metric}
+          stroke={stroke}
+          strokeWidth={3}
+          dot={{ r: 2, fill: "white", stroke: dotStroke, strokeWidth: 2 }}
+          activeDot={{ r: 8 }}
+        />
+      );
+    });
+  
+    return lineComponents;
+  };
+  
+  export const createLegendPayload = (selectedValue) => {
+    const COLORS = ['#8884d8', '#82ca9d'];
+    const payload = [
+      {
+        value: "GMV",
+        type: "square",
+        color: selectedValue === "GMV" ? COLORS[0] : "#ddd",
+      },
+      {
+        value: "Expense",
+        type: "square",
+        color: selectedValue === "Expense" ? COLORS[1] : "#ddd",
+      },
+    ];
+  
+    return payload;
   };
