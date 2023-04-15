@@ -1,156 +1,107 @@
-import {
-  Avatar,  Box,  Flex,  FormLabel,  Icon,  Select,  SimpleGrid,  useColorModeValue,  Table,  Thead,  Tbody,  Tr,  Th,  Td,} from "@chakra-ui/react";
+import { Avatar, Box, Flex, FormLabel, Icon, Select, SimpleGrid, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import MiniStatistics from "components/card/MiniStatistics";
 import ClickableMiniStatistics from 'components/card/ClickableMiniStatistics';
 import IconBox from "components/icons/IconBox";
 import { LineChart, Line, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-
-import {
-  MdAddTask,  MdAttachMoney,  MdBarChart,  MdFileCopy,} from "react-icons/md";
+import { MdAddTask, MdAttachMoney, MdBarChart, MdFileCopy } from "react-icons/md";
 import Usa from "assets/img/dashboards/usa.png";
-import React, { useState, useEffect, useRef  } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PaidCampaignData from '../variables/Paid_Campaign.json';
-import 'react-date-range/dist/styles.css'; // main styles
-import 'react-date-range/dist/theme/default.css'; // theme styles
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { usePopper } from 'react-popper';
-import {
-  CustomTooltip,
-  formatChartData
-} from './PaidCampaignUtils';
-
+import { CustomTooltip, formatChartData } from './PaidCampaignUtils';
 
 const ECommerceCampaignReport = () => {
-  // Find the minimum and maximum dates in the JSON data
   const minDate = new Date(Math.min.apply(null, PaidCampaignData.map(d => new Date(d.Date))));
   const maxDate = new Date(Math.max.apply(null, PaidCampaignData.map(d => new Date(d.Date))));
   const [startDate, setStartDate] = useState(minDate);
   const [endDate, setEndDate] = useState(maxDate);
   const [filteredData, setFilteredData] = useState([]);
-
-  useEffect(() => {
-    filterData();
-  }, [startDate, endDate]);
+  useEffect(() => { filterData(); }, [startDate, endDate]);
 
   const filterData = () => {
-    const filtered = PaidCampaignData.filter(
-      (d) => new Date(d.Date) >= startDate && new Date(d.Date) <= endDate
-    );
+    const filtered = PaidCampaignData.filter((d) => new Date(d.Date) >= startDate && new Date(d.Date) <= endDate);
     setFilteredData(filtered);
-    console.log(filtered);
   };
+
   const handleDateRangeChange = (item) => {
     setStartDate(item.selection.startDate);
     setEndDate(item.selection.endDate);
   };
- // Popover logic
- const [showPopover, setShowPopover] = useState(false);
- const buttonRef = useRef(null);
- const popoverRef = useRef(null);
- const { styles, attributes } = usePopper(buttonRef.current, popoverRef.current, {
-   placement: 'bottom-start',
-   modifiers: [{ name: 'offset', options: { offset: [0, 10] } }],
- });
 
- const togglePopover = () => {
-   setShowPopover(!showPopover);
- };
+  // Popover logic
+  const [showPopover, setShowPopover] = useState(false);
+  const buttonRef = useRef(null);
+  const popoverRef = useRef(null);
+  const { styles, attributes } = usePopper(buttonRef.current, popoverRef.current, {
+    placement: 'bottom-start',
+    modifiers: [{ name: 'offset', options: { offset: [0, 10] } }],
+  });
 
- const formatDate = (date) => {
-   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
- };
-  
+  const togglePopover = () => { setShowPopover(!showPopover); };
+  const formatDate = (date) => { return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
+
   const [selectedMetrics, setSelectedMetrics] = useState([]);
-  const formatNumber = (value) => {
-    return new Intl.NumberFormat().format(value);
-  };
-  
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'VND' }).format(value);
-  };
-  
-  const calculateMetrics = (metric) => {
-    return filteredData.reduce((total, item) => total + parseFloat(item[metric]), 0);
-  };
-  
-  const calculatePercentage = (numerator, denominator) => {
-  if (denominator === 0) {
-    return 0;
-  }
-  return (numerator / denominator) * 100;
-  };
-
+  const formatNumber = (value) => { return new Intl.NumberFormat().format(value); };
+  const formatCurrency = (value) => { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'VND' }).format(value); };
+  const calculateMetrics = (metric) => { return filteredData.reduce((total, item) => total + parseFloat(item[metric]), 0); };
+  const calculatePercentage = (numerator, denominator) => { if (denominator === 0) { return 0; } return (numerator / denominator) * 100; };
   const CTR = calculatePercentage(calculateMetrics('Clicks'), calculateMetrics('Impression'));
-  const CR = calculatePercentage(calculateMetrics('Conversions'), calculateMetrics('Clicks'));
-  const ROAS = calculateMetrics('Expense') === 0 ? 0 : calculateMetrics('GMV') / calculateMetrics('Expense');   
-  
+const CR = calculatePercentage(calculateMetrics('Conversions'), calculateMetrics('Clicks'));
+const ROAS = calculateMetrics('Expense') === 0 ? 0 : calculateMetrics('GMV') / calculateMetrics('Expense');
 
-  {/*Chart Format */}
-  const handleMetricSelection = (metricName) => {
-    if (selectedMetrics.includes(metricName)) {
-      setSelectedMetrics(selectedMetrics.filter((metric) => metric !== metricName));
-    } else if (selectedMetrics.length < 2) {
-      setSelectedMetrics([...selectedMetrics, metricName]);
-    }
-  };
-  
-  const formatTooltipValue = (payload, metricName) => {
-    const metric = payload.find((p) => p.name === metricName);
-  
-    if (!metric) {
-      return "";
-    }
-  
-    if (metricName === "Date") {
-      const date = new Date(metric.value);
-      const day = date.getDate();
-      const month = date.toLocaleString("default", { month: "short" });
-      return `${day} ${month}`;
-    }
-  
-    if (metricName === "Expense" || metricName === "GMV") {
-      return formatCurrency(metric.value);
-    }
-  
-    if (metricName === "CTR" || metricName === "CR") {
-      return `${(metric.value * 100).toFixed(2)}%`;
-    }
-  
-    return formatNumber(metric.value);
-  };
-  
-  
-  const metricColor = {
-    Impression: "#ff0000",
-    Clicks: "#8884d8",
-    Conversions: "#82ca9d",
-    "Items Sold": "#a67f00",
-    GMV: "#e91e63",
-    Expense: "#f44336",
-    
-  };
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-  const [selectedValue, setSelectedValue] = useState('GMV');
+const handleMetricSelection = (metricName) => {
+  if (selectedMetrics.includes(metricName)) {
+    setSelectedMetrics(selectedMetrics.filter((metric) => metric !== metricName));
+  } else if (selectedMetrics.length < 2) {
+    setSelectedMetrics([...selectedMetrics, metricName]);
+  }
+};
 
-  {/*colour Code*/}
-  const brandColor = useColorModeValue("brand.500", "white");
-  const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
-  const textColor = useColorModeValue("secondaryGray.900", "white");
-  const textColorSecondary = useColorModeValue("secondaryGray.600", "white");
-  const iconColor = useColorModeValue("brand.500", "white");
-  const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
-  const bgHover = useColorModeValue(
-    { bg: "secondaryGray.400" },
-    { bg: "whiteAlpha.50" }
-  );
-  const bgFocus = useColorModeValue(
-    { bg: "secondaryGray.300" },
-    { bg: "whiteAlpha.100" }
-  );
+const formatTooltipValue = (payload, metricName) => {
+  const metric = payload.find((p) => p.name === metricName);
+  if (!metric) return "";
+  if (metricName === "Date") {
+    const date = new Date(metric.value);
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "short" });
+    return `${day} ${month}`;
+  }
+  if (metricName === "Expense" || metricName === "GMV") {
+    return formatCurrency(metric.value);
+  }
+  if (metricName === "CTR" || metricName === "CR") {
+    return `${(metric.value * 100).toFixed(2)}%`;
+  }
+  return formatNumber(metric.value);
+};
+
+const metricColor = {
+  Impression: "#ff0000",
+  Clicks: "#8884d8",
+  Conversions: "#82ca9d",
+  "Items Sold": "#a67f00",
+  GMV: "#e91e63",
+  Expense: "#f44336",
+};
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const [selectedValue, setSelectedValue] = useState('GMV');
+
+const brandColor = useColorModeValue("brand.500", "white");
+const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+const textColor = useColorModeValue("secondaryGray.900", "white");
+const textColorSecondary = useColorModeValue("secondaryGray.600", "white");
+const iconColor = useColorModeValue("brand.500", "white");
+const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+const bgHover = useColorModeValue({ bg: "secondaryGray.400" }, { bg: "whiteAlpha.50" });
+const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha.100" });
 
   return (
     <div>
@@ -286,42 +237,45 @@ const ECommerceCampaignReport = () => {
           value={formatCurrency(calculateMetrics('Expense'))}
           />
           <ClickableMiniStatistics
-          
-          startContent={
-          <IconBox
-            w="56px"
-            h="56px"
-            bg={boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
+            onClick={() => handleMetricSelection('CTR')}
+            startContent={
+              <IconBox
+                w="56px"
+                h="56px"
+                bg={boxBg}
+                icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
+              />
+            }
+            name="CTR(%)"
+            value={CTR.toFixed(2)}
           />
-          }
-          name="CTR(%)"
-          value={CTR.toFixed(2)}
+          <ClickableMiniStatistics
+            onClick={() => handleMetricSelection('CR')}
+            startContent={
+              <IconBox
+                w="56px"
+                h="56px"
+                bg={boxBg}
+                icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
+              />
+            }
+            name="CR"
+            value={CR.toFixed(2)}
           />
-          <MiniStatistics
-          startContent={
-          <IconBox
-            w="56px"
-            h="56px"
-            bg={boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-          />
-          }
-          name="CR"
-          value={CR.toFixed(2)}
-          />
-          <MiniStatistics
-          startContent={
-          <IconBox
-            w="56px"
-            h="56px"
-            bg={boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-          />
-          }
-          name="ROAS"
-          value={ROAS.toFixed(2)}
-          />
+          <ClickableMiniStatistics
+            onClick={() => handleMetricSelection('ROAS')}
+            startContent={
+              <IconBox
+                w="56px"
+                h="56px"
+                bg={boxBg}
+                icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
+              />
+            }
+            name="ROAS"
+            value={ROAS.toFixed(2)}
+          />         
+
         </SimpleGrid>
       </Box>
 
@@ -439,6 +393,37 @@ const ECommerceCampaignReport = () => {
               activeDot={{ r: 8 }}
             />
           )}
+          {selectedMetrics.includes('CTR') && (
+            <Line
+              type="monotone"
+              dataKey="CTR"
+              stroke="#82ca9d"
+              strokeWidth={3}
+              dot={{ r: 2, fill: "white", stroke: "#82ca9d", strokeWidth: 2 }}
+              activeDot={{ r: 8 }}
+            />
+          )}
+          {selectedMetrics.includes('CR') && (
+            <Line
+              type="monotone"
+              dataKey="CR"
+              stroke="#a67f00"
+              strokeWidth={3}
+              dot={{ r: 2, fill: "white", stroke: "#a67f00", strokeWidth: 2 }}
+              activeDot={{ r: 8 }}
+            />
+          )}
+          {selectedMetrics.includes('ROAS') && (
+            <Line
+              type="monotone"
+              dataKey="ROAS"
+              stroke="#e91e63"
+              strokeWidth={3}
+              dot={{ r: 2, fill: "white", stroke: "#e91e63", strokeWidth: 2 }}
+              activeDot={{ r: 8 }}
+            />
+          )}
+
           {/* Add other lines for the remaining metrics */}
           </LineChart>
         </ResponsiveContainer>
@@ -448,21 +433,7 @@ const ECommerceCampaignReport = () => {
       
       <Box width="100%" minW='75%' pt="40px" height="400px"backgroundColor="white"  borderRadius="xl" >
       <ResponsiveContainer width="100%" height={300}>
-  <PieChart>
-    {/* <Pie
-      data={calculateExpensesByType ()}
-      dataKey="value"
-      nameKey="name"
-      cx="50%"
-      cy="50%"
-      outerRadius={80}
-      fill="#8884d8"
-      label
-    >
-      {calculateExpensesByType ().map((entry, index) => (
-        <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
-      ))}
-    </Pie> */}
+    <PieChart>
     <Legend
       verticalAlign="top"
       height={36}

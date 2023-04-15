@@ -16,34 +16,37 @@ export const formatChartData = (filteredData) => {
           "Items Sold": 0,
           GMV: 0,
           Expense: 0,
-          // Add other metrics if needed
+          CTR: 0,
+          CR: 0,
+          ROAS: 0,
         };
       }
   
       aggregatedData[date].Impression += parseFloat(entry.Impression);
       aggregatedData[date].Clicks += parseFloat(entry.Clicks);
       aggregatedData[date].Conversions += parseFloat(entry.Conversions);
-      aggregatedData[date] ["Items Sold"] += parseFloat(entry["Items Sold"]);
+      aggregatedData[date]["Items Sold"] += parseFloat(entry["Items Sold"]);
       aggregatedData[date].GMV += parseFloat(entry.GMV);
       aggregatedData[date].Expense += parseFloat(entry.Expense);
-      // Add aggregation logic for other metrics if needed
+  
+      // Calculate the new metrics
+      aggregatedData[date].CTR =
+        aggregatedData[date].Impression === 0
+          ? 0
+          : (aggregatedData[date].Clicks / aggregatedData[date].Impression) * 100;
+      aggregatedData[date].CR =
+        aggregatedData[date].Clicks === 0
+          ? 0
+          : (aggregatedData[date].Conversions / aggregatedData[date].Clicks) * 100;
+      aggregatedData[date].ROAS =
+        aggregatedData[date].Expense === 0
+          ? 0
+          : aggregatedData[date].GMV / aggregatedData[date].Expense;
     });
   
     return Object.values(aggregatedData);
   };
-
-//   export const calculateExpensesByType = (filteredData, valueType) => {    const types = {};
-//     filteredData.forEach((entry) => {
-//       if (!types[entry.Type]) {
-//         types[entry.Type] = parseFloat(entry[valueType]);
-//       } else {
-//         types[entry.Type] += parseFloat(entry[valueType]);
-//       }
-//     });
-//     return Object.keys(types).map((type) => ({ name: type, value: types[type] }));
-//   };
-
- {/* CustomTooltip */}
+  
 export const CustomTooltip = ({
     active,
     payload,
