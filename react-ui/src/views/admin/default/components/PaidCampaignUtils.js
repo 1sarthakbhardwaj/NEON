@@ -46,6 +46,23 @@ export const formatChartData = (filteredData) => {
   
     return Object.values(aggregatedData);
   };
+
+  export const getMetricSettings = (metric) => {
+    const settings = {
+      Impression: { yAxisId: "left", stepSize: 10000 },
+      Clicks: { yAxisId: "left", stepSize: 100 },
+      Conversions: { yAxisId: "right", stepSize: 5 },
+      "Items Sold": { yAxisId: "right", stepSize: 5 },
+      GMV: { yAxisId: "right", stepSize: 200000 },
+      Expense: { yAxisId: "right", stepSize: 100000 },
+      CR: { yAxisId: "right", stepSize: 1 },
+      ROAS: { yAxisId: "right", stepSize: 1 },
+      CTR: { yAxisId: "left", stepSize: 0.5 },
+    };
+  
+    return settings[metric];
+  };
+  
   
 export const CustomTooltip = ({
     active,
@@ -103,10 +120,12 @@ export const CustomTooltip = ({
       };
   
       const { stroke, dotStroke } = metricSettings[metric];
+      const { yAxisId, stepSize } = getMetricSettings(metric);
   
       return (
         <Line
           key={metric}
+          yAxisId={yAxisId}
           type="monotone"
           dataKey={metric}
           stroke={stroke}

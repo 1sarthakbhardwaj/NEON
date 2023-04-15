@@ -5,13 +5,13 @@ import { LineChart, Line, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, R
 import { MdAddTask, MdAttachMoney, MdBarChart, MdFileCopy } from "react-icons/md";
 import React, { useState, useEffect, useRef } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { renderLineComponents, createLegendPayload, formatChartData, CustomTooltip } from "./PaidCampaignUtils";
+import { renderLineComponents, createLegendPayload, formatChartData, CustomTooltip, getMetricSettings } from "./PaidCampaignUtils";
 import PaidCampaignData from '../variables/Paid_Campaign.json';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { usePopper } from 'react-popper';
+import { usePopper } from 'react-popper'; 
 const ECommerceCampaignReport = () => {
   const minDate = new Date(Math.min.apply(null, PaidCampaignData.map(d => new Date(d.Date))));
   const maxDate = new Date(Math.max.apply(null, PaidCampaignData.map(d => new Date(d.Date))));
@@ -299,12 +299,18 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
         return `${day} ${month}`;
       }}
     />
+      <YAxis
+    yAxisId="left"
+    orientation="left"
+    tickFormatter={(tick) => tick.toLocaleString()}
+    tickInterval={Math.max(...selectedMetrics.map((metric) => getMetricSettings(metric).stepSize))}
+  />
   <YAxis
-  axisLine={false}
-  tickLine={false}
-  tick={false}
-  scale="auto"
-/>
+    yAxisId="right"
+    orientation="right"
+    tickFormatter={(tick) => tick.toLocaleString()}
+    tickInterval={Math.max(...selectedMetrics.map((metric) => getMetricSettings(metric).stepSize))}
+  />
     <Tooltip
     content={
       <CustomTooltip
