@@ -112,7 +112,8 @@ export const CustomTooltip = ({
       return (
         <div className="custom-tooltip">
 <       p className="label" style={{ fontSize: "12px", color: brandColor }}>
-            {`Date: ${label}`}
+          {`Date: ${new Date(label).toLocaleDateString('en-GB', {day: '2-digit', month: '2-digit', year: 'numeric'})}`}
+
           </p>
           {selectedMetrics.map((metric) => (
             <p
