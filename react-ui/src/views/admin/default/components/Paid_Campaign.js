@@ -5,7 +5,7 @@ import { LineChart, Line, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, R
 import { MdAddTask, MdAttachMoney, MdBarChart, MdFileCopy } from "react-icons/md";
 import React, { useState, useEffect, useRef } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { renderLineComponents, createLegendPayload, formatChartData, CustomTooltip, getSettings } from "./PaidCampaignUtils";
+import { renderLineComponents, createLegendPayload, formatChartData, CustomTooltip, getSettings, generateIconBox } from "./PaidCampaignUtils";
 import PaidCampaignData from '../variables/Paid_Campaign.json';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -19,16 +19,41 @@ const ECommerceCampaignReport = () => {
   const [endDate, setEndDate] = useState(maxDate);
   const [filteredData, setFilteredData] = useState([]);
   useEffect(() => { filterData(); }, [startDate, endDate]);
+  const datepickerButtonRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (
+      popoverRef.current &&
+      !popoverRef.current.contains(event.target) &&
+      !datepickerButtonRef.current.contains(event.target)
+    ) {
+      setShowPopover(false);
+    }
+  };
+  
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  
 
   const filterData = () => {
     const filtered = PaidCampaignData.filter((d) => new Date(d.Date) >= startDate && new Date(d.Date) <= endDate);
-    setFilteredData(filtered);
+    setFilteredData((prevState) => {
+      return [...filtered];
+    });
   };
+  
+  
 
   const handleDateRangeChange = (item) => {
     setStartDate(item.selection.startDate);
     setEndDate(item.selection.endDate);
   };
+  
+  
 
   // Popover logic
   const [showPopover, setShowPopover] = useState(false);
@@ -106,12 +131,13 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
         <button
           type="button"
           className="btn btn-primary"
-          ref={buttonRef}
+          ref={datepickerButtonRef}
           onClick={togglePopover}
           style={{ zIndex: 1000 }}
         >
           {formatDate(startDate)} - {formatDate(endDate)}
         </button>
+
 
         {/* Date picker popover */}
         {showPopover && (
@@ -154,119 +180,56 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }} gap="20px" mb="10px">
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Impression')}
-          startContent={
-          <IconBox
-            w="56px"
-            h="56px"
-            bg= {boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-            />
-            }
+          startContent={generateIconBox(boxBg, brandColor)}
             name="Impressions"
             value={formatNumber(calculateMetrics('Impression'))}
             bgColor='#ff0000'
           />
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Clicks')}
-          startContent={
-          <IconBox
-            w="56px"
-            h="56px"
-            bg={boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-          />
-          }
+          startContent={generateIconBox(boxBg, brandColor)}
           name="Clicks"
           value={calculateMetrics('Clicks')}
           />
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Conversions')}
-          startContent={
-          <IconBox
-            w="56px"
-            h="56px"
-            bg={boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-          />
-          }
+          startContent={generateIconBox(boxBg, brandColor)}
           name="Conversions"
           value={formatNumber(calculateMetrics('Conversions'))}
           />
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Items Sold')}
-          startContent={
-          <IconBox
-            w="56px"
-            h="56px"
-            bg={boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-          />
-          }
+          startContent={generateIconBox(boxBg, brandColor)}
           name="Items Sold"
           value={formatNumber(calculateMetrics('Items Sold'))}
           />
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('GMV')}
-          startContent={
-          <IconBox
-            w="56px"
-            h="56px"
-            bg={boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-          />
-          }
+          startContent={generateIconBox(boxBg, brandColor)}
           name="GMV"
           value={formatCurrency(calculateMetrics('GMV'))}
           />
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Expense')}
-          startContent={
-          <IconBox
-            w="56px"
-            h="56px"
-            bg={boxBg}
-            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-          />
-          }
+          startContent={generateIconBox(boxBg, brandColor)}
           name="Expense"
           value={formatCurrency(calculateMetrics('Expense'))}
           />
           <ClickableMiniStatistics
             onClick={() => handleMetricSelection('CTR')}
-            startContent={
-              <IconBox
-                w="56px"
-                h="56px"
-                bg={boxBg}
-                icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-              />
-            }
+            startContent={generateIconBox(boxBg, brandColor)}
             name="CTR(%)"
             value={CTR.toFixed(2)}
           />
           <ClickableMiniStatistics
             onClick={() => handleMetricSelection('CR')}
-            startContent={
-              <IconBox
-                w="56px"
-                h="56px"
-                bg={boxBg}
-                icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-              />
-            }
+            startContent={generateIconBox(boxBg, brandColor)}
             name="CR"
             value={CR.toFixed(2)}
           />
           <ClickableMiniStatistics
             onClick={() => handleMetricSelection('ROAS')}
-            startContent={
-              <IconBox
-                w="56px"
-                h="56px"
-                bg={boxBg}
-                icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
-              />
-            }
+            startContent={generateIconBox(boxBg, brandColor)}
             name="ROAS"
             value={ROAS.toFixed(2)}
           />         
@@ -287,21 +250,25 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
 
     <CartesianGrid strokeDasharray="3 3" />
     <XAxis
-      dataKey="Date"
-      axisLine={false}
-      tickLine={false}
-      style={{
-        fontSize: "12px",
-        fontWeight: "500",
-        color: "#A3AED0"
-      }}
-      tickFormatter={(tick) => {
-        const date = new Date(tick);
-        const day = date.getDate();
-        const month = date.toLocaleString("default", { month: "short" });
-        return `${day} ${month}`;
-      }}
-    />
+  dataKey="Date"
+  axisLine={false}
+  tickLine={false}
+  angle={-45} // Add angle to rotate the ticks
+  textAnchor="end" // Change text anchor to 'end'
+  interval={0} // Set interval to 0 to show all the dates
+  style={{
+    fontSize: "12px",
+    fontWeight: "500",
+    color: "#A3AED0"
+  }}
+  tickFormatter={(tick) => {
+    const date = new Date(tick);
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "short" });
+    return `${day} ${month}`;
+  }}
+/>
+
      <YAxis
       yAxisId="left"
       orientation="left"

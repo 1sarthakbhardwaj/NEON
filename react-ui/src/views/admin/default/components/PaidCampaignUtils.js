@@ -1,5 +1,21 @@
 import React from 'react';
 import { Tooltip, Line } from 'recharts';
+import { Box, Icon } from '@chakra-ui/react';
+import { MdBarChart } from 'react-icons/md';
+
+export const generateIconBox = (boxBg, brandColor) => (
+  <Box
+    w="56px"
+    h="56px"
+    bg={boxBg}
+    display="flex"
+    borderRadius={5}
+    justifyContent="center"
+    alignItems="center"
+  >
+    <Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />
+  </Box>
+);
 
 export const formatChartData = (filteredData) => {
     const aggregatedData = {};
