@@ -47,21 +47,30 @@ export const formatChartData = (filteredData) => {
     return Object.values(aggregatedData);
   };
 
-  export const getMetricSettings = (metric) => {
-    const settings = {
-      Impression: { yAxisId: "left", stepSize: 10000 },
-      Clicks: { yAxisId: "left", stepSize: 100 },
-      Conversions: { yAxisId: "right", stepSize: 5 },
-      "Items Sold": { yAxisId: "right", stepSize: 5 },
-      GMV: { yAxisId: "right", stepSize: 200000 },
-      Expense: { yAxisId: "right", stepSize: 100000 },
-      CR: { yAxisId: "right", stepSize: 1 },
-      ROAS: { yAxisId: "right", stepSize: 1 },
-      CTR: { yAxisId: "left", stepSize: 0.5 },
-    };
-  
-    return settings[metric];
+ export const getSettings = (metric, selectedMetrics = []) => {
+  const baseSettings = {
+    Impression: { color: '#ff0000', stepSize: 10000 },
+    Clicks: { color: '#8884d8', stepSize: 1000 },
+    Conversions: { color: '#82ca9d', stepSize: 100 },
+    'Items Sold': { color: '#a67f00', stepSize: 100 },
+    GMV: { color: '#e91e63', stepSize: 1000000 },
+    Expense: { color: '#f44336', stepSize: 1000000 },
   };
+
+  const metricSettings = baseSettings[metric] || {};
+  
+  // Update yAxisId assignment logic
+  let yAxisId;
+  if (selectedMetrics.length === 0 || selectedMetrics[0] === metric) {
+    yAxisId = 'left';
+  } else if (selectedMetrics.length === 1 || selectedMetrics[1] === metric) {
+    yAxisId = 'right';
+  }
+  
+  return { ...metricSettings, yAxisId };
+};
+
+
   
   
 export const CustomTooltip = ({
@@ -120,7 +129,7 @@ export const CustomTooltip = ({
       };
   
       const { stroke, dotStroke } = metricSettings[metric];
-      const { yAxisId, stepSize } = getMetricSettings(metric);
+      const { yAxisId, stepSize } = getSettings(metric, selectedMetrics);
   
       return (
         <Line
@@ -139,6 +148,7 @@ export const CustomTooltip = ({
     return lineComponents;
   };
   
+  
   export const createLegendPayload = (selectedValue) => {
     const COLORS = ['#8884d8', '#82ca9d'];
     const payload = [
@@ -156,3 +166,4 @@ export const CustomTooltip = ({
   
     return payload;
   };
+  

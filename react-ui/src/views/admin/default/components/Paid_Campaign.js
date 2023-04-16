@@ -5,7 +5,7 @@ import { LineChart, Line, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, R
 import { MdAddTask, MdAttachMoney, MdBarChart, MdFileCopy } from "react-icons/md";
 import React, { useState, useEffect, useRef } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { renderLineComponents, createLegendPayload, formatChartData, CustomTooltip, getMetricSettings } from "./PaidCampaignUtils";
+import { renderLineComponents, createLegendPayload, formatChartData, CustomTooltip, getSettings } from "./PaidCampaignUtils";
 import PaidCampaignData from '../variables/Paid_Campaign.json';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -278,10 +278,13 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
 
       <Box width="100%" minW='75%' pt="40px" height="400px"backgroundColor="white"  borderRadius="xl" >
         <ResponsiveContainer>
-        <LineChart
-    data={formatChartData(filteredData)}
-    margin={{ top: 5, right: 15, left: -10, bottom: 5 }}
-  >
+      <LineChart
+          width={800} // Adjust the width as needed
+          height={500} // Adjust the height as needed
+          data={formatChartData(filteredData)}
+          margin={{ top: 5, right: 15, left: 15, bottom: 5 }}
+      >
+
     <CartesianGrid strokeDasharray="3 3" />
     <XAxis
       dataKey="Date"
@@ -299,18 +302,20 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
         return `${day} ${month}`;
       }}
     />
-      <YAxis
-    yAxisId="left"
-    orientation="left"
-    tickFormatter={(tick) => tick.toLocaleString()}
-    tickInterval={Math.max(...selectedMetrics.map((metric) => getMetricSettings(metric).stepSize))}
-  />
-  <YAxis
-    yAxisId="right"
-    orientation="right"
-    tickFormatter={(tick) => tick.toLocaleString()}
-    tickInterval={Math.max(...selectedMetrics.map((metric) => getMetricSettings(metric).stepSize))}
-  />
+     <YAxis
+      yAxisId="left"
+      orientation="left"
+      tickFormatter={(tick) => tick.toLocaleString()}
+      tickInterval={Math.max(...selectedMetrics.map((metric) => getSettings(metric, selectedMetrics).stepSize)) / 2}
+    />
+    <YAxis
+      yAxisId="right"
+      orientation="right"
+      tickFormatter={(tick) => tick.toLocaleString()}
+      tickInterval={Math.max(...selectedMetrics.map((metric) => getSettings(metric, selectedMetrics).stepSize)) / 2}
+    />
+
+
     <Tooltip
     content={
       <CustomTooltip
