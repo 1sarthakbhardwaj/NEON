@@ -127,13 +127,13 @@ const bgHover = useColorModeValue({ bg: "secondaryGray.400" }, { bg: "whiteAlpha
 const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha.100" });
 
 const pieChartData1 = [
-  { name: 'Metric 1', value: 400 },
-  { name: 'Metric 2', value: 300 },
+  { name: 'Expense', value: calculateMetrics('Expense') },
+  { name: 'GMV', value: calculateMetrics('GMV') },
 ];
 
 const pieChartData2 = [
-  { name: 'Metric 3', value: 200 },
-  { name: 'Metric 4', value: 100 },
+  { name: 'CTR', value: CTR },
+  { name: 'ROAS', value: ROAS },
 ];
   return (
     <div>
