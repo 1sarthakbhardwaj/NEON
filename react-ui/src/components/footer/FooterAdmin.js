@@ -57,8 +57,8 @@ export default function Footer() {
             fontWeight='500'
             color={textColor}
             target='_blank'
-            href='https://github.com/app-generator/react-horizon-ui-chakra'>
-            Source Code
+            href='#'>
+            NeonCommerce
           </Link>
         </ListItem>        
         <ListItem

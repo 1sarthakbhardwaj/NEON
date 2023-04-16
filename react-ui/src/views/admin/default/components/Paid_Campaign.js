@@ -11,7 +11,10 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { usePopper } from 'react-popper'; 
+import { usePopper } from 'react-popper';
+import PieChartComponent from './PieChartComponent';
+
+
 const ECommerceCampaignReport = () => {
   const minDate = new Date(Math.min.apply(null, PaidCampaignData.map(d => new Date(d.Date))));
   const maxDate = new Date(Math.max.apply(null, PaidCampaignData.map(d => new Date(d.Date))));
@@ -123,6 +126,15 @@ const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
 const bgHover = useColorModeValue({ bg: "secondaryGray.400" }, { bg: "whiteAlpha.50" });
 const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha.100" });
 
+const pieChartData1 = [
+  { name: 'Metric 1', value: 400 },
+  { name: 'Metric 2', value: 300 },
+];
+
+const pieChartData2 = [
+  { name: 'Metric 3', value: 200 },
+  { name: 'Metric 4', value: 100 },
+];
   return (
     <div>
       {/* Date range filter */}
@@ -250,13 +262,13 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
 
     <CartesianGrid strokeDasharray="3 3" />
     <XAxis
-  dataKey="Date"
-  axisLine={false}
-  tickLine={false}
-  angle={-45} // Add angle to rotate the ticks
-  textAnchor="end" // Change text anchor to 'end'
-  interval={0} // Set interval to 0 to show all the dates
-  style={{
+    dataKey="Date"
+    axisLine={false}
+    tickLine={false}
+    angle={-45} // Add angle to rotate the ticks
+    textAnchor="end" // Change text anchor to 'end'
+    interval={0} // Set interval to 0 to show all the dates
+    style={{
     fontSize: "12px",
     fontWeight: "500",
     color: "#A3AED0"
@@ -299,22 +311,23 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
 
         </ResponsiveContainer>
         <Tooltip />
-        </Box>
-
-      
-      <Box width="100%" minW='75%' pt="40px" height="400px"backgroundColor="white"  borderRadius="xl" >
+        <Box width="100%" minW='75%' pt="40px" height="700px"backgroundColor="white"  borderRadius="xl" >
       <ResponsiveContainer width="100%" height={300}>
-    <PieChart>
-    <Legend
-      verticalAlign="top"
-      height={36}
-      onClick={(e) => setSelectedValue(e.payload.value)}
-      payload={createLegendPayload(selectedValue)}
-    />
-  </PieChart>
+      <div>
+      {/*...*/}
+      <Box width="40%" minW="25%" pt="40px" height="200px" backgroundColor="white" borderRadius="xl">
+        <ResponsiveContainer width="100%" height={300}>
+          <div>
+            <PieChartComponent data1={pieChartData1} data2={pieChartData2} />
+          </div>
+        </ResponsiveContainer>
+      </Box>
+    </div>
 </ResponsiveContainer>
 
       </Box>
+        </Box>
+
     </div>
     );
   };
