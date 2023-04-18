@@ -24,41 +24,13 @@ import SignUp from "views/auth/signUp/index.jsx";
 
 const routes = [
   {
-    name: "Main Dashboard",
+    name: "Executive Dashboard",
     layout: "/admin",
     path: "/default",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard,
   },
-  {
-    name: "Add Platform",
-    layout: "/admin",
-    path: "/add-platform",
-    icon: (
-      <Icon as={MdAddCircle} width='16px' height='16px' color='inherit' />
-    ),
-    component: ButtonClickMessage,
-  },
-  {
-    name: "Signin",
-    layout: "/auth",
-    path: "/sign-in",
-    icon: (
-      <Icon as={MdLogin} width='16px' height='16px' color='inherit' />
-    ),
-    component: SignIn,
-    hide: true,
-  },
-  {
-    name: "Sign up",
-    layout: "/auth",
-    path: "/sign-up",
-    icon: (
-      <Icon as={MdPerson} width='16px' height='16px' color='inherit' />
-    ),
-    component: SignUp,
-    hide: true,
-  },
+  
 ];
 
 export const Logout = [

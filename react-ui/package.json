@@ -83,6 +83,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/traverse": "^7.21.4",
+    "@types/babel__traverse": "^7.18.3",
     "gh-pages": "^3.2.3"
   }
 }

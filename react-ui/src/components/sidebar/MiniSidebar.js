@@ -2,10 +2,10 @@ import React, { useState, createContext } from 'react';
 import { AddIcon } from '@chakra-ui/icons';
 import ShopeeLogo from '../../assets/img/MiniSidebar/Shopee_logo.svg';
 import lazada from '../../assets/img/MiniSidebar/lazada.png';
-import amazonlogo from '../../assets/img/MiniSidebar/amazon.svg';
+import amazonlogo from '../../assets/img/MiniSidebar/amazon.png';
 import instacart from '../../assets/img/MiniSidebar/instacart.png';
 import walmart from '../../assets/img/MiniSidebar/walmart.png';
-import tokopedia from '../../assets/img/MiniSidebar/tokopedia.svg';
+import tokopedia from '../../assets/img/MiniSidebar/tokopedia.png';
 import bukalapak from '../../assets/img/MiniSidebar/bukalapak.png';
 import tiki from '../../assets/img/MiniSidebar/tiki.jpeg';
 
@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom';
 export const PlatformContext = createContext();
 
 const MiniSidebar = () => {
-  const backgroundColor = useColorModeValue('white', 'navy.800');
+  const backgroundColor = '#111827';
   const iconColor = useColorModeValue('gray.600', 'white');
   const [selectedIcon, setSelectedIcon] = useState(null);
   const history = useHistory();
@@ -63,14 +63,15 @@ const MiniSidebar = () => {
 
         {/* Shopee */}
         <Tooltip label='Shopee' placement='right' hasArrow>
-          <Box
-            borderWidth={isSelected('Shopee') ? '3px' : '0px'}
-            borderRadius='5px'
-            borderColor='#68D391'
-            my="0.5rem"
-            onClick={() => handleIconClick('Shopee')}
-            p={isSelected('Shopee') ? '0.25rem' : '0px'} // Add padding when selected
-          >
+               <Box
+              borderWidth={isSelected('Shopee') ? '3px' : '1px'} // Update border width for non-selected icon
+              borderRadius='5px'
+              borderColor={isSelected('Shopee') ? '#68D391' : 'gray'} // Update borderColor for non-selected icon
+              my="0.5rem"
+              onClick={() => handleIconClick('Shopee')}
+              p={isSelected('Shopee') ? '0.25rem' : '0px'}
+              bg={isSelected('Shopee') ? 'transparent' : '#1f2937'} // Add background color for non-selected icon
+            >
             <Image
               src={ShopeeLogo}
               boxSize="2rem"

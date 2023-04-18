@@ -106,31 +106,32 @@ function Sidebar(props) {
           {renderRoutes(routes)}
           <DummyList
             collapsed={collapsed}
-            isDummyListOpen={isDummyList1Open}
-            setIsDummyListOpen={setIsDummyList1Open}
-            dummyName="Dummy List 1"
-            subItems={["Sub Item 1.1", "Sub Item 1.2"]}
+            isDummyListOpen={isDummyList2Open}
+            setIsDummyListOpen={setIsDummyList2Open}
+            dummyName="AI-driven Automation"
+            subItems={["Create New Script", "Scripts"]}
           />
           <DummyList
             collapsed={collapsed}
-            isDummyListOpen={isDummyList2Open}
-            setIsDummyListOpen={setIsDummyList2Open}
-            dummyName="Dummy List 2"
-            subItems={["Sub Item 2.1", "Sub Item 2.2"]}
+            isDummyListOpen={isDummyList1Open}
+            setIsDummyListOpen={setIsDummyList1Open}
+            dummyName="Intelligence"
+            subItems={["Search Insights", "Sales", "Traffic Reporting","Target & Search"]}
           />
+          
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList3Open}
             setIsDummyListOpen={setIsDummyList3Open}
-            dummyName="Dummy List 3"
-            subItems={["Sub Item 3.1", "Sub Item 3.2"]}
+            dummyName="Market Insights"
+            subItems={["Business Insights", "Product", "Traffic"]}
           />
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList4Open}
             setIsDummyListOpen={setIsDummyList4Open}
-            dummyName="Dummy List 4"
-            subItems={["Sub Item 4.1", "Sub Item 4.2"]}
+            dummyName="Sponsored Solution"
+            subItems={["Sponsored Search", "Sponsored Discovery","Affiliate"]}
           />
 
           <CollapseButton

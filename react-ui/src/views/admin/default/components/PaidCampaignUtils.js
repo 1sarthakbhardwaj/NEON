@@ -13,7 +13,7 @@ export const generateIconBox = (boxBg, brandColor) => (
     justifyContent="center"
     alignItems="center"
   >
-    <Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />
+    
   </Box>
 );
 

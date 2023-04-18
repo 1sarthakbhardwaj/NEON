@@ -16,10 +16,10 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 
 import ShopeeLogo from '../../assets/img/MiniSidebar/Shopee_logo.svg';
 import lazada from '../../assets/img/MiniSidebar/lazada.png';
-import amazonlogo from '../../assets/img/MiniSidebar/amazon.svg';
+import amazonlogo from '../../assets/img/MiniSidebar/amazon.png';
 import instacart from '../../assets/img/MiniSidebar/instacart.png';
 import walmart from '../../assets/img/MiniSidebar/walmart.png';
-import tokopedia from '../../assets/img/MiniSidebar/tokopedia.svg';
+import tokopedia from '../../assets/img/MiniSidebar/tokopedia.png';
 import bukalapak from '../../assets/img/MiniSidebar/bukalapak.png';
 import tiki from '../../assets/img/MiniSidebar/tiki.jpeg';
 
