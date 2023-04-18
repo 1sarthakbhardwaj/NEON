@@ -9,7 +9,7 @@ const DummyList = ({
   dummyName,
   subItems,
 }) => {
-  const textColor = useColorModeValue("gray.500", "white");
+  const textColor = "#FFFFFF";
   const hoverColor = useColorModeValue("blue.500", "blue.200");
 
   const handleToggle = () => {
@@ -24,12 +24,12 @@ const DummyList = ({
         px={collapsed ? 3 : 4}
         cursor="pointer"
         onClick={handleToggle}
-        color="gray.400"
+        color="#FFFFFF"
         _hover={{ color: hoverColor }}
       >
         <MdBarChart />
         {!collapsed && (
-          <Box ml={4} fontWeight="semibold" color={textColor}>
+          <Box ml={4} fontWeight="light" fontSize="sm" color={textColor}>
             {dummyName}
           </Box>
         )}
@@ -51,7 +51,7 @@ const DummyList = ({
               color="gray.400"
               _hover={{ color: hoverColor }}
             >
-              <Box fontWeight="semibold" color={textColor}>
+              <Box fontWeight="light" fontSize="sm" color={textColor}>
                 {subItem}
               </Box>
             </Flex>

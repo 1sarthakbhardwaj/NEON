@@ -36,8 +36,8 @@ function Sidebar(props) {
     "14px 17px 40px 4px rgba(112, 144, 176, 0.08)",
     "unset"
   );
-  let sidebarBg = useColorModeValue("white", "navy.800");
-  let textColor = useColorModeValue("gray.500", "white");
+  let sidebarBg = "#111827";
+  let textColor = "#FFFFFF";
 
   const closeDummyList = () => {
     setIsDummyListOpen(false);
@@ -69,11 +69,11 @@ function Sidebar(props) {
         to={route.layout + route.path}
         activeClassName="active-link"
         exact
-        color="gray.500"
+        color={textColor}
       >
         {route.icon}
         {!collapsed && (
-          <Box ml={4} fontWeight="semibold">
+          <Box ml={4} fontWeight="semibold" style={{ color: textColor }}>
             {route.name}
           </Box>
         )}
@@ -110,6 +110,7 @@ function Sidebar(props) {
             setIsDummyListOpen={setIsDummyList2Open}
             dummyName="AI-driven Automation"
             subItems={["Create New Script", "Scripts"]}
+            textColor={textColor}
           />
           <DummyList
             collapsed={collapsed}

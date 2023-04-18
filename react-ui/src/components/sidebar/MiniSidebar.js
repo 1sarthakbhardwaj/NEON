@@ -38,7 +38,7 @@ const MiniSidebar = () => {
     <Box
       bg={backgroundColor}
       borderRadius='5px'
-      borderRight='1px solid #4A5568'
+      borderRight='0.1px solid #4A5568'
       w='60px'
       h='100vh'
       position='fixed'
@@ -63,149 +63,157 @@ const MiniSidebar = () => {
 
         {/* Shopee */}
         <Tooltip label='Shopee' placement='right' hasArrow>
-               <Box
-              borderWidth={isSelected('Shopee') ? '3px' : '1px'} // Update border width for non-selected icon
-              borderRadius='5px'
-              borderColor={isSelected('Shopee') ? '#68D391' : 'gray'} // Update borderColor for non-selected icon
-              my="0.5rem"
-              onClick={() => handleIconClick('Shopee')}
-              p={isSelected('Shopee') ? '0.25rem' : '0px'}
-              bg={isSelected('Shopee') ? 'transparent' : '#1f2937'} // Add background color for non-selected icon
-            >
+          <Box
+            borderWidth={isSelected('Shopee') ? '3px' : '1px'}
+            borderRadius='5px'
+            borderColor={isSelected('Shopee') ? '#68D391' : '#303a49'}
+            my="0.5rem"
+            onClick={() => handleIconClick('Shopee')}
+            p={isSelected('Shopee') ? '0.5rem' : '0.25rem'}
+            bg={isSelected('Shopee') ? 'transparent' : '#1f2937'}
+          >
             <Image
               src={ShopeeLogo}
-              boxSize="2rem"
-              _hover={isSelected('Shopee') ? {} : { transform: 'scale(1.8)', cursor: 'pointer' }} // Remove hover effect when selected
-
+              boxSize="1.3rem" // Reduced boxSize
+              _hover={isSelected('Shopee') ? {} : { transform: 'scale(1.2)', cursor: 'pointer' }}
             />
           </Box>
         </Tooltip>
 
         {/* Amazon */}
-        <Tooltip label='Amazon' placement='right' hasArrow>
-          <Box
-            borderWidth={isSelected('Amazon') ? '3px' : '0px'}
-            borderRadius='5px'
-            borderColor='#68D391'
-            my="0.5rem"
-            onClick={() => handleIconClick('Amazon')}
-            p={isSelected('Amazon') ? '0.25rem' : '0px'}
-          >
-            <Image
-              src={amazonlogo}
-              boxSize="2rem"
-              _hover={isSelected('Amazon') ? {} : { transform: 'scale(1.8)', cursor: 'pointer' }} // Remove hover effect when selected
-              />
-              </Box>
-              </Tooltip>
+      <Tooltip label='Amazon' placement='right' hasArrow>
+        <Box
+          borderWidth={isSelected('Amazon') ? '3px' : '1px'}
+          borderRadius='5px'
+          borderColor={isSelected('Amazon') ? '#68D391' : '#303a49'}
+          my="0.5rem"
+          onClick={() => handleIconClick('Amazon')}
+          p={isSelected('Amazon') ? '0.5rem' : '0.25rem'}
+          bg={isSelected('Amazon') ? 'transparent' : '#1f2937'}
+        >
+          <Image
+            src={amazonlogo}
+            boxSize="1.3rem"
+            _hover={isSelected('Amazon') ? {} : { transform: 'scale(1.2)', cursor: 'pointer' }}
+          />
+        </Box>
+      </Tooltip>
 
-            {/* Instacart */}
-    <Tooltip label='Instacart' placement='right' hasArrow>
-      <Box
-        borderWidth={isSelected('Instacart') ? '3px' : '0px'}
-        borderRadius='5px'
-        borderColor='#68D391'
-        my="0.5rem"
-        onClick={() => handleIconClick('Instacart')}
-        p={isSelected('Instacart') ? '0.25rem' : '0px'}
-      >
-        <Image
-          src={instacart}
-          boxSize="2rem"
-          _hover={isSelected('Instacart') ? {} : { transform: 'scale(1.8)', cursor: 'pointer' }}
-        />
-      </Box>
-    </Tooltip>
+      {/* Instacart */}
+      <Tooltip label='Instacart' placement='right' hasArrow>
+        <Box
+          borderWidth={isSelected('Instacart') ? '3px' : '1px'}
+          borderRadius='5px'
+          borderColor={isSelected('Instacart') ? '#68D391' : '#303a49'}
+          my="0.5rem"
+          onClick={() => handleIconClick('Instacart')}
+          p={isSelected('Instacart') ? '0.5rem' : '0.25rem'}
+          bg={isSelected('Instacart') ? 'transparent' : '#1f2937'}
+        >
+          <Image
+            src={instacart}
+            boxSize="1.3rem"
+            _hover={isSelected('Instacart') ? {} : { transform: 'scale(1.2)', cursor: 'pointer' }}
+          />
+        </Box>
+      </Tooltip>
 
-    {/* Walmart */}
-    <Tooltip label='Walmart' placement='right' hasArrow>
-      <Box
-        borderWidth={isSelected('Walmart') ? '3px' : '0px'}
-        borderRadius='5px'
-        borderColor='#68D391'
-        my="0.5rem"
-        onClick={() => handleIconClick('Walmart')}
-        p={isSelected('Walmart') ? '0.25rem' : '0px'}
-      >
-        <Image
-          src={walmart}
-          boxSize="2rem"
-          _hover={isSelected('Walmart') ? {} : { transform: 'scale(1.8)', cursor: 'pointer' }}
-        />
-      </Box>
-    </Tooltip>
+      {/* Walmart */}
+      <Tooltip label='Walmart' placement='right' hasArrow>
+        <Box
+          borderWidth={isSelected('Walmart') ? '3px' : '1px'}
+          borderRadius='5px'
+          borderColor={isSelected('Walmart') ? '#68D391' : '#303a49'}
+          my="0.5rem"
+          onClick={() => handleIconClick('Walmart')}
+          p={isSelected('Walmart') ? '0.5rem' : '0.25rem'}
+          bg={isSelected('Walmart') ? 'transparent' : '#1f2937'}
+        >
+          <Image
+            src={walmart}
+            boxSize="1.3rem"
+            _hover={isSelected('Walmart') ? {} : { transform: 'scale(1.2)', cursor: 'pointer' }}
+          />
+        </Box>
+      </Tooltip>
 
-    {/* Lazada */}
-    <Tooltip label='Lazada' placement='right' hasArrow>
-      <Box
-        borderWidth={isSelected('Lazada') ? '3px' : '0px'}
-        borderRadius='5px'
-        borderColor='#68D391'
-        my="0.5rem"
-        onClick={() => handleIconClick('Lazada')}
-        p={isSelected('Lazada') ? '0.25rem' : '0px'}
-      >
-        <Image
-          src={lazada}
-          boxSize="2rem"
-          _hover={isSelected('Lazada') ? {} : { transform: 'scale(1.8)', cursor: 'pointer' }}
-        />
-      </Box>
-    </Tooltip>
+      {/* Lazada */}
+      <Tooltip label='Lazada' placement='right' hasArrow>
+        <Box
+          borderWidth={isSelected('Lazada') ? '3px' : '1px'}
+          borderRadius='5px'
+          borderColor={isSelected('Lazada') ? '#68D391' : '#303a49'}
+          my="0.5rem"
+          onClick={() => handleIconClick('Lazada')}
+          p={isSelected('Lazada') ? '0.5rem' : '0.25rem'}
+          bg={isSelected('Lazada') ? 'transparent' : '#1f2937'}
+        >
+          <Image
+            src={lazada}
+            boxSize="1.3rem"
+            _hover={isSelected('Lazada') ? {} : { transform: 'scale(1.2)', cursor: 'pointer' }}
+          />
+        </Box>
+      </Tooltip>
+    
 
     {/* Tokopedia */}
-    <Tooltip label='Tokopedia' placement='right' hasArrow>
-      <Box
-        borderWidth={isSelected('Tokopedia') ? '3px' : '0px'}
-        borderRadius='5px'
-        borderColor='#68D391'
-        my="0.5rem"
-        onClick={() => handleIconClick('Tokopedia')}
-        p={isSelected('Tokopedia') ? '0.25rem' : '0px'}
-      >
-        <Image
-          src={tokopedia}
-          boxSize="2rem"
-          _hover={isSelected('Tokopedia') ? {} : { transform: 'scale(1.8)', cursor: 'pointer' }}
-        />
-      </Box>
-    </Tooltip>
-
-    {/* Bukalapak */}
-    <Tooltip label='Bukalapak' placement='right' hasArrow>
-      <Box
-        borderWidth={isSelected('Bukalapak') ? '3px' : '0px'}
-        borderRadius='5px'
-        borderColor='#68D391'
-        my="0.5rem"
-        onClick={() => handleIconClick('Bukalapak')}
-        p={isSelected('Bukalapak') ? '0.25rem' : '0px'}
-      >
-        <Image
-          src={bukalapak}
-          boxSize="2rem"
-          _hover={isSelected('Bukalapak') ? {} : { transform: 'scale(1.8)', cursor: 'pointer' }}
+      <Tooltip label='Tokopedia' placement='right' hasArrow>
+        <Box
+          borderWidth={isSelected('Tokopedia') ? '3px' : '1px'}
+          borderRadius='5px'
+          borderColor={isSelected('Tokopedia') ? '#68D391' : '#303a49'}
+          my="0.5rem"
+          onClick={() => handleIconClick('Tokopedia')}
+          p={isSelected('Tokopedia') ? '0.5rem' : '0.25rem'}
+          bg={isSelected('Tokopedia') ? 'transparent' : '#1f2937'}
+        >
+          <Image
+            src={tokopedia}
+            boxSize="1.3rem"
+            _hover={isSelected('Tokopedia') ? {} : { transform: 'scale(1.2)', cursor: 'pointer' }}
           />
-          </Box>
-          </Tooltip>
+        </Box>
+      </Tooltip>
 
-        {/* Tiki */}
-        <Tooltip label='Tiki' placement='right' hasArrow>
-      <Box
-        borderWidth={isSelected('Tiki') ? '3px' : '0px'}
-        borderRadius='5px'
-        borderColor='#68D391'
-        my="0.5rem"
-        onClick={() => handleIconClick('Tiki')}
-        p={isSelected('Tiki') ? '0.25rem' : '0px'}
-      >
-        <Image
-          src={tiki}
-          boxSize="2rem"
-          _hover={isSelected('Tiki') ? {} : { transform: 'scale(1.8)', cursor: 'pointer' }}
-        />
-      </Box>
-    </Tooltip>
+      {/* Bukalapak */}
+      <Tooltip label='Bukalapak' placement='right' hasArrow>
+        <Box
+          borderWidth={isSelected('Bukalapak') ? '3px' : '1px'}
+          borderRadius='5px'
+          borderColor={isSelected('Bukalapak') ? '#68D391' : '#303a49'}
+          my="0.5rem"
+          onClick={() => handleIconClick('Bukalapak')}
+          p={isSelected('Bukalapak') ? '0.5rem' : '0.25rem'}
+          bg={isSelected('Bukalapak') ? 'transparent' : '#1f2937'}
+        >
+          <Image
+            src={bukalapak}
+            boxSize="1.3rem"
+            _hover={isSelected('Bukalapak') ? {} : { transform: 'scale(1.2)', cursor: 'pointer' }}
+          />
+        </Box>
+      </Tooltip>
+
+      {/* Tiki */}
+      <Tooltip label='Tiki' placement='right' hasArrow>
+        <Box
+          borderWidth={isSelected('Tiki') ? '3px' : '1px'}
+          borderRadius='5px'
+          borderColor={isSelected('Tiki') ? '#68D391' : '#303a49'}
+          my="0.5rem"
+          onClick={() => handleIconClick('Tiki')}
+          p={isSelected('Tiki') ? '0.5rem' : '0.25rem'}
+          bg={isSelected('Tiki') ? 'transparent' : '#1f2937'}
+        >
+          <Image
+            src={tiki}
+            boxSize="1.3rem"
+            _hover={isSelected('Tiki') ? {} : { transform: 'scale(1.2)', cursor: 'pointer' }}
+          />
+        </Box>
+      </Tooltip>
+
 
     <Icon
       as={AiOutlineSetting}
