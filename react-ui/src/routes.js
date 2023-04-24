@@ -16,6 +16,7 @@ import { FiArrowDown } from "react-icons/fi";
 // Admin Imports
 import MainDashboard from "views/admin/default";
 import ButtonClickMessage from "./components/Marketplace/ButtonClickMessage";
+import NFTMarketplace from "views/admin/marketplace";
 
 // Auth Imports
 // import SignInCentered from "views/auth/signIn";
@@ -29,6 +30,36 @@ const routes = [
     path: "/default",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard,
+  },
+  {
+    name: "Automation",
+    layout: "/admin",
+    path: "/automation",
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width='20px'
+        height='20px'
+        color='inherit'
+      />
+    ),
+    component: NFTMarketplace,
+    secondary: true,
+  },
+  {
+    name: "Onboard",
+    layout: "/admin",
+    path: "/add-platform",
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width='20px'
+        height='20px'
+        color='inherit'
+      />
+    ),
+    component: ButtonClickMessage,
+    secondary: true,
   },
   
 ];
