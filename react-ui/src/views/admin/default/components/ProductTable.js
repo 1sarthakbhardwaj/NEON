@@ -23,7 +23,7 @@ const ProductTable = ({ data }) => {
   }, {});
 
   return (
-    <Box mt={1} p={4} boxShadow="lg" bg="white" borderRadius="md">
+    <Box mt={10} p={4} boxShadow="lg" bg="white" borderRadius="md">
     <Table variant="striped" mt="500px" colorScheme="gray">
         <Text
         fontSize="xl"
