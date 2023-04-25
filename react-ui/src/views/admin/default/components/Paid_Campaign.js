@@ -347,22 +347,31 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
     backgroundColor="white"
     borderRadius="xl"
 >
-    <VStack spacing={8}>
-        <ResponsiveContainer width="100%" height={300}>
-            <HStack spacing={8}>
-                <Box width="40%" minW="25%" pt="40px" height="200px">
-                    <AdPieChart filteredData={filteredData} />
-                </Box>
-                <Box flexGrow={1}>
-                    <AdFilterTable filteredData={filteredData} />
-                </Box>
-            </HStack>
+      <VStack spacing={6}>
+        <ResponsiveContainer width="100%" height={600}>
+          <HStack spacing={5}>
+            <Box width="40%" minW="25%" pt="10px" height="100px">
+              <Box
+                borderWidth="1px"
+                borderColor="gray.300"
+                borderRadius="md"
+                overflow="hidden"
+              >
+                <AdPieChart filteredData={filteredData} />
+
+              </Box>
+            </Box>
+            <Box flexGrow={5}>
+              <AdFilterTable filteredData={filteredData} />
+            </Box>
+          </HStack>
         </ResponsiveContainer>
-        
+
         <Box width="100%">
-        <ProductTable data={filteredData} />
+          <ProductTable data={filteredData} />
         </Box>
-    </VStack>
+      </VStack>
+
 </Box>
 
 </Box>

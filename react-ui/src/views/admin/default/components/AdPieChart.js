@@ -9,11 +9,24 @@ import {
 } from 'recharts';
 import { Box, Select, VStack, Text } from '@chakra-ui/react';
 
-const COLORS = ['#4ECDC4', '#F3A183', '#ECCC58', '#6699CC'];
+const COLORS = ['#052D41', '#E99B26', '#00C6B1', '#00C6B1'];
+
+
+const formatNumber = (value) => {
+  return new Intl.NumberFormat().format(value);
+};
 
 const AdPieChart = ({ filteredData }) => {
   const adTypes = ['Discovery Ads', 'Product Search Ad', 'Shop Search Ad'];
   const metrics = ['Impression', 'Clicks', 'Conversions', 'GMV', 'Expense'];
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    }).format(value);
+  };
+
+
 
   const [selectedMetric, setSelectedMetric] = React.useState(metrics[0]);
 
@@ -31,14 +44,22 @@ const AdPieChart = ({ filteredData }) => {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const { name, value } = payload[0].payload;
+      let formattedValue;
+      
+      if (selectedMetric === 'GMV' || selectedMetric === 'Expense') {
+        formattedValue = formatCurrency(value);
+      } else {
+        formattedValue = formatNumber(value);
+      }
+      
       return (
         <Box p={2} bg="white" borderRadius="md" boxShadow="lg">
-          <Text fontWeight="bold">{`${name}`}</Text>
-          <Text>{`${selectedMetric}: ${value}`}</Text>
+          <Text fontWeight="bold" fontSize="sm">{`${name}`}</Text>
+          <Text fontSize="sm">{`${selectedMetric}: ${formattedValue}`}</Text>
         </Box>
       );
     }
-  
+
     return null;
   };
   
