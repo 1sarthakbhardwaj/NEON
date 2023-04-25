@@ -57,7 +57,9 @@ const ProductTable = ({ data }) => {
         fontSize="xl"
         fontWeight="bold"
         textAlign="left"
-        mb="10px"
+        mb="-400px"
+        mt="150px"
+        ml={600}
       >
         Performance by Product Name
       </Text>

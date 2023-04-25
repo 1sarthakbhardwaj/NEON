@@ -1,6 +1,7 @@
 import React from "react";
 import { MdBarChart, MdOutlineArrowDropDown, MdHome } from "react-icons/md";
 import { Box, Flex, VStack, Collapse, useColorModeValue } from "@chakra-ui/react";
+import { useHistory } from "react-router-dom";
 
 const DummyList = ({
   collapsed,
@@ -8,13 +9,22 @@ const DummyList = ({
   setIsDummyListOpen,
   dummyName,
   subItems,
+  subItemPaths, // Add subItemPaths prop here
 }) => {
   const textColor = "#FFFFFF";
   const hoverColor = useColorModeValue("blue.500", "blue.200");
+  const history = useHistory(); // Define history variable using the useHistory hook
 
   const handleToggle = () => {
     setIsDummyListOpen(!isDummyListOpen);
   };
+
+  const handleSubItemClick = (path) => {
+    if (path) {
+      history.push(path);
+    }
+  };
+
 
   return (
     <VStack align="start" spacing={1}>
@@ -50,7 +60,9 @@ const DummyList = ({
               px={collapsed ? 3 : 4}
               color="gray.400"
               _hover={{ color: hoverColor }}
-            >
+              onClick={() => handleSubItemClick(subItemPaths[index])} 
+              cursor="pointer"
+        >
               <Box fontWeight="light" fontSize="sm" color={textColor}>
                 {subItem}
               </Box>

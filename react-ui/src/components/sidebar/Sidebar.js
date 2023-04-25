@@ -144,14 +144,19 @@ function Sidebar(props) {
           style={{ paddingTop: "1rem" }}
         >
           {/* {renderRoutes(routes)} */}
-          <DummyList
-            collapsed={collapsed}
-            isDummyListOpen={isDummyList2Open}
-            setIsDummyListOpen={setIsDummyList2Open}
-            dummyName="AI-driven Automation"
-            subItems={["Create New Script", "Scripts"]}
-            textColor={textColor}
-          />
+        <DummyList
+           collapsed={collapsed}
+           isDummyListOpen={isDummyList2Open}
+           setIsDummyListOpen={setIsDummyList2Open}
+           dummyName="AI-driven Automation"
+           subItems={["Create New Script", "Scripts"]}
+           subItemPaths={[
+             "/admin/automation", // Add the path for "Create New Script" subitem
+             null, // You can set this to the path for "Scripts" if needed
+           ]}
+           textColor={textColor}
+         />
+
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList1Open}

@@ -333,8 +333,8 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
         fontSize="xl"
         fontWeight="bold"
         textAlign="left"
-        mt="50px"
-        mb="-60px"
+        mt="200px"
+        mb="-200px"
         ml={600}
       >
         Performance by Ad type

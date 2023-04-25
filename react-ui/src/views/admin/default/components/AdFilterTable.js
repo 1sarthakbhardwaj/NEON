@@ -24,7 +24,7 @@ const AdFilterTable = ({ filteredData }) => {
   };
 
   return (
-    <Box mt={60} p={4} boxShadow="lg" bg="white" borderRadius="md">
+    <Box mt={300} mr={4} p={4} boxShadow="lg" bg="white" borderRadius="md">
       <Table variant="striped" colorScheme="gray" fontSize="sm">
         <Thead>
         <Tr>
