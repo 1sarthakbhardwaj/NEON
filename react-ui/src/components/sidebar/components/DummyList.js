@@ -1,5 +1,5 @@
 import React from "react";
-import { MdBarChart, MdOutlineArrowDropDown } from "react-icons/md";
+import { MdBarChart, MdOutlineArrowDropDown, MdHome } from "react-icons/md";
 import { Box, Flex, VStack, Collapse, useColorModeValue } from "@chakra-ui/react";
 
 const DummyList = ({
@@ -27,15 +27,15 @@ const DummyList = ({
         color="#FFFFFF"
         _hover={{ color: hoverColor }}
       >
-        <MdBarChart />
+        <MdHome />
         {!collapsed && (
-          <Box ml={4} fontWeight="light" fontSize="sm" color={textColor}>
+          <Box ml={5} fontWeight="light" fontSize="sm" color={textColor}>
             {dummyName}
           </Box>
         )}
 
         {!collapsed && (
-          <Box ml="auto">
+          <Box ml={2}>
             <MdOutlineArrowDropDown />
           </Box>
         )}

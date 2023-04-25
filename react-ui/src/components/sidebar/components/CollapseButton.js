@@ -13,7 +13,7 @@ const CollapseButton = ({ isCollapsed, toggleSidebar }) => {
       height="60px"
       onClick={toggleSidebar}
       _hover={{
-        backgroundColor: 'gray.200',
+        backgroundColor: 'blue.200',
         cursor: 'pointer',
       }}
       position="sticky"
