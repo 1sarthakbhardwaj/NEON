@@ -246,7 +246,7 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
           width={800} // Adjust the width as needed
           height={500} // Adjust the height as needed
           data={formatChartData(filteredData)}
-          margin={{ top: 5, right: 15, left: 15, bottom: 5 }}
+          margin={{ top: 5, right: 50, left: 50, bottom: 5 }}
       >
 
     <CartesianGrid strokeDasharray="3 3" />
@@ -275,8 +275,20 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
       orientation="left"
       tickFormatter={(tick) => tick.toLocaleString()}
       tickInterval={Math.max(...selectedMetrics.map((metric) => getSettings(metric, selectedMetrics).stepSize)) / 2}
-      
-      />
+      >
+       <Label
+    value={selectedMetrics[0]} // This will display the name of the selected metric
+    angle={-90} // Rotate the label by 90 degrees
+    position="insideLeft" // Position the label inside the left Y-axis
+    offset={-40} // Adjust the offset to place the label correctly
+    style={{
+      fontSize: "18px",
+      fontWeight: "500",
+      color: "#A3AED0",
+      textAnchor: "middle",
+    }}
+  /> 
+      </YAxis>
       
     
     <YAxis
@@ -284,7 +296,20 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
       orientation="right"
       tickFormatter={(tick) => tick.toLocaleString()}
       tickInterval={Math.max(...selectedMetrics.map((metric) => getSettings(metric, selectedMetrics).stepSize)) / 2}
-    />
+    >
+      <Label
+    value={selectedMetrics[1]} // This will display the name of the selected metric
+    angle={-90} // Rotate the label by 90 degrees
+    position="insideRight" // Position the label inside the left Y-axis
+    offset={-40} // Adjust the offset to place the label correctly
+    style={{
+      fontSize: "18px",
+      fontWeight: "500",
+      color: "#A3AED0",
+      textAnchor: "middle",
+    }}
+  /> 
+      </YAxis>
 
 
     <Tooltip
