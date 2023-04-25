@@ -143,7 +143,7 @@ function Sidebar(props) {
           renderView={renderView}
           style={{ paddingTop: "1rem" }}
         >
-          {renderRoutes(routes)}
+          {/* {renderRoutes(routes)} */}
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList2Open}

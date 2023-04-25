@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, FormLabel, Icon, Select, SimpleGrid, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { Avatar, Box, Flex, FormLabel, Icon, Select, SimpleGrid, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, HStack, VStack } from "@chakra-ui/react";
 import ClickableMiniStatistics from 'components/card/ClickableMiniStatistics';
 import { LineChart, Line, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import React, { useState, useEffect, useRef } from 'react';
@@ -10,8 +10,10 @@ import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { usePopper } from 'react-popper';
-import PieChartComponent from './PieChartComponent';
+import AdFilterTable from "./AdFilterTable";
+import AdPieChart from './AdPieChart';
 import { Text } from "@chakra-ui/react";
+import ProductTable from './ProductTable';
 
 
 const ECommerceCampaignReport = () => {
@@ -123,15 +125,6 @@ const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
 const bgHover = useColorModeValue({ bg: "secondaryGray.400" }, { bg: "whiteAlpha.50" });
 const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha.100" });
 
-const pieChartData1 = [
-  { name: 'Expense', value: calculateMetrics('Expense') },
-  { name: 'GMV', value: calculateMetrics('GMV') },
-];
-
-const pieChartData2 = [
-  { name: 'CTR', value: CTR },
-  { name: 'ROAS', value: ROAS },
-];
   return (
     <div>
       {/* Date range filter */}
@@ -253,7 +246,7 @@ const pieChartData2 = [
           width={800} // Adjust the width as needed
           height={500} // Adjust the height as needed
           data={formatChartData(filteredData)}
-          margin={{ top: 5, right: 15, left: 15, bottom: 5 }}
+          margin={{ top: 5, right: 50, left: 50, bottom: 5 }}
       >
 
     <CartesianGrid strokeDasharray="3 3" />
@@ -282,8 +275,20 @@ const pieChartData2 = [
       orientation="left"
       tickFormatter={(tick) => tick.toLocaleString()}
       tickInterval={Math.max(...selectedMetrics.map((metric) => getSettings(metric, selectedMetrics).stepSize)) / 2}
-      
-      />
+      >
+       <Label
+    value={selectedMetrics[0]} // This will display the name of the selected metric
+    angle={-90} // Rotate the label by 90 degrees
+    position="insideLeft" // Position the label inside the left Y-axis
+    offset={-40} // Adjust the offset to place the label correctly
+    style={{
+      fontSize: "18px",
+      fontWeight: "500",
+      color: "#A3AED0",
+      textAnchor: "middle",
+    }}
+  /> 
+      </YAxis>
       
     
     <YAxis
@@ -291,7 +296,20 @@ const pieChartData2 = [
       orientation="right"
       tickFormatter={(tick) => tick.toLocaleString()}
       tickInterval={Math.max(...selectedMetrics.map((metric) => getSettings(metric, selectedMetrics).stepSize)) / 2}
-    />
+    >
+      <Label
+    value={selectedMetrics[1]} // This will display the name of the selected metric
+    angle={-90} // Rotate the label by 90 degrees
+    position="insideRight" // Position the label inside the left Y-axis
+    offset={-40} // Adjust the offset to place the label correctly
+    style={{
+      fontSize: "18px",
+      fontWeight: "500",
+      color: "#A3AED0",
+      textAnchor: "middle",
+    }}
+  /> 
+      </YAxis>
 
 
     <Tooltip
@@ -311,23 +329,42 @@ const pieChartData2 = [
 <Tooltip />
 
 {/*Piechart*/}
-<Text fontSize="xl" fontWeight="bold" textAlign="left" mt="50px" mb="-60px">
-Performance by Ad type
+<Text
+        fontSize="xl"
+        fontWeight="bold"
+        textAlign="left"
+        mt="50px"
+        mb="-60px"
+        ml={600}
+      >
+        Performance by Ad type
       </Text>
-<Box width="100%" minW='75%' pt="40px" height="700px"backgroundColor="white"  borderRadius="xl" >
-      <ResponsiveContainer width="100%" height={300}>
-      <div>
-      {/*...*/}
-      <Box width="40%" minW="25%" pt="40px" height="200px" backgroundColor="white" borderRadius="xl">
+      <Box
+    width="100%"
+    minW="75%"
+    pt="40px"
+    height="2900px"
+    backgroundColor="white"
+    borderRadius="xl"
+>
+    <VStack spacing={8}>
         <ResponsiveContainer width="100%" height={300}>
-          <div>
-            <PieChartComponent data1={pieChartData1} data2={pieChartData2} />
-          </div>
+            <HStack spacing={8}>
+                <Box width="40%" minW="25%" pt="40px" height="200px">
+                    <AdPieChart filteredData={filteredData} />
+                </Box>
+                <Box flexGrow={1}>
+                    <AdFilterTable filteredData={filteredData} />
+                </Box>
+            </HStack>
         </ResponsiveContainer>
-      </Box>
-    </div>
-</ResponsiveContainer>
+        
+        <Box width="100%">
+        <ProductTable data={filteredData} />
+        </Box>
+    </VStack>
 </Box>
+
 </Box>
 
     </div>

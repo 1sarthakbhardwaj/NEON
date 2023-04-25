@@ -33,6 +33,9 @@ const MiniSidebar = () => {
   const handleButtonClick = () => {
     history.push('/admin/add-platform');
   };
+  const handleButtonClick2 = () => {
+    history.push('/admin/automation');
+  };
 
   return (
     <Box
@@ -214,13 +217,13 @@ const MiniSidebar = () => {
         </Box>
       </Tooltip>
 
-
-    <Icon
-      as={AiOutlineSetting}
-      color={iconColor}
-      boxSize={6}
-      _hover={{ boxSize: 8, cursor: 'pointer' }}
-    />
+      <Icon
+        as={AiOutlineSetting}
+        color={iconColor}
+        boxSize={6}
+        _hover={{ boxSize: 8, cursor: 'pointer' }}
+        onClick={handleButtonClick2}
+      />
     </VStack>
     </Box>
     
