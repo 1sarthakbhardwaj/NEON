@@ -349,7 +349,7 @@ const getBarColor = (name) => {
 const DigitalShelfAnalysisTable = () => {
   return (
     <>
-      <Flex mt={5} justifyContent="space-between" alignItems="center">
+      <Flex mt={100} ml={50} justifyContent="space-between" alignItems="center">
         <Select placeholder="Select a Retailer" maxWidth="200px">
           <option value="amazon">Amazon</option>
           <option value="walmart">Walmart</option>
@@ -369,17 +369,15 @@ const DigitalShelfAnalysisTable = () => {
           Submit
         </Button>
       </Flex>
-
-      
-      
-      <VStack spacing={2}>
-        <HStack spacing={5}>
+  
+      <VStack spacing={2} mt={8}>
+        <HStack spacing={1}>
           <Flex
             width="100%"
             alignItems="stretch"
-            justifyContent="space-between"
+            justifyContent="flex-start"
           >
-            <Box width="33%" minW="25%" height="60%">
+           <Box width="32%" height="60%">
               <Box
                 height="100%"
                 borderWidth="1px"
@@ -387,7 +385,7 @@ const DigitalShelfAnalysisTable = () => {
                 borderRadius="md"
                 overflow="hidden"
               >
-                <BarChart width={600} height={300} layout="vertical" data={data1}>
+                <BarChart width={400} height={200} layout="vertical" data={data1}>
                   <Bar dataKey="value" radius={[5, 5, 0, 0]}>
                     {data1.map((entry, index) => (
                       <Cell
@@ -402,15 +400,15 @@ const DigitalShelfAnalysisTable = () => {
                 </BarChart>
               </Box>
             </Box>
-            <Box width="33%" minW="25%" height="60%">
+            <Box width="32%" height="60%" ml="2%" mr="2%">
               <Box
                 height="100%"
                 borderWidth="1px"
-                borderColor="gray.300"
+                borderColor="gray.200"
                 borderRadius="md"
                 overflow="hidden"
               >
-                <BarChart width={600} height={300} layout="vertical" data={data2}>
+                <BarChart width={400} height={200} layout="vertical" data={data2}>
                   <Bar dataKey="value" radius={[5, 5, 0, 0]}>
                     {data2.map((entry, index) => (
                       <Cell
@@ -425,15 +423,15 @@ const DigitalShelfAnalysisTable = () => {
                 </BarChart>
               </Box>
             </Box>
-            <Box width="33%" minW="25%" height="60%">
+           <Box width="32%" height="60%">
               <Box
                 height="100%"
                 borderWidth="1px"
-                borderColor="gray.300"
+                borderColor="gray.200"
                 borderRadius="md"
                 overflow="hidden"
               >
-                <BarChart width={600} height={300} layout="vertical" data={data3}>
+                <BarChart width={400} height={200} layout="vertical" data={data3}>
                   <Bar dataKey="value" radius={[5, 5, 0, 0]}>
                     {data3.map((entry, index) => (
                       <Cell
@@ -445,54 +443,53 @@ const DigitalShelfAnalysisTable = () => {
                   <XAxis type="number" />
                   <YAxis dataKey="name" type="category" />
                   <Tooltip />
-                </BarChart>
-              </Box>
+                  </BarChart>
             </Box>
-          </Flex>
-        </HStack>
-      </VStack>
-      
-      <Box mt={10} p={2} boxShadow="lg" bg="white" borderRadius="md" maxW="1200px">
-  <Table variant="striped" colorScheme="gray" fontSize="sm">
-    <Thead>
-      <Tr>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Page</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Rank</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Paid</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Badge</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Brand</Th>
-        <Th style={{ minWidth: "90px", maxWidth: "90px" }}>Product ID</Th>
-        <Th style={{ minWidth: "120px", maxWidth: "120px" }}>Title</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Rating</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>MSRP</Th>
-        <Th style={{ minWidth: "90px", maxWidth: "90px" }}>Sale Price</Th>
-        <Th style={{ minWidth: "90px", maxWidth: "90px" }}>Availability</Th>
-        <Th style={{ minWidth: "120px", maxWidth: "120px" }}>Shipping Option</Th>
-      </Tr>
-    </Thead>
-    <Tbody>
-      {data.map((item, index) => (
-        <Tr key={index}>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Page}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Rank}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Paid}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Badge}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Brand}</Td>
-          <Td style={{ minWidth: "90px", maxWidth: "90px" }}>{item.Product_ID}</Td>
-          <Td style={{ minWidth: "120px", maxWidth: "120px" }}>{item.Title}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Rating}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.MSRP}</Td>
-          <Td style={{ minWidth: "90px", maxWidth: "90px" }}>{item.Sale_Price}</Td>
-          <Td style={{ minWidth: "90px", maxWidth: "90px" }}>{item.Availability}</Td>
-          <Td style={{ minWidth: "120px", maxWidth: "120px" }}>{item.Shipping_Option}</Td>
-        </Tr>
-      ))}
-    </Tbody>
-  </Table>
-</Box>
+          </Box>
+        </Flex>
+      </HStack>
+    </VStack>
 
-    </>
-  );
-};
+    <Box mt={10} p={2} boxShadow="lg" bg="white" borderRadius="md" maxW="100%">
+      <Table variant="striped" colorScheme="gray" fontSize="sm" width="100%">
+        <Thead>
+          <Tr>
+            <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Page</Th>
+            <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Rank</Th>
+            <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Paid</Th>
+            <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Badge</Th>
+            <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Brand</Th>
+            <Th style={{ minWidth: "90px", maxWidth: "90px" }}>Product ID</Th>
+            <Th style={{ minWidth: "120px", maxWidth: "120px" }}>Title</Th>
+            <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Rating</Th>
+            <Th style={{ minWidth: "100px", maxWidth: "100px" }}>MSRP</Th>
+            <Th style={{ minWidth: "90px", maxWidth: "90px" }}>Sale Price</Th>
+            <Th style={{ minWidth: "90px", maxWidth: "90px" }}>Availability</Th>
+            <Th style={{ minWidth: "120px", maxWidth: "120px" }}>Shipping Option</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {data.map((item, index) => (
+            <Tr key={index}>
+              <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Page}</Td>
+              <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Rank}</Td>
+              <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Paid}</Td>
+              <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Badge}</Td>
+              <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Brand}</Td>
+              <Td style={{ minWidth: "90px", maxWidth: "90px" }}>{item.Product_ID}</Td>
+              <Td style={{ minWidth: "120px", maxWidth: "120px" }}>{item.Title}</Td>
+              <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Rating}</Td>
+              <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.MSRP}</Td>
+              <Td style={{ minWidth: "90px", maxWidth: "90px" }}>{item.Sale_Price}</Td>
+              <Td style={{ minWidth: "90px", maxWidth: "90px" }}>{item.Availability}</Td>
+              <Td style={{ minWidth: "120px", maxWidth: "120px" }}>{item.Shipping_Option}</Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </Box>
+  </>
+)};
 
+  
 export default DigitalShelfAnalysisTable;

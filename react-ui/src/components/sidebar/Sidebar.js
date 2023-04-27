@@ -158,7 +158,7 @@ function Sidebar(props) {
             setIsDummyListOpen={setIsDummyList2Open}
             dummyName="AI-driven Automation"
             subItems={["Create New Script", "Scripts"]}
-            subItemRoutes={["/create-new-script", "/scripts"]} // Add subItemRoutes
+            subItemRoutes={["/admin/automation", "/scripts"]} // Add subItemRoutes
             textColor={textColor}
           />
           <DummyList
@@ -167,7 +167,7 @@ function Sidebar(props) {
             setIsDummyListOpen={setIsDummyList1Open}
             dummyName="Intelligence"
             subItems={["Share of Search", "Sales", "Traffic Reporting","Target & Search"]}
-            subItemRoutes={["/share-of-search", "/sales", "/traffic-reporting", "/target-and-search"]} // Add subItemRoutes
+            subItemRoutes={["/admin/Share_of_search", "/sales", "/traffic-reporting", "/target-and-search"]} // Add subItemRoutes
           />
           <DummyList
             collapsed={collapsed}
