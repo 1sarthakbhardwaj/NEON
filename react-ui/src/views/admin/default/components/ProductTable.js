@@ -52,18 +52,16 @@ const ProductTable = ({ data }) => {
   const displayData = Object.entries(aggregateData).slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
   return (
-    <Box mt={10} p={4} boxShadow="lg" bg="white" borderRadius="md">
-      <Text
+    <Box mt={10} p={2} boxShadow="lg" bg="white" borderRadius="md">
+      {/* <Text
         fontSize="xl"
         fontWeight="bold"
         textAlign="left"
-        mb="-400px"
-        mt="150px"
-        ml={600}
+        mb="10px"
       >
         Performance by Product Name
-      </Text>
-      <Table variant="striped" mt="500px" colorScheme="gray" border="1px" borderColor="gray.200" borderRadius="md">
+      </Text> */}
+      <Table variant="striped" mt="50px" colorScheme="gray" border="1px" borderColor="gray.200" borderRadius="md" fontSize="sm">
         <Thead>
           <Tr>
             <Th>Product Name/ Ad Name</Th>

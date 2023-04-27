@@ -14,6 +14,8 @@ import AdFilterTable from "./AdFilterTable";
 import AdPieChart from './AdPieChart';
 import { Text } from "@chakra-ui/react";
 import ProductTable from './ProductTable';
+import DigitalShelfAnalysisTable from './Digital-Shelf-Analysis_table';
+
 
 
 const ECommerceCampaignReport = () => {
@@ -178,8 +180,15 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
 
       {/* Simple-grid section */}
 
-      <Text fontSize="xl" fontWeight="bold" textAlign="left" mt="50px" mb="-60px">
-      Aggregate Performance
+      <Text
+        fontSize="xl"
+        fontWeight="bold"
+        textAlign="left"
+        mt="50px"
+        mb="-60px"
+        ml={5}
+      >
+        Aggregate Performance
       </Text>
 
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
@@ -244,31 +253,31 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
         <ResponsiveContainer>
       <LineChart
           width={800} // Adjust the width as needed
-          height={500} // Adjust the height as needed
+          height={200} // Adjust the height as needed
           data={formatChartData(filteredData)}
           margin={{ top: 5, right: 50, left: 50, bottom: 5 }}
       >
 
-    <CartesianGrid strokeDasharray="3 3" />
-    <XAxis
-    dataKey="Date"
-    axisLine={false}
-    tickLine={false}
-    angle={-45} // Add angle to rotate the ticks
-    textAnchor="end" // Change text anchor to 'end'
-    interval={0} // Set interval to 0 to show all the dates
-    style={{
-    fontSize: "12px",
-    fontWeight: "500",
-    color: "#A3AED0"
-  }}
-  tickFormatter={(tick) => {
-    const date = new Date(tick);
-    const day = date.getDate();
-    const month = date.toLocaleString("default", { month: "short" });
-    return `${day} ${month}`;
-  }}
-/>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+          dataKey="Date"
+          axisLine={true}
+          tickLine={false}
+          angle={-45} // Add angle to rotate the ticks
+          textAnchor="end" // Change text anchor to 'end'
+          interval={0} // Set interval to 0 to show all the dates
+          style={{
+          fontSize: "12px",
+          fontWeight: "500",
+          color: "#A3AED0"
+        }}
+        tickFormatter={(tick) => {
+          const date = new Date(tick);
+          const day = date.getDate();
+          const month = date.toLocaleString("default", { month: "short" });
+          return `${day} ${month}`;
+        }}
+      />
 
      <YAxis
       yAxisId="left"
@@ -277,19 +286,18 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
       tickInterval={Math.max(...selectedMetrics.map((metric) => getSettings(metric, selectedMetrics).stepSize)) / 2}
       >
        <Label
-    value={selectedMetrics[0]} // This will display the name of the selected metric
-    angle={-90} // Rotate the label by 90 degrees
-    position="insideLeft" // Position the label inside the left Y-axis
-    offset={-40} // Adjust the offset to place the label correctly
-    style={{
-      fontSize: "18px",
-      fontWeight: "500",
-      color: "#A3AED0",
-      textAnchor: "middle",
-    }}
-  /> 
+            value={selectedMetrics[0]} // This will display the name of the selected metric
+            angle={-90} // Rotate the label by 90 degrees
+            position="insideLeft" // Position the label inside the left Y-axis
+            offset={-20} // Adjust the offset to place the label correctly
+            style={{
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#A3AED0",
+              textAnchor: "middle",
+            }}
+          /> 
       </YAxis>
-      
     
     <YAxis
       yAxisId="right"
@@ -297,18 +305,18 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
       tickFormatter={(tick) => tick.toLocaleString()}
       tickInterval={Math.max(...selectedMetrics.map((metric) => getSettings(metric, selectedMetrics).stepSize)) / 2}
     >
-      <Label
-    value={selectedMetrics[1]} // This will display the name of the selected metric
-    angle={-90} // Rotate the label by 90 degrees
-    position="insideRight" // Position the label inside the left Y-axis
-    offset={-40} // Adjust the offset to place the label correctly
-    style={{
-      fontSize: "18px",
-      fontWeight: "500",
-      color: "#A3AED0",
-      textAnchor: "middle",
-    }}
-  /> 
+          <Label
+        value={selectedMetrics[1]} // This will display the name of the selected metric
+        angle={-90} // Rotate the label by 90 degrees
+        position="insideRight" // Position the label inside the left Y-axis
+        offset={-10} // Adjust the offset to place the label correctly
+        style={{
+          fontSize: "16px",
+          fontWeight: "500",
+          color: "#A3AED0",
+          textAnchor: "middle",
+        }}
+      /> 
       </YAxis>
 
 
@@ -322,61 +330,187 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
       />
     }
   />
-  <Legend />
-  {renderLineComponents(selectedMetrics)}
-</LineChart>
-</ResponsiveContainer>
-<Tooltip />
+      <Legend />
+      {renderLineComponents(selectedMetrics)}
+    </LineChart>
+    </ResponsiveContainer>
+    <Tooltip />
 
-{/*Piechart*/}
+   {/*Piechart*/}
 <Text
-        fontSize="xl"
-        fontWeight="bold"
-        textAlign="left"
-        mt="200px"
-        mb="-200px"
-        ml={600}
-      >
-        Performance by Ad type
-      </Text>
-      <Box
-    width="100%"
-    minW="75%"
-    pt="40px"
-    height="2900px"
-    backgroundColor="white"
-    borderRadius="xl"
+  fontSize="xl"
+  fontWeight="bold"
+  textAlign="left"
+  mt="40px" // Adjust this value to reduce the gap above the text
+  mb="-45px" // Adjust this value to reduce the gap below the text
+  ml={5}
 >
-      <VStack spacing={6}>
-        <ResponsiveContainer width="100%" height={600}>
-          <HStack spacing={5}>
-            <Box width="40%" minW="25%" pt="10px" height="100px">
-              <Box
-                borderWidth="1px"
-                borderColor="gray.300"
-                borderRadius="md"
-                overflow="hidden"
-              >
-                <AdPieChart filteredData={filteredData} />
+  Performance by Ad type
+</Text>
 
-              </Box>
+<Box
+  width="100%"
+  minW="75%"
+  pt="-60px" // Adjust this value to reduce the padding above the content inside the box
+  height="500px"
+  backgroundColor="white"
+  borderRadius="xl"
+>
+  <VStack spacing={6}>
+    <ResponsiveContainer width="100%" height={500}>
+      <HStack spacing={5}>
+        <Flex
+          width="100%"
+          alignItems="stretch"
+          justifyContent="space-between"
+        >
+          <Box width="50%" minW="25%" height="60%">
+            <Box
+              height="100%"
+              borderWidth="1px"
+              borderColor="gray.300"
+              borderRadius="md"
+              overflow="hidden"
+            >
+              <AdPieChart filteredData={filteredData} />
             </Box>
-            <Box flexGrow={5}>
+          </Box>
+          <Box flexGrow={0} height="100%">
+            <Box
+              height="80%"
+              borderWidth="1px"
+              borderColor="gray.300"
+              borderRadius="md"
+              overflow="hidden"
+            >
               <AdFilterTable filteredData={filteredData} />
             </Box>
-          </HStack>
-        </ResponsiveContainer>
-
-        <Box width="100%">
-          <ProductTable data={filteredData} />
-        </Box>
-      </VStack>
-
+          </Box>
+        </Flex>
+      </HStack>
+    </ResponsiveContainer>
+  </VStack>
 </Box>
 
-</Box>
 
-    </div>
+
+        {/*Performance by SKU*/}
+
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          textAlign="left"
+          mt="50px" // Adjust this value to reduce the gap above the text
+          mb="-55px" // Adjust this value to reduce the gap below the text
+          ml={5}
+        >
+        Performance by SKU
+      </Text>
+
+          <Box
+            width="100%"
+            minW="75%"
+            pt="-40px" // Adjust this value to reduce the padding above the content inside the box
+            height="1000px"
+            backgroundColor="white"
+            borderRadius="xl"
+          >
+            <VStack spacing={6}>
+              <ResponsiveContainer width="100%" height={20}>
+                <HStack spacing={5}>
+                  <Box width="100%" minW="25%" pt="10px" height="80px">
+                    <Box
+                      borderWidth="0px"
+                      borderColor="gray.300"
+                      borderRadius="md"
+                      overflow="hidden"
+                    >
+                      <ProductTable data={filteredData} />
+                    </Box>
+                  </Box>
+                </HStack>
+              </ResponsiveContainer>
+            </VStack>
+          </Box>
+
+  {/* Digital self */}
+          <Text
+          fontSize="xl"
+          fontWeight="bold"
+          textAlign="left"
+          mt="40px" // Adjust this value to reduce the gap above the text
+          mb="-45px" // Adjust this value to reduce the gap below the text
+          ml={5}
+        >
+        Digital self 
+      </Text>
+
+          <Box
+            width="100%"
+            minW="75%"
+            pt="-60px" // Adjust this value to reduce the padding above the content inside the box
+            height="900px"
+            backgroundColor="white"
+            borderRadius="xl"
+          >
+            <VStack spacing={6}>
+              <ResponsiveContainer width="100%" height={100}>
+                <HStack spacing={5}>
+                  <Box width="100%" minW="25%" pt="10px" height="80px">
+                    <Box
+                      borderWidth="0px"
+                      borderColor="gray.300"
+                      borderRadius="md"
+                      overflow="hidden"
+                    >
+                      <DigitalShelfAnalysisTable />
+                    </Box>
+                  </Box>
+                </HStack>
+              </ResponsiveContainer>
+            </VStack>
+          </Box>
+  {/* Share of Search
+  <Text
+          fontSize="xl"
+          fontWeight="bold"
+          textAlign="left"
+          mt="40px" // Adjust this value to reduce the gap above the text
+          mb="-45px" // Adjust this value to reduce the gap below the text
+          ml={5}
+        >
+       Share of Search
+      </Text>
+
+          <Box
+            width="100%"
+            minW="75%"
+            pt="-60px" // Adjust this value to reduce the padding above the content inside the box
+            height="900px"
+            backgroundColor="white"
+            borderRadius="xl"
+          >
+            <VStack spacing={6}>
+              <ResponsiveContainer width="100%" height={100}>
+                <HStack spacing={5}>
+                  <Box width="100%" minW="25%" pt="10px" height="80px">
+                    <Box
+                      borderWidth="0px"
+                      borderColor="gray.300"
+                      borderRadius="md"
+                      overflow="hidden"
+                    >
+                      <Share_of_search />
+                    </Box>
+                  </Box>
+                </HStack>
+              </ResponsiveContainer>
+            </VStack>
+          </Box> */}
+      </Box>
+</div>
+
+   
     );
   };
 

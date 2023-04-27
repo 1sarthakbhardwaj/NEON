@@ -121,6 +121,14 @@ function Sidebar(props) {
     );
   };
 
+  const subItemRoutes = [
+    '/share-of-search',
+    '/sales',
+    '/traffic-reporting',
+    '/target-and-search'
+  ];
+
+
   return (
     <>
       <MiniSidebar />
@@ -143,26 +151,23 @@ function Sidebar(props) {
           renderView={renderView}
           style={{ paddingTop: "1rem" }}
         >
-          {/* {renderRoutes(routes)} */}
-        <DummyList
-           collapsed={collapsed}
-           isDummyListOpen={isDummyList2Open}
-           setIsDummyListOpen={setIsDummyList2Open}
-           dummyName="AI-driven Automation"
-           subItems={["Create New Script", "Scripts"]}
-           subItemPaths={[
-             "/admin/automation", // Add the path for "Create New Script" subitem
-             null, // You can set this to the path for "Scripts" if needed
-           ]}
-           textColor={textColor}
-         />
-
+          {/* DummyLists */}
+          <DummyList
+            collapsed={collapsed}
+            isDummyListOpen={isDummyList2Open}
+            setIsDummyListOpen={setIsDummyList2Open}
+            dummyName="AI-driven Automation"
+            subItems={["Create New Script", "Scripts"]}
+            subItemRoutes={["/create-new-script", "/scripts"]} // Add subItemRoutes
+            textColor={textColor}
+          />
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList1Open}
             setIsDummyListOpen={setIsDummyList1Open}
             dummyName="Intelligence"
-            subItems={["Search Insights", "Sales", "Traffic Reporting","Target & Search"]}
+            subItems={["Share of Search", "Sales", "Traffic Reporting","Target & Search"]}
+            subItemRoutes={["/share-of-search", "/sales", "/traffic-reporting", "/target-and-search"]} // Add subItemRoutes
           />
           <DummyList
             collapsed={collapsed}
@@ -170,6 +175,7 @@ function Sidebar(props) {
             setIsDummyListOpen={setIsDummyList3Open}
             dummyName="Market Insights"
             subItems={["Business Insights", "Product", "Traffic"]}
+            subItemRoutes={["/business-insights", "/product", "/traffic"]} // Add subItemRoutes
           />
           <DummyList
             collapsed={collapsed}
@@ -177,9 +183,12 @@ function Sidebar(props) {
             setIsDummyListOpen={setIsDummyList4Open}
             dummyName="Sponsored Solution"
             subItems={["Sponsored Search", "Sponsored Discovery","Affiliate"]}
+            subItemRoutes={["/sponsored-search", "/sponsored-discovery", "/affiliate"]} // Add subItemRoutes
           />
 
-<Popover placement="right-start">
+
+
+            <Popover placement="right-start">
           <PopoverTrigger>{renderHelpSection()}</PopoverTrigger>
           <PopoverContent>
             <PopoverArrow />

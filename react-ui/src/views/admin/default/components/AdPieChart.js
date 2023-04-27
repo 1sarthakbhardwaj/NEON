@@ -65,7 +65,7 @@ const AdPieChart = ({ filteredData }) => {
   
 
   return (
-    <VStack mt={8} spacing={4} alignItems="center">
+    <VStack mt={2} spacing={5} alignItems="center">
       <Select
         width="50%"
         value={selectedMetric}

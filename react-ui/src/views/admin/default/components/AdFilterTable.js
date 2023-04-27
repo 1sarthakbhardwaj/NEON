@@ -24,21 +24,22 @@ const AdFilterTable = ({ filteredData }) => {
   };
 
   return (
-    <Box mt={300} mr={4} p={4} boxShadow="lg" bg="white" borderRadius="md">
-      <Table variant="striped" colorScheme="gray" fontSize="sm">
-        <Thead>
+    <Box mt={4} p={4} boxShadow="lg" bg="white" borderRadius="md" maxW="900px">
+      <Table variant="striped" colorScheme="gray" fontSize="sm"  >
+      <Thead>
         <Tr>
-            <Th className="adTypeColumn">Ads Types</Th>
-            <Th className="valueColumn">Impressions</Th>
-            <Th className="valueColumn">Clicks</Th>
-            <Th className="valueColumn">Conversions</Th>
-            <Th className="valueColumn">GMV</Th>
-            <Th className="valueColumn">Expense</Th>
-            <Th className="ctrColumn">CTR</Th>
-            <Th className="valueColumn">CPC</Th>
-            <Th className="valueColumn">ROAS</Th>
-          </Tr>
-        </Thead>
+          <Th minW="80px" maxW="80px" fontSize="10px">Ads Types</Th>
+          <Th minW="100px" maxW="100px" fontSize="10px">Impressions</Th>
+          <Th minW="60px" maxW="90px" fontSize="10px">Clicks</Th>
+          <Th minW="100px" maxW="100px" fontSize="10px">Orders</Th>
+          <Th minW="20px" maxW="20px" fontSize="10px">GMV</Th>
+          <Th minW="100px" maxW="100px" fontSize="10px">Expense</Th>
+          <Th minW="20px" maxW="20px" fontSize="10px">CTR</Th>
+          <Th minW="40px" maxW="40px" fontSize="10px">CPC</Th>
+          <Th minW="40px" maxW="40px" fontSize="10px">ROAS</Th>
+        </Tr>
+      </Thead>
+
         <Tbody>
           {adTypes.map((adType) => {
             const impressions = calculateAggregate(adType, 'Impression');

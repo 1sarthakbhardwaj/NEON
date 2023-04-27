@@ -1,7 +1,8 @@
 import React from "react";
 import { MdBarChart, MdOutlineArrowDropDown, MdHome } from "react-icons/md";
 import { Box, Flex, VStack, Collapse, useColorModeValue } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+
 
 const DummyList = ({
   collapsed,
@@ -9,22 +10,14 @@ const DummyList = ({
   setIsDummyListOpen,
   dummyName,
   subItems,
-  subItemPaths, // Add subItemPaths prop here
+  subItemRoutes, // Add this new prop
 }) => {
   const textColor = "#FFFFFF";
   const hoverColor = useColorModeValue("blue.500", "blue.200");
-  const history = useHistory(); // Define history variable using the useHistory hook
 
   const handleToggle = () => {
     setIsDummyListOpen(!isDummyListOpen);
   };
-
-  const handleSubItemClick = (path) => {
-    if (path) {
-      history.push(path);
-    }
-  };
-
 
   return (
     <VStack align="start" spacing={1}>
@@ -53,20 +46,21 @@ const DummyList = ({
       <Collapse in={isDummyListOpen}>
         <VStack align="start" spacing={1} ml={collapsed ? 4 : 8}>
           {subItems.map((subItem, index) => (
-            <Flex
-              key={index}
-              alignItems="center"
-              py={3}
-              px={collapsed ? 3 : 4}
-              color="gray.400"
-              _hover={{ color: hoverColor }}
-              onClick={() => handleSubItemClick(subItemPaths[index])} 
-              cursor="pointer"
-        >
-              <Box fontWeight="light" fontSize="sm" color={textColor}>
-                {subItem}
-              </Box>
-            </Flex>
+            <NavLink key={index} to={subItemRoutes[index]} activeClassName="active-link">
+
+              <Flex
+                alignItems="center"
+                py={3}
+                px={collapsed ? 3 : 4}
+                color="gray.400"
+                cursor="pointer" // Add cursor:pointer
+                _hover={{ color: hoverColor }}
+              >
+                <Box fontWeight="light" fontSize="sm" color={textColor}>
+                  {subItem}
+                </Box>
+              </Flex>
+            </NavLink>
           ))}
         </VStack>
       </Collapse>
