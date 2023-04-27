@@ -9,7 +9,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "theme/theme";
 import { AuthProvider } from "./auth-context/auth.context";
 import { ProtectedRoute } from "./layouts/protected.route.js";
-import Share_of_search from "./components/sidebar/components/Share_of_search";
 
 let user = localStorage.getItem("user");
 user = JSON.parse(user);
@@ -22,7 +21,6 @@ ReactDOM.render(
             <Route path={`/auth`} component={AuthLayout} />
             <ProtectedRoute path={`/admin`} component={AdminLayout} />
             <ProtectedRoute path={`/rtl`} component={RTLLayout} />
-            <Route path="/share-of-search" component={Share_of_search} />
             <Redirect from='/' to='/admin/dashboards' />
           </Switch>
         </HashRouter>
