@@ -2,6 +2,7 @@ import React from "react";
 import { MdBarChart, MdOutlineArrowDropDown, MdHome } from "react-icons/md";
 import { Box, Flex, VStack, Collapse, useColorModeValue } from "@chakra-ui/react";
 import { NavLink } from 'react-router-dom';
+import { SpinnerIcon } from '@chakra-ui/icons'
 
 
 const DummyList = ({
@@ -10,7 +11,8 @@ const DummyList = ({
   setIsDummyListOpen,
   dummyName,
   subItems,
-  subItemRoutes, // Add this new prop
+  subItemRoutes,
+  icon // Add this new prop
 }) => {
   const textColor = "#FFFFFF";
   const hoverColor = useColorModeValue("blue.500", "blue.200");
@@ -30,7 +32,7 @@ const DummyList = ({
         color="#FFFFFF"
         _hover={{ color: hoverColor }}
       >
-        <MdHome />
+       {icon}
         {!collapsed && (
           <Box ml={5} fontWeight="light" fontSize="sm" color={textColor}>
             {dummyName}

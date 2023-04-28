@@ -14,7 +14,7 @@ import AdFilterTable from "./AdFilterTable";
 import AdPieChart from './AdPieChart';
 import { Text } from "@chakra-ui/react";
 import ProductTable from './ProductTable';
-import DigitalShelfAnalysisTable from '../../../../components/sidebar/components/Digital-Shelf-Analysis_table';
+
 
 
 

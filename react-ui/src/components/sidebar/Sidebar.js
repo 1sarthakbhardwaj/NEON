@@ -1,14 +1,9 @@
-import "./components/sidebar.css";
-import React, { useState } from "react";
-import MiniSidebar from "./MiniSidebar";
-import CollapseButton from "./components/CollapseButton";
-import DummyList from "./components/DummyList";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Box,
-  Flex,
-  useColorModeValue,
-  Collapse,
   VStack,
+  Flex,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -16,7 +11,17 @@ import {
   PopoverCloseButton,
   PopoverHeader,
   PopoverBody,
-} from "@chakra-ui/react";
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  useDisclosure,
+  useColorModeValue,
+} from '@chakra-ui/react';
+
+import MiniSidebar from './MiniSidebar';
 import { NavLink } from "react-router-dom";
 import {
   renderThumb,
@@ -24,10 +29,12 @@ import {
   renderView,
 } from "components/scrollbar/Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars-2";
-import PropTypes from "prop-types";
-import { FiMenu } from "react-icons/fi";
 import { BiHelpCircle } from "react-icons/bi";
+import { FaRobot, FaBrain, FaChartBar, FaAd } from 'react-icons/fa';
+
 import { AiOutlineQuestionCircle, AiOutlineMessage, AiOutlineFileText, AiOutlineArrowRight } from 'react-icons/ai';
+import DummyList from './components/DummyList';
+
 
 
 
@@ -123,10 +130,22 @@ function Sidebar(props) {
 
   const subItemRoutes = [
     '/share-of-search',
+    '/Digital_Shelf_Analysis_table',
     '/sales',
     '/traffic-reporting',
     '/target-and-search'
   ];
+
+  const openChatSupport = () => {
+    chatSupportDisclosure.onOpen();
+  };
+  
+  const openHelpCenter = () => {
+    helpCenterDisclosure.onOpen();
+  };
+  
+  const chatSupportDisclosure = useDisclosure();
+  const helpCenterDisclosure = useDisclosure();
 
 
   return (
@@ -157,8 +176,9 @@ function Sidebar(props) {
             isDummyListOpen={isDummyList2Open}
             setIsDummyListOpen={setIsDummyList2Open}
             dummyName="AI-driven Automation"
+            icon={<FaRobot />}
             subItems={["Create New Script", "Scripts"]}
-            subItemRoutes={["/admin/automation", "/scripts"]} // Add subItemRoutes
+            subItemRoutes={["/admin/CreateNewScript", "/scripts"]} // Add subItemRoutes
             textColor={textColor}
           />
           <DummyList
@@ -166,14 +186,16 @@ function Sidebar(props) {
             isDummyListOpen={isDummyList1Open}
             setIsDummyListOpen={setIsDummyList1Open}
             dummyName="Intelligence"
-            subItems={["Share of Search", "Sales", "Traffic Reporting","Target & Search"]}
-            subItemRoutes={["/admin/Share_of_search", "/sales", "/traffic-reporting", "/target-and-search"]} // Add subItemRoutes
+            icon={<FaBrain />}
+            subItems={["Share of Search", "Digital Shelf Analysis", "Sales", "Traffic Reporting","Target & Search"]}
+            subItemRoutes={["/admin/Share_of_search","/admin/Digital_Shelf_Analysis_table", "/sales", "/traffic-reporting", "/target-and-search"]} // Add subItemRoutes
           />
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList3Open}
             setIsDummyListOpen={setIsDummyList3Open}
             dummyName="Market Insights"
+            icon={<FaChartBar />}
             subItems={["Business Insights", "Product", "Traffic"]}
             subItemRoutes={["/business-insights", "/product", "/traffic"]} // Add subItemRoutes
           />
@@ -182,84 +204,57 @@ function Sidebar(props) {
             isDummyListOpen={isDummyList4Open}
             setIsDummyListOpen={setIsDummyList4Open}
             dummyName="Sponsored Solution"
+            icon={<FaAd />}
             subItems={["Sponsored Search", "Sponsored Discovery","Affiliate"]}
             subItemRoutes={["/sponsored-search", "/sponsored-discovery", "/affiliate"]} // Add subItemRoutes
           />
-
-
-
-            <Popover placement="right-start">
-          <PopoverTrigger>{renderHelpSection()}</PopoverTrigger>
-          <PopoverContent>
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverHeader>Help</PopoverHeader>
-            <PopoverBody>
-              <VStack align="start" spacing={1}>
-                <Flex alignItems="center" py={2}>
-                  <Box fontWeight="light" fontSize="sm" color="gray.700">
-                    Chat Support
-                  </Box>
-                </Flex>
-                <Flex alignItems="center" py={2}>
-                  <Box fontWeight="light" fontSize="sm" color="gray.700">
-                    Help Center
-                  </Box>
-                </Flex>
-              </VStack>
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
-
-<CollapseButton
-            isCollapsed={collapsed}
-            toggleSidebar={handleCollapse}
-          />
-        </Scrollbars>
-        <VStack
-          position="absolute"
-          bottom="20px"
-          spacing={4}
-          onClick={toggleHelpPopup}
-        >
-          <Flex alignItems="center">
-          <Box as={AiOutlineQuestionCircle} w="24px" h="24px" />
-          
-            {!collapsed && (
-              <Box fontSize="sm" ml={2}>
-                Help
-              </Box>
-            )}
-            {!collapsed && (
-              <Box ml={2}>
-                <AiOutlineArrowRight />
-              </Box>
-            )}
-          </Flex>
-        </VStack>
-        <Collapse in={isHelpPopupOpen} style={{ position: "absolute", bottom: "60px", right: "5px" }}>
-          <VStack
-            bg={sidebarBg}
-            boxShadow={shadow}
-            p={4}
-            spacing={4}
-            borderRadius="md"
-            textAlign="left"
-          >
-            <Flex alignItems="center" color={textColor}>
-              <AiOutlineMessage />
-              <Box ml={2}>Chat Support</Box>
-            </Flex>
-            <Flex alignItems="center" color={textColor}>
-              <AiOutlineFileText />
-              <Box ml={2}>Help Center</Box>
-            </Flex>
-          </VStack>
-        </Collapse>
+           </Scrollbars>
       </Box>
+
+      <Popover placement="right-start">
+        <PopoverTrigger>{renderHelpSection()}</PopoverTrigger>
+        <PopoverContent>
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverHeader>Help</PopoverHeader>
+          <PopoverBody>
+            <VStack align="start" spacing={1}>
+              <Flex alignItems="center" py={2} onClick={openChatSupport}>
+                <Box fontWeight="light" fontSize="sm" color="gray.700">
+                  Chat Support
+                </Box>
+              </Flex>
+              <Flex alignItems="center" py={2} onClick={openHelpCenter}>
+                <Box fontWeight="light" fontSize="sm" color="gray.700">
+                  Help Center
+                </Box>
+              </Flex>
+            </VStack>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+
+      <Modal isOpen={chatSupportDisclosure.isOpen} onClose={chatSupportDisclosure.onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Chat Support</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>{/* Chat Support content goes here */}</ModalBody>
+        </ModalContent>
+      </Modal>
+
+      <Modal isOpen={helpCenterDisclosure.isOpen} onClose={helpCenterDisclosure.onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Help Center</ModalHeader>
+          <ModalCloseButton />
+         
+        </ModalContent>
+      </Modal>
+    
     </>
   );
-}
+};
 
 Sidebar.propTypes = {
   logoText: PropTypes.string,

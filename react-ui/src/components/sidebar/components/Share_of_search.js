@@ -368,37 +368,37 @@ const getBarColor = (name) => {
 const DigitalShelfAnalysisTable = () => {
   return (
     <>
-      <Flex mt={5} justifyContent="space-between" alignItems="center">
-        <Select placeholder="Select a Retailer" maxWidth="200px">
-          <option value="amazon">Amazon</option>
-          <option value="walmart">Walmart</option>
-          <option value="shopee">Shopee</option>
-          <option value="lazada">Lazada</option>
-        </Select>
-        <Select placeholder="Select an Option" maxWidth="300px">
-          <option value="keyword">Keyword or Phrase</option>
-          <option value="search_url">Search URL (from Retailer website)</option>
-        </Select>
-        <Input placeholder="Type here" maxWidth="300px" />
-        <Button
-          bgGradient="linear(to-r, blue.500, green.500)"
-          borderRadius="md"
-          color="white"
-        >
-          Submit
-        </Button>
-      </Flex>
-
-      
-      
-      <VStack spacing={2}>
-        <HStack spacing={5}>
-          <Flex
-            width="100%"
-            alignItems="stretch"
-            justifyContent="space-between"
+      <Box mt={5} p={5} boxShadow="lg" bg="white" borderRadius="md" maxW="1200px">
+      <Flex mt={100} ml={50} justifyContent="space-between" alignItems="center">
+          <Select placeholder="Select a Retailer" maxWidth="200px">
+            <option value="amazon">Amazon</option>
+            <option value="walmart">Walmart</option>
+            <option value="shopee">Shopee</option>
+            <option value="lazada">Lazada</option>
+          </Select>
+          <Select placeholder="Select an Option" maxWidth="300px">
+            <option value="keyword">Keyword or Phrase</option>
+            <option value="search_url">Search URL (from Retailer website)</option>
+          </Select>
+          <Input placeholder="Type here" maxWidth="300px" />
+          <Button
+            bgGradient="linear(to-r, blue.500, blue.200)"
+            borderRadius="md"
+            color="white"
           >
-            <Box width="33%" minW="25%" height="60%">
+            Submit
+          </Button>
+        </Flex>
+      </Box>
+      
+      <Box mt={5} p={5} boxShadow="lg" bg="white" borderRadius="md" maxW="1200px">
+        <VStack mt={5} spacing={5}>
+          <HStack spacing={5} w="100%">
+            <Box flex="1" height="60%">
+            <VStack alignItems="center">
+            <Text fontSize="lg" fontWeight="bold">Page 1</Text>
+            <Text fontSize="sm" color="gray.500">Share of Search</Text>
+          </VStack>
               <Box
                 height="100%"
                 borderWidth="1px"
@@ -406,112 +406,138 @@ const DigitalShelfAnalysisTable = () => {
                 borderRadius="md"
                 overflow="hidden"
               >
-                <BarChart width={600} height={300} layout="vertical" data={data1}>
-                  <Bar dataKey="value" radius={[5, 5, 0, 0]}>
-                    {data1.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={getBarColor(entry.name)}
-                      />
-                    ))}
-                  </Bar>
-                  <XAxis type="number" />
-                  <YAxis dataKey="name" type="category" />
-                  <Tooltip />
-                </BarChart>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart layout="vertical" data={data1}>
+                  <Bar dataKey="value" radius={[0, 5, 5, 0]} activeDot={false}>
+                      {data1.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={getBarColor(entry.name)}
+                        />
+                      ))}
+                    </Bar>
+                    <XAxis type="number" />
+                    <YAxis dataKey="name" type="category" />
+                    {/* <Tooltip content={<CustomTooltip />} /> */}
+                  </BarChart>
+                </ResponsiveContainer>
               </Box>
             </Box>
-            <Box width="33%" minW="25%" height="60%">
+            <Box flex="1" height="60%">
+            <VStack alignItems="center">
+              <Text fontSize="lg" fontWeight="bold">Top 10</Text>
+              <Text fontSize="sm" color="gray.500">Share of Search</Text>
+            </VStack>
               <Box
                 height="100%"
                 borderWidth="1px"
-                borderColor="gray.200"
+                borderColor="gray.300"
                 borderRadius="md"
                 overflow="hidden"
               >
-                <BarChart width={600} height={300} layout="vertical" data={data2}>
-                  <Bar dataKey="value" radius={[5, 5, 0, 0]}>
-                    {data2.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={getBarColor(entry.name)}
-                      />
-                    ))}
-                  </Bar>
-                  <XAxis type="number" />
-                  <YAxis dataKey="name" type="category" />
-                  <Tooltip />
-                </BarChart>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart layout="vertical" data={data2}>
+                  <Bar dataKey="value" radius={[0, 5, 5, 0]} activeDot={false}>
+                      {data2.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={getBarColor(entry.name)}
+                        />
+                      ))}
+                    </Bar>
+                    <XAxis type="number" />
+                    <YAxis dataKey="name" type="category" />
+                    {/* <CustomTooltip /> */}
+                  </BarChart>
+                  </ResponsiveContainer>
               </Box>
             </Box>
-            <Box width="33%" minW="25%" height="60%">
+            <Box flex="1" height="60%">
+            <VStack alignItems="center">
+            <Text fontSize="lg" fontWeight="bold">Top 5</Text>
+            <Text fontSize="sm" color="gray.500">Share of Search</Text>
+          </VStack>
               <Box
                 height="100%"
                 borderWidth="1px"
-                borderColor="gray.200"
+                borderColor="gray.300"
                 borderRadius="md"
                 overflow="hidden"
               >
-                <BarChart width={600} height={300} layout="vertical" data={data3}>
-                  <Bar dataKey="value" radius={[5, 5, 0, 0]}>
-                    {data3.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={getBarColor(entry.name)}
-                      />
-                    ))}
-                  </Bar>
-                  <XAxis type="number" />
-                  <YAxis dataKey="name" type="category" />
-                  <Tooltip />
-                </BarChart>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart layout="vertical" data={data3}>
+                  <Bar dataKey="value" radius={[0, 5, 5, 0]} activeDot={false}>
+                      {data3.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={getBarColor(entry.name)}
+                        />
+                      ))}
+                    </Bar>
+                    <XAxis type="number" />
+                    <YAxis dataKey="name" type="category" />
+                    {/* <CustomTooltip /> */}
+                  </BarChart>
+                </ResponsiveContainer>
               </Box>
             </Box>
-          </Flex>
-        </HStack>
-      </VStack>
+          </HStack>
+        </VStack>
+      </Box>
       
-      <Box mt={10} p={2} boxShadow="lg" bg="white" borderRadius="md" maxW="1200px">
+<Box
+  mt={10}
+  mb={10}
+  p={2}
+  boxShadow="lg"
+  bg="white"
+  borderRadius="md"
+  maxW="1200px"
+  overflowX="auto"
+>
   <Table variant="striped" colorScheme="gray" fontSize="sm">
     <Thead>
       <Tr>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Page</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Rank</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Paid</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Badge</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Brand</Th>
-        <Th style={{ minWidth: "90px", maxWidth: "90px" }}>Product ID</Th>
-        <Th style={{ minWidth: "120px", maxWidth: "120px" }}>Title</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>Rating</Th>
-        <Th style={{ minWidth: "100px", maxWidth: "100px" }}>MSRP</Th>
-        <Th style={{ minWidth: "90px", maxWidth: "90px" }}>Sale Price</Th>
-        <Th style={{ minWidth: "90px", maxWidth: "90px" }}>Availability</Th>
-        <Th style={{ minWidth: "120px", maxWidth: "120px" }}>Shipping Option</Th>
+        <Th width="50px">Page</Th>
+        <Th width="50px">Rank</Th>
+        <Th width="50px">Paid</Th>
+        <Th width="150px">Badge</Th>
+        <Th width="100px">Brand</Th>
+        <Th width="120px">Product ID</Th>
+        <Th width="350px">Title</Th>
+        <Th width="70px">Rating</Th>
+        {/* <Th width="90px">MSRP</Th> */}
+        <Th width="90px">Sale Price</Th>
+        {/* <Th width="110px">Availability</Th>
+        <Th width="150px">Shipping Option</Th> */}
       </Tr>
     </Thead>
     <Tbody>
       {data.map((item, index) => (
         <Tr key={index}>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Page}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Rank}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Paid}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Badge}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Brand}</Td>
-          <Td style={{ minWidth: "90px", maxWidth: "90px" }}>{item.Product_ID}</Td>
-          <Td style={{ minWidth: "120px", maxWidth: "120px" }}>{item.Title}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.Rating}</Td>
-          <Td style={{ minWidth: "100px", maxWidth: "100px" }}>{item.MSRP}</Td>
-          <Td style={{ minWidth: "90px", maxWidth: "90px" }}>{item.Sale_Price}</Td>
-          <Td style={{ minWidth: "90px", maxWidth: "90px" }}>{item.Availability}</Td>
-          <Td style={{ minWidth: "120px", maxWidth: "120px" }}>{item.Shipping_Option}</Td>
+          <Td width="50px">{item.Page}</Td>
+          <Td width="50px">{item.Rank}</Td>
+          <Td width="50px">{item.Paid}</Td>
+          <Td width="150px">{item.Badge}</Td>
+          <Td width="100px">{item.Brand}</Td>
+          <Td width="120px">{item.Product_ID}</Td>
+          <Td width="350px">{item.Title}</Td>
+          <Td width="70px">{item.Rating}</Td>
+          {/* <Td width="90px">{item.MSRP}</Td> */}
+          <Td width="90px">{item.Sale_Price}</Td>
+          {/* <Td width="110px">{item.Availability}</Td>
+          <Td width="150px">{item.Shipping_Option}</Td> */}
         </Tr>
       ))}
     </Tbody>
   </Table>
 </Box>
 
+
+
+
     </>
   );
 };
-
+  
 export default DigitalShelfAnalysisTable;
