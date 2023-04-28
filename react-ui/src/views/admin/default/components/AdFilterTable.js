@@ -29,14 +29,14 @@ const AdFilterTable = ({ filteredData }) => {
       <Thead>
         <Tr>
           <Th minW="80px" maxW="80px" fontSize="10px">Ads Types</Th>
-          <Th minW="100px" maxW="100px" fontSize="10px">Impressions</Th>
+          <Th minW="100px" maxW="150px" fontSize="10px">Impressions</Th>
           <Th minW="60px" maxW="90px" fontSize="10px">Clicks</Th>
           <Th minW="100px" maxW="100px" fontSize="10px">Orders</Th>
           <Th minW="20px" maxW="20px" fontSize="10px">GMV</Th>
           <Th minW="100px" maxW="100px" fontSize="10px">Expense</Th>
-          <Th minW="20px" maxW="20px" fontSize="10px">CTR</Th>
-          <Th minW="40px" maxW="40px" fontSize="10px">CPC</Th>
-          <Th minW="40px" maxW="40px" fontSize="10px">ROAS</Th>
+          <Th minW="20px" maxW="90px" fontSize="10px">CTR</Th>
+          <Th minW="40px" maxW="90px" fontSize="10px">CPC</Th>
+          <Th minW="40px" maxW="90px" fontSize="10px">ROAS</Th>
         </Tr>
       </Thead>
 

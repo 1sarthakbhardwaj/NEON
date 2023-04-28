@@ -21,6 +21,8 @@ import NFTMarketplace from "views/admin/marketplace";
 // Auth Imports
 // import SignInCentered from "views/auth/signIn";
 import SignIn from "views/auth/signIn/index.jsx";
+import Share_of_search from "./components/sidebar/components/Share_of_search";
+
 import SignUp from "views/auth/signUp/index.jsx";
 
 const routes = [
@@ -46,6 +48,22 @@ const routes = [
     component: NFTMarketplace,
     secondary: true,
   },
+  {
+    name: "Share_of_search",
+    layout: "/admin",
+    path: "/Share_of_search",
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width='20px'
+        height='20px'
+        color='inherit'
+      />
+    ),
+    component: Share_of_search,
+    secondary: true,
+  },
+  
   {
     name: "Onboard",
     layout: "/admin",
