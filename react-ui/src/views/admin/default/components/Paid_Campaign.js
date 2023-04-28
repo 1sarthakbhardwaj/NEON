@@ -1,7 +1,10 @@
 import { Avatar, Box, Flex, FormLabel, Icon, Select, SimpleGrid, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, HStack, VStack } from "@chakra-ui/react";
 import ClickableMiniStatistics from 'components/card/ClickableMiniStatistics';
 import { LineChart, Line, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import React, { useState, useEffect, useRef } from 'react';
+
+import {
+  MdAddTask,  MdAttachMoney,  MdBarChart,  MdFileCopy,} from "react-icons/md";
+import React, { useState, useEffect, useRef  } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { renderLineComponents, createLegendPayload, formatChartData, CustomTooltip, getSettings, generateIconBox } from "./PaidCampaignUtils";
 import PaidCampaignData from '../variables/Paid_Campaign.json';
@@ -89,23 +92,81 @@ const handleMetricSelection = (metricName) => {
   }
 };
 
-const formatTooltipValue = (payload, metricName) => {
-  const metric = payload.find((p) => p.name === metricName);
-  if (!metric) return "";
-  if (metricName === "Date") {
-    const date = new Date(metric.value);
-    const day = date.getDate();
-    const month = date.toLocaleString("default", { month: "short" });
-    return `${day} ${month}`;
-  }
-  if (metricName === "Expense" || metricName === "GMV") {
-    return formatCurrency(metric.value);
-  }
-  if (metricName === "CTR" || metricName === "CR") {
-    return `${(metric.value * 100).toFixed(2)}%`;
-  }
-  return formatNumber(metric.value);
-};
+  
+
+  {/* CustomTooltip */}
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p className="label" style={{ fontSize: "12px", color: {brandColor} }}>
+            {`Date: ${label}`}
+          </p>
+          {selectedMetrics.map((metric) => (
+            <p
+              key={metric}
+              className="metric"
+              style={{ fontSize: "12px", color: metricColor[metric] }}
+            >
+              {`${metric}: ${formatTooltipValue(payload, metric)}`}
+            </p>
+          ))}
+        </div>
+      );
+    }
+  
+    return null;
+  };
+  
+  const formatTooltipValue = (payload, metricName) => {
+    const metric = payload.find((p) => p.name === metricName);
+  
+    if (!metric) {
+      return "";
+    }
+  
+    if (metricName === "Date") {
+      const date = new Date(metric.value);
+      const day = date.getDate();
+      const month = date.toLocaleString("default", { month: "short" });
+      return `${day} ${month}`;
+    }
+  
+    if (metricName === "Expense" || metricName === "GMV") {
+      return formatCurrency(metric.value);
+    }
+  
+    if (metricName === "CTR" || metricName === "CR") {
+      return `${(metric.value * 100).toFixed(2)}%`;
+    }
+  
+    return formatNumber(metric.value);
+  };
+  
+  
+  const metricColor = {
+    Impression: "#ff0000",
+    Clicks: "#8884d8",
+    Conversions: "#82ca9d",
+    "Items Sold": "#a67f00",
+    GMV: "#e91e63",
+    Expense: "#f44336",
+    
+  };
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const [selectedValue, setSelectedValue] = useState('GMV');
+  const calculateExpensesByType = (valueType) => {
+    const types = {};
+    filteredData.forEach((entry) => {
+      if (!types[entry.Type]) {
+        types[entry.Type] = parseFloat(entry[valueType]);
+      } else {
+        types[entry.Type] += parseFloat(entry[valueType]);
+      }
+    });
+    return Object.keys(types).map((type) => ({ name: type, value: types[type] }));
+  };
+  
 
 const metricColor = {
   Impression: "#ff0000",
@@ -192,7 +253,7 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
       </Text>
 
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4, '2xl': 6 }} gap="20px" mb="10px">
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }} gap="20px" mb="px">
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Impression')}          
             name="Impressions"
@@ -237,13 +298,41 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
             style={{ textAlign: 'center' }}
           />
           
-          <ClickableMiniStatistics
-            onClick={() => handleMetricSelection('ROAS')}            
-            name="ROAS"
-            value={ROAS.toFixed(2)}
-            style={{ textAlign: 'center' }}
-          />         
-
+          startContent={
+          <IconBox
+            w="56px"
+            h="56px"
+            
+            
+          />
+          }
+          name="CTR(%)"
+          value={CTR.toFixed(2)}
+          />
+          <MiniStatistics
+          startContent={
+          <IconBox
+            w="56px"
+            h="56px"
+            bg={boxBg}
+            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
+          />
+          }
+          name="CR"
+          value={CR.toFixed(2)}
+          />
+          <MiniStatistics
+          startContent={
+          <IconBox
+            w="40px"
+            h="40px"
+            bg={boxBg}
+            icon={<Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />}
+          />
+          }
+          name="ROAS"
+          value={ROAS.toFixed(2)}
+          />
         </SimpleGrid>
       </Box>
 
@@ -291,222 +380,140 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
             position="insideLeft" // Position the label inside the left Y-axis
             offset={-20} // Adjust the offset to place the label correctly
             style={{
-              fontSize: "16px",
-              fontWeight: "500",
-              color: "#A3AED0",
-              textAnchor: "middle",
-            }}
-          /> 
-      </YAxis>
-    
-    <YAxis
-      yAxisId="right"
-      orientation="right"
-      tickFormatter={(tick) => tick.toLocaleString()}
-      tickInterval={Math.max(...selectedMetrics.map((metric) => getSettings(metric, selectedMetrics).stepSize)) / 2}
-    >
-          <Label
-        value={selectedMetrics[1]} // This will display the name of the selected metric
-        angle={-90} // Rotate the label by 90 degrees
-        position="insideRight" // Position the label inside the left Y-axis
-        offset={-10} // Adjust the offset to place the label correctly
-        style={{
-          fontSize: "16px",
-          fontWeight: "500",
-          color: "#A3AED0",
-          textAnchor: "middle",
-        }}
-      /> 
-      </YAxis>
-
-
-    <Tooltip
-    content={
-      <CustomTooltip
-        selectedMetrics={selectedMetrics}
-        brandColor={brandColor}
-        metricColor={metricColor}
-        formatTooltipValue={formatTooltipValue} // Pass the existing formatTooltipValue function from the CustomTooltip component
-      />
-    }
-  />
-      <Legend />
-      {renderLineComponents(selectedMetrics)}
-    </LineChart>
-    </ResponsiveContainer>
-    <Tooltip />
-
-   {/*Piechart*/}
-<Text
-  fontSize="xl"
-  fontWeight="bold"
-  textAlign="left"
-  mt="40px" // Adjust this value to reduce the gap above the text
-  mb="-45px" // Adjust this value to reduce the gap below the text
-  ml={5}
->
-  Performance by Ad type
-</Text>
-
-<Box
-  width="100%"
-  minW="75%"
-  pt="-60px" // Adjust this value to reduce the padding above the content inside the box
-  height="500px"
-  backgroundColor="white"
-  borderRadius="xl"
->
-  <VStack spacing={6}>
-    <ResponsiveContainer width="100%" height={500}>
-      <HStack spacing={5}>
-        <Flex
-          width="100%"
-          alignItems="stretch"
-          justifyContent="space-between"
-        >
-          <Box width="40%" minW="25%" height="60%">
-            <Box
-              height="100%"
-              borderWidth="1px"
-              borderColor="gray.300"
-              borderRadius="md"
-              overflow="hidden"
+            fontSize: "12px",
+            fontWeight: "500",
+                color: "#A3AED0"
+              }}
+              tickFormatter={(tick) => {
+                const date = new Date(tick);
+                const day = date.getDate();
+                const month = date.toLocaleString("default", { month: "short" });
+                return `${day} ${month}`;
+              }}
+            />
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            tick={false}
+            scale="auto" 
+            />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend />
+          {selectedMetrics.includes('Impression') && (
+            <Line
+              type="monotone"
+              
+              dataKey="Impression"
+              stroke="#ff0000"
+              strokeWidth={3}
+              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
+              activeDot={{ r: 8 }}
+              name="Impression"
+              legendType="line"
+              
             >
-              <AdPieChart filteredData={filteredData} />
-            </Box>
-          </Box>
-          <Box width="60%" minW="25%" height="100%">
-            <Box
-              height="80%"
-              borderWidth="1px"
-              borderColor="gray.300"
-              borderRadius="md"
-              overflow="hidden"
+            <Label
+             value="Impression"
+             position="top"
+             dy={-10}
+             dx={-5}
+             style={{ fontSize: "12px", border: "none" }}
+            />
+            </Line>
+          )}
+          {selectedMetrics.includes('Clicks') && (
+            <Line
+              type="monotone"
+              dataKey="Clicks"
+              stroke="#8884d8"
+              strokeWidth={3}
+              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
+              activeDot={{ r: 8 }}
+            />
+          )}
+          {selectedMetrics.includes('Conversions') && (
+            <Line
+              type="monotone"
+              dataKey="Conversions"
+              stroke="#8884d8"
+              strokeWidth={3}
+              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
+              activeDot={{ r: 8 }}
+            />
+          )}
+          {selectedMetrics.includes('Items Sold') && (
+            <Line
+              type="monotone"
+              dataKey="Items Sold"
+              stroke="#8884d8"
+              strokeWidth={3}
+              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
+              activeDot={{ r: 8 }}
+            />
+          )}
+          {selectedMetrics.includes('GMV') && (
+            <Line
+              type="monotone"
+              dataKey="GMV"
+              stroke="#8884d8"
+              strokeWidth={3}
+              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
+              activeDot={{ r: 8 }}
+            />
+          )}
+          {selectedMetrics.includes('Expense') && (
+            <Line
+              type="monotone"
+              dataKey="Expense"
+              stroke="#8884d8"
+              strokeWidth={3}
+              dot={{ r: 2, fill: "white", stroke: "#ff0000", strokeWidth: 2 }}
+              activeDot={{ r: 8 }}
+            />
+          )}
+          {/* Add other lines for the remaining metrics */}
+          </LineChart>
+        </ResponsiveContainer>
+        <Tooltip />
+        </Box>
+
+      
+      <Box width="100%" minW='75%' pt="40px" height="400px"backgroundColor="white"  borderRadius="xl" >
+      <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie
+              data={calculateExpensesByType ()}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              fill="#8884d8"
+              label
             >
-              <AdFilterTable filteredData={filteredData} />
-            </Box>
-          </Box>
-        </Flex>
-      </HStack>
-    </ResponsiveContainer>
-  </VStack>
-</Box>
-
-
-
-        {/*Performance by SKU*/}
-
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          textAlign="left"
-          mt="50px" // Adjust this value to reduce the gap above the text
-          mb="-55px" // Adjust this value to reduce the gap below the text
-          ml={5}
-        >
-        Performance by SKU
-      </Text>
-
-          <Box
-            width="100%"
-            minW="75%"
-            pt="-40px" // Adjust this value to reduce the padding above the content inside the box
-            height="1000px"
-            backgroundColor="white"
-            borderRadius="xl"
-          >
-            <VStack spacing={6}>
-              <ResponsiveContainer width="100%" height={20}>
-                <HStack spacing={5}>
-                  <Box width="100%" minW="25%" pt="10px" height="80px">
-                    <Box
-                      borderWidth="0px"
-                      borderColor="gray.300"
-                      borderRadius="md"
-                      overflow="hidden"
-                    >
-                      <ProductTable data={filteredData} />
-                    </Box>
-                  </Box>
-                </HStack>
-              </ResponsiveContainer>
-            </VStack>
-          </Box>
-
-  {/* Digital self */}
-          {/* <Text
-          fontSize="xl"
-          fontWeight="bold"
-          textAlign="left"
-          mt="40px" // Adjust this value to reduce the gap above the text
-          mb="-45px" // Adjust this value to reduce the gap below the text
-          ml={5}
-        >
-        Digital self 
-      </Text>
-
-          <Box
-            width="100%"
-            minW="75%"
-            pt="-60px" // Adjust this value to reduce the padding above the content inside the box
-            height="900px"
-            backgroundColor="white"
-            borderRadius="xl"
-          >
-            <VStack spacing={6}>
-              <ResponsiveContainer width="100%" height={100}>
-                <HStack spacing={5}>
-                  <Box width="100%" minW="25%" pt="10px" height="80px">
-                    <Box
-                      borderWidth="0px"
-                      borderColor="gray.300"
-                      borderRadius="md"
-                      overflow="hidden"
-                    >
-                      <DigitalShelfAnalysisTable />
-                    </Box>
-                  </Box>
-                </HStack>
-              </ResponsiveContainer>
-            </VStack>
-          </Box> */}
-  {/* Share of Search
-  <Text
-          fontSize="xl"
-          fontWeight="bold"
-          textAlign="left"
-          mt="40px" // Adjust this value to reduce the gap above the text
-          mb="-45px" // Adjust this value to reduce the gap below the text
-          ml={5}
-        >
-       Share of Search
-      </Text>
-
-          <Box
-            width="100%"
-            minW="75%"
-            pt="-60px" // Adjust this value to reduce the padding above the content inside the box
-            height="900px"
-            backgroundColor="white"
-            borderRadius="xl"
-          >
-            <VStack spacing={6}>
-              <ResponsiveContainer width="100%" height={100}>
-                <HStack spacing={5}>
-                  <Box width="100%" minW="25%" pt="10px" height="80px">
-                    <Box
-                      borderWidth="0px"
-                      borderColor="gray.300"
-                      borderRadius="md"
-                      overflow="hidden"
-                    >
-                      <Share_of_search />
-                    </Box>
-                  </Box>
-                </HStack>
-              </ResponsiveContainer>
-            </VStack>
-          </Box> */}
+              {calculateExpensesByType ().map((entry, index) => (
+                <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Legend
+              verticalAlign="top"
+              height={36}
+              onClick={(e) => setSelectedValue(e.payload.value)}
+              payload={[
+                {
+                  value: 'GMV',
+                  type: 'square',
+                  color: selectedValue === 'GMV' ? COLORS[0] : '#ddd',
+                },
+                {
+                  value: 'Expense',
+                  type: 'square',
+                  color: selectedValue === 'Expense' ? COLORS[1] : '#ddd',
+                },
+              ]}
+            />
+          </PieChart>
+        </ResponsiveContainer>
       </Box>
 </div>
 

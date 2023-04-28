@@ -47,8 +47,6 @@ export default function UserReports() {
         <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap='20px' mb='20px'>
         <PaidCampaign/>
       </SimpleGrid>
-
-      
     </Box>
   );
 }
