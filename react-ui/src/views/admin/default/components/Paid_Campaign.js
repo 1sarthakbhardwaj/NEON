@@ -364,7 +364,7 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
           alignItems="stretch"
           justifyContent="space-between"
         >
-          <Box width="50%" minW="25%" height="60%">
+          <Box width="40%" minW="25%" height="60%">
             <Box
               height="100%"
               borderWidth="1px"
@@ -375,7 +375,7 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
               <AdPieChart filteredData={filteredData} />
             </Box>
           </Box>
-          <Box flexGrow={0} height="100%">
+          <Box width="60%" minW="25%" height="100%">
             <Box
               height="80%"
               borderWidth="1px"
