@@ -14,7 +14,7 @@ import AdFilterTable from "./AdFilterTable";
 import AdPieChart from './AdPieChart';
 import { Text } from "@chakra-ui/react";
 import ProductTable from './ProductTable';
-import DigitalShelfAnalysisTable from './Digital-Shelf-Analysis_table';
+import DigitalShelfAnalysisTable from '../../../../components/sidebar/components/Digital-Shelf-Analysis_table';
 
 
 
@@ -434,7 +434,7 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
           </Box>
 
   {/* Digital self */}
-          <Text
+          {/* <Text
           fontSize="xl"
           fontWeight="bold"
           textAlign="left"
@@ -469,7 +469,7 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
                 </HStack>
               </ResponsiveContainer>
             </VStack>
-          </Box>
+          </Box> */}
   {/* Share of Search
   <Text
           fontSize="xl"
