@@ -20,6 +20,9 @@ import {
   useDisclosure,
   useColorModeValue,
 } from '@chakra-ui/react';
+import companyLogo from '../../assets/img/Logo/logo.png';
+import { Image } from '@chakra-ui/react';
+
 
 import MiniSidebar from './MiniSidebar';
 import { NavLink } from "react-router-dom";
@@ -30,7 +33,7 @@ import {
 } from "components/scrollbar/Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { BiHelpCircle } from "react-icons/bi";
-import { FaRobot, FaBrain, FaChartBar, FaAd } from 'react-icons/fa';
+import { FaRobot, FaBrain, FaChartBar, FaAd, FaChartLine } from 'react-icons/fa';
 
 import { AiOutlineQuestionCircle, AiOutlineMessage, AiOutlineFileText, AiOutlineArrowRight } from 'react-icons/ai';
 import DummyList from './components/DummyList';
@@ -171,10 +174,30 @@ function Sidebar(props) {
           style={{ paddingTop: "1rem" }}
         >
           {/* DummyLists */}
+          <Image
+            src={companyLogo}
+            alt="Company Logo"
+            w={collapsed ? "80px" : "245px"}
+            h="auto"
+            mx="auto"
+            my={4}
+            transition={variantChange}
+          />
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList2Open}
             setIsDummyListOpen={setIsDummyList2Open}
+            dummyName="Dashboard"
+            icon={<FaChartLine />}
+            subItems={["Executive Dashboard", "Scripts"]}
+            subItemRoutes={["/admin/default", "/scripts"]} // Add subItemRoutes
+            textColor={textColor}
+          />
+
+          <DummyList
+            collapsed={collapsed}
+            isDummyListOpen={isDummyListOpen}
+            setIsDummyListOpen={setIsDummyListOpen}
             dummyName="AI-driven Automation"
             icon={<FaRobot />}
             subItems={["Create New Script", "Scripts"]}
