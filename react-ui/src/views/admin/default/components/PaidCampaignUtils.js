@@ -9,13 +9,13 @@ export const generateIconBox = (boxBg, brandColor) => (
     h="56px"
     bg={boxBg}
     display="flex"
-    borderRadius={5}
     justifyContent="center"
     alignItems="center"
   >
-    
+    <Icon as={MdBarChart} color={brandColor} w="28px" h="28px" />
   </Box>
 );
+
 
 export const formatChartData = (filteredData) => {
     const aggregatedData = {};
@@ -65,13 +65,17 @@ export const formatChartData = (filteredData) => {
 
  export const getSettings = (metric, selectedMetrics = []) => {
   const baseSettings = {
-    Impression: { color: '#ff0000', stepSize: 10000 },
-    Clicks: { color: '#8884d8', stepSize: 1000 },
-    Conversions: { color: '#82ca9d', stepSize: 100 },
-    'Items Sold': { color: '#a67f00', stepSize: 100 },
-    GMV: { color: '#e91e63', stepSize: 1000000 },
-    Expense: { color: '#f44336', stepSize: 1000000 },
+    Impression: { color: '#1a237e', stepSize: 10000 },
+    Clicks: { color: '#1b5e20', stepSize: 1000 },
+    Conversions: { color: '#b71c1c', stepSize: 100 },
+    'Items Sold': { color: '#EA580C', stepSize: 100 },
+    GMV: { color: '#006064', stepSize: 1000000 },
+    Expense: { color: '#9333EA', stepSize: 1000000 },
+    CTR: { color: '#0D9488', stepSize: 1 },
+    CR: { color: '#3F3B82', stepSize: 1 },
+    ROAS: { color: '#8B5F33', stepSize: 1 },
   };
+  
 
   const metricSettings = baseSettings[metric] || {};
   
@@ -134,16 +138,18 @@ export const CustomTooltip = ({
   export const renderLineComponents = (selectedMetrics) => {
     const lineComponents = selectedMetrics.map((metric) => {
       const metricSettings = {
-        Impression: { stroke: "#ff0000", dotStroke: "#ff0000" },
-        Clicks: { stroke: "#8884d8", dotStroke: "#ff0000" },
-        Conversions: { stroke: "#8884d8", dotStroke: "#ff0000" },
-        "Items Sold": { stroke: "#8884d8", dotStroke: "#ff0000" },
-        GMV: { stroke: "#8884d8", dotStroke: "#ff0000" },
-        Expense: { stroke: "#8884d8", dotStroke: "#ff0000" },
-        CTR: { stroke: "#82ca9d", dotStroke: "#82ca9d" },
-        CR: { stroke: "#a67f00", dotStroke: "#a67f00" },
-        ROAS: { stroke: "#e91e63", dotStroke: "#e91e63" },
+        Impression: { stroke: "#1a237e", dotStroke: "#1a237e" },
+        Clicks: { stroke: "#1b5e20", dotStroke: "#1b5e20" },
+        Conversions: { stroke: "#b71c1c", dotStroke: "#b71c1c" },
+        "Items Sold": { stroke: "#EA580C", dotStroke: "#EA580C" },
+        GMV: { stroke: "#006064", dotStroke: "#006064" },
+        Expense: { stroke: "#9333EA", dotStroke: "#9333EA" },
+        CTR: { stroke: "#0D9488", dotStroke: "#0D9488" },
+        CR: { stroke: "#3F3B82", dotStroke: "#3F3B82" },
+        ROAS: { stroke: "#8B5F33", dotStroke: "#8B5F33" },
       };
+      
+      
   
       const { stroke, dotStroke } = metricSettings[metric];
       const { yAxisId, stepSize } = getSettings(metric, selectedMetrics);
@@ -167,7 +173,7 @@ export const CustomTooltip = ({
   
   
   export const createLegendPayload = (selectedValue) => {
-    const COLORS = ['#8884d8', '#82ca9d'];
+    const COLORS = ['#006064', '#3F3B82'];
     const payload = [
       {
         value: "GMV",
@@ -183,4 +189,28 @@ export const CustomTooltip = ({
   
     return payload;
   };
+
+  export const getStrokeColors = () => {
+    const metrics = [
+      "Impression",
+      "Clicks",
+      "Conversions",
+      "Items Sold",
+      "GMV",
+      "Expense",
+      "CTR",
+      "CR",
+      "ROAS",
+    ];
+  
+    const strokeColors = {};
+  
+    metrics.forEach((metric) => {
+      const settings = renderLineComponents([metric]);
+      strokeColors[metric] = settings[0].props.stroke;
+    });
+  
+    return strokeColors;
+  };
+  
   
