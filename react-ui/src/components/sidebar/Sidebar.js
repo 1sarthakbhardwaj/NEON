@@ -188,7 +188,7 @@ function Sidebar(props) {
             w={collapsed ? "80px" : "245px"}
             h="auto"
             mx="auto"
-            my={4}
+            my={2}
             transition={variantChange}
           />
           <DummyList

@@ -2,7 +2,7 @@
 import { Portal, Box, useDisclosure } from "@chakra-ui/react";
 import Footer from "components/footer/FooterAdmin.js";
 // Layout components
-import Navbar from "components/navbar/NavbarAdmin.js";
+// import Navbar from "components/navbar/NavbarAdmin.js";
 import Sidebar from "components/sidebar/Sidebar.js";
 import { SidebarContext } from "contexts/SidebarContext";
 import React, { useState } from "react";
@@ -42,52 +42,52 @@ export default function Dashboard(props) {
     }
     return activeRoute;
   };
-  const getActiveNavbar = (routes) => {
-    let activeNavbar = false;
-    for (let i = 0; i < routes.length; i++) {
-      if (routes[i].collapse) {
-        let collapseActiveNavbar = getActiveNavbar(routes[i].items);
-        if (collapseActiveNavbar !== activeNavbar) {
-          return collapseActiveNavbar;
-        }
-      } else if (routes[i].category) {
-        let categoryActiveNavbar = getActiveNavbar(routes[i].items);
-        if (categoryActiveNavbar !== activeNavbar) {
-          return categoryActiveNavbar;
-        }
-      } else {
-        if (
-          window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
-        ) {
-          return routes[i].secondary;
-        }
-      }
-    }
-    return activeNavbar;
-  };
-  const getActiveNavbarText = (routes) => {
-    let activeNavbar = false;
-    for (let i = 0; i < routes.length; i++) {
-      if (routes[i].collapse) {
-        let collapseActiveNavbar = getActiveNavbarText(routes[i].items);
-        if (collapseActiveNavbar !== activeNavbar) {
-          return collapseActiveNavbar;
-        }
-      } else if (routes[i].category) {
-        let categoryActiveNavbar = getActiveNavbarText(routes[i].items);
-        if (categoryActiveNavbar !== activeNavbar) {
-          return categoryActiveNavbar;
-        }
-      } else {
-        if (
-          window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
-        ) {
-          return routes[i].messageNavbar;
-        }
-      }
-    }
-    return activeNavbar;
-  };
+  // const getActiveNavbar = (routes) => {
+  //   let activeNavbar = false;
+  //   for (let i = 0; i < routes.length; i++) {
+  //     if (routes[i].collapse) {
+  //       let collapseActiveNavbar = getActiveNavbar(routes[i].items);
+  //       if (collapseActiveNavbar !== activeNavbar) {
+  //         return collapseActiveNavbar;
+  //       }
+  //     } else if (routes[i].category) {
+  //       let categoryActiveNavbar = getActiveNavbar(routes[i].items);
+  //       if (categoryActiveNavbar !== activeNavbar) {
+  //         return categoryActiveNavbar;
+  //       }
+  //     } else {
+  //       if (
+  //         window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
+  //       ) {
+  //         return routes[i].secondary;
+  //       }
+  //     }
+  //   }
+  //   return activeNavbar;
+  // };
+  // const getActiveNavbarText = (routes) => {
+  //   let activeNavbar = false;
+  //   for (let i = 0; i < routes.length; i++) {
+  //     if (routes[i].collapse) {
+  //       let collapseActiveNavbar = getActiveNavbarText(routes[i].items);
+  //       if (collapseActiveNavbar !== activeNavbar) {
+  //         return collapseActiveNavbar;
+  //       }
+  //     } else if (routes[i].category) {
+  //       let categoryActiveNavbar = getActiveNavbarText(routes[i].items);
+  //       if (categoryActiveNavbar !== activeNavbar) {
+  //         return categoryActiveNavbar;
+  //       }
+  //     } else {
+  //       if (
+  //         window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
+  //       ) {
+  //         return routes[i].messageNavbar;
+  //       }
+  //     }
+  //   }
+  //   return activeNavbar;
+  // };
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
@@ -134,7 +134,7 @@ export default function Dashboard(props) {
           transitionTimingFunction='linear, linear, ease'>
           <Portal>
             <Box>
-              <Navbar
+              {/* <Navbar
                 onOpen={onOpen}
                 logoText={"Horizon UI Dashboard PRO"}
                 brandText={getActiveRoute(routes)}
@@ -142,7 +142,7 @@ export default function Dashboard(props) {
                 message={getActiveNavbarText(routes)}
                 fixed={fixed}
                 {...rest}
-              />
+              /> */}
             </Box>
           </Portal>
 

@@ -52,7 +52,7 @@ export default function AdminNavbar(props) {
   return (
     <Box
       position="fixed"
-      top="0"
+      top="5"
       boxShadow={navbarShadow}
       bg={navbarBg}
       borderColor={navbarBorder}
@@ -84,7 +84,6 @@ export default function AdminNavbar(props) {
         xl: "12px",
       }}
       pt='8px'
-      top={{ base: "12px", md: "16px", xl: "18px" }}
       w={{
         base: "calc(100vw - 6%)",
         md: "calc(100vw - 8%)",
