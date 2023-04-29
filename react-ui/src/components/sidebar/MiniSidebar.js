@@ -9,9 +9,10 @@ import tokopedia from '../../assets/img/MiniSidebar/tokopedia.png';
 import bukalapak from '../../assets/img/MiniSidebar/bukalapak.png';
 import tiki from '../../assets/img/MiniSidebar/tiki.jpeg';
 
-import { Image, Avatar, Spacer } from '@chakra-ui/react';
+import { Image, Spacer } from '@chakra-ui/react';
+import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
 
-import { Box, Icon, VStack, useColorModeValue, Tooltip } from '@chakra-ui/react';
+import { Box, Icon, VStack, useColorModeValue, Tooltip, Flex } from '@chakra-ui/react';
 import { AiFillHome, AiOutlineSetting } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
 
@@ -52,6 +53,13 @@ const MiniSidebar = () => {
       h='100vh'
       position='fixed'
       display={{ sm: 'none', xl: 'block' }}
+    >
+    <Flex
+      direction="column"
+      alignItems="center"
+      justifyContent="space-between"
+      h="100%"
+      pt="1.5rem"
     >
       <VStack
         alignItems="center"
@@ -231,22 +239,22 @@ const MiniSidebar = () => {
         _hover={{ boxSize: 8, cursor: 'pointer' }}
         onClick={handleButtonClick2}
       />
-            
-      <Tooltip label="Profile" placement="right" hasArrow>
-      <Avatar
-        onClick={handleProfileClick}
-        name="KS"
-        size="sm"
-        mt="1rem"
-        mb="1rem"
-        cursor="pointer"
-      />
-    </Tooltip>
 
-    </VStack>
-    </Box>
-    
-    );
+      </VStack>
+      <Spacer /> {/* Add this Spacer component here */}
+
+<VStack alignItems="center" justifyContent="flex-end" spacing={1}>
+  <Tooltip label="Profile" placement="right" hasArrow>
+  <Avatar name='Kris Sharma' 
+  bg='blue.500'
+  mb={50} >
+  <AvatarBadge boxSize='0.65em' bg='green.500' />
+  </Avatar>
+  </Tooltip>
+</VStack>
+</Flex>
+</Box>
+);
 };
 
 export default MiniSidebar;

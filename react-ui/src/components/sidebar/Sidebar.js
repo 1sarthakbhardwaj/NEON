@@ -20,9 +20,11 @@ import {
   useDisclosure,
   useColorModeValue,
 } from '@chakra-ui/react';
-import companyLogo from '../../assets/img/Logo/logo.png';
+import companyLogo from '../../assets/img/Logo/logo.svg';
 import { Image } from '@chakra-ui/react';
 import styles from './Sidebar.module.css';
+import HelpSection from './components/HelpSection';
+
 
 import MiniSidebar from './MiniSidebar';
 import { NavLink } from "react-router-dom";
@@ -185,12 +187,13 @@ function Sidebar(props) {
           <Image
             src={companyLogo}
             alt="Company Logo"
-            w={collapsed ? "80px" : "245px"}
+            w={collapsed ? "80px" : "180px"}
             h="auto"
             mx="auto"
             my={2}
             transition={variantChange}
           />
+          <Box mt={50}>
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList2Open}
@@ -239,50 +242,21 @@ function Sidebar(props) {
             subItems={["Sponsored Search", "Sponsored Discovery","Affiliate"]}
             subItemRoutes={["/sponsored-search", "/sponsored-discovery", "/affiliate"]} // Add subItemRoutes
           />
+          </Box>
+          <Box mt={520} />
+          // ...
+        <HelpSection
+          textColor={textColor}
+          hoverColor={hoverColor}
+          sidebarBg={sidebarBg}
+          collapsed={collapsed}
+          openHelpCenter={openHelpCenter}
+          openChatSupport={openChatSupport}
+        />
+// ...
+
            </Scrollbars>
-      </Box>
-
-      <Popover placement="right-start">
-        <PopoverTrigger>{renderHelpSection()}</PopoverTrigger>
-        <PopoverContent>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverHeader>Help</PopoverHeader>
-          <PopoverBody>
-            <VStack align="start" spacing={1}>
-              <Flex alignItems="center" py={2} onClick={openChatSupport}>
-                <Box fontWeight="light" fontSize="sm" color="gray.700">
-                  Chat Support
-                </Box>
-              </Flex>
-              <Flex alignItems="center" py={2} onClick={openHelpCenter}>
-                <Box fontWeight="light" fontSize="sm" color="gray.700">
-                  Help Center
-                </Box>
-              </Flex>
-            </VStack>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-
-      <Modal isOpen={chatSupportDisclosure.isOpen} onClose={chatSupportDisclosure.onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Chat Support</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>{/* Chat Support content goes here */}</ModalBody>
-        </ModalContent>
-      </Modal>
-
-      <Modal isOpen={helpCenterDisclosure.isOpen} onClose={helpCenterDisclosure.onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Help Center</ModalHeader>
-          <ModalCloseButton />
-         
-        </ModalContent>
-      </Modal>
-    
+      </Box>   
     </>
   );
 };
