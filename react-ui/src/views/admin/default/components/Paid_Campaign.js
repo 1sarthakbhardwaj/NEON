@@ -107,12 +107,14 @@ const formatTooltipValue = (payload, metricName) => {
 };
 
 const metricColor = {
-  Impression: "#ff0000",
-  Clicks: "#8884d8",
-  Conversions: "#82ca9d",
-  "Items Sold": "#a67f00",
-  GMV: "#e91e63",
-  Expense: "#f44336",
+  Impression: "#1a237e",
+  Clicks: "#1b5e20",
+  Conversions: "#b71c1c",
+  "Items Sold": "#EA580C",
+  GMV: "#006064",
+  Expense: "#9333EA",
+  CTR: "#0D9488",
+  CR: "#8B5F33",
 };
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
