@@ -71,8 +71,6 @@ const ECommerceCampaignReport = () => {
 
   const togglePopover = () => { setShowPopover(!showPopover); };
   const formatDate = (date) => { return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
-
-  const [selectedMetrics, setSelectedMetrics] = useState([]);
   const formatNumber = (value) => { return new Intl.NumberFormat().format(value); };
   const formatCurrency = (value) => { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'VND' }).format(value); };
   const calculateMetrics = (metric) => { return filteredData.reduce((total, item) => total + parseFloat(item[metric]), 0); };
@@ -81,6 +79,7 @@ const ECommerceCampaignReport = () => {
   const CR = calculatePercentage(calculateMetrics('Conversions'), calculateMetrics('Clicks'));
   const ROAS = calculateMetrics('Expense') === 0 ? 0 : calculateMetrics('GMV') / calculateMetrics('Expense');
 
+const [selectedMetrics, setSelectedMetrics] = useState(['Impression', 'Clicks']);
 const handleMetricSelection = (metricName) => {
   if (selectedMetrics.includes(metricName)) {
     setSelectedMetrics(selectedMetrics.filter((metric) => metric !== metricName));
@@ -193,48 +192,62 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
 
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4, '2xl': 6 }} gap="20px" mb="10px">
-          <ClickableMiniStatistics
-          onClick={() => handleMetricSelection('Impression')}          
-            name="Impressions"
-            value={formatNumber(calculateMetrics('Impression'))}
-            bgColor='#ff0000'
-            style={{ textAlign: 'center' }}
-          />
-          <ClickableMiniStatistics
-          onClick={() => handleMetricSelection('Clicks')}          
-          name="Clicks"
-          value={calculateMetrics('Clicks')}
+        <ClickableMiniStatistics
+          onClick={() => handleMetricSelection('Impression')}
+          name="Impressions"
+          value={formatNumber(calculateMetrics('Impression'))}
+          bgColor='#ff0000'
           style={{ textAlign: 'center' }}
-          />
+          isActive={selectedMetrics.includes('Impression')}
+          metric="Impression"
+        />
+        <ClickableMiniStatistics
+            onClick={() => handleMetricSelection('Clicks')}
+            name="Clicks"
+            value={calculateMetrics('Clicks')}
+            style={{ textAlign: 'center' }}
+            isActive={selectedMetrics.includes('Clicks')}
+            metric="Clicks"
+        />
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Conversions')}          
           name="Conversions"
           value={formatNumber(calculateMetrics('Conversions'))}
           style={{ textAlign: 'center' }}
+          isActive={selectedMetrics.includes('Conversions')}
+          metric="Conversions"
           />
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Items Sold')}          
           name="Items Sold"
           value={formatNumber(calculateMetrics('Items Sold'))}
           style={{ textAlign: 'center' }}
+          isActive={selectedMetrics.includes('Items Sold')}
+          metric="Items Sold"
           />
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('GMV')}          
           name="GMV"
           value={formatCurrency(calculateMetrics('GMV'))}
           style={{ textAlign: 'center' }}
+          isActive={selectedMetrics.includes('GMV')}
+          metric="GMV"
           />
           <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Expense')}          
           name="Expense"
           value={formatCurrency(calculateMetrics('Expense'))}
           style={{ textAlign: 'center' }}
+          isActive={selectedMetrics.includes('Expense')}
+          metric="Expense"
           />
           <ClickableMiniStatistics
             onClick={() => handleMetricSelection('CTR')}            
             name="CTR(%)"
             value={`${CTR.toFixed(2)}%`}
             style={{ textAlign: 'center' }}
+            isActive={selectedMetrics.includes('CTR')}
+            metric="CTR"
           />
           
           <ClickableMiniStatistics
@@ -242,6 +255,8 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
             name="ROAS"
             value={ROAS.toFixed(2)}
             style={{ textAlign: 'center' }}
+            isActive={selectedMetrics.includes('ROAS')}
+            metric="ROAS"
           />         
 
         </SimpleGrid>
@@ -391,11 +406,6 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
     </ResponsiveContainer>
   </VStack>
 </Box>
-
-
-
-        {/*Performance by SKU*/}
-
         <Text
           fontSize="xl"
           fontWeight="bold"
@@ -406,7 +416,6 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
         >
         Performance by SKU
       </Text>
-
           <Box
             width="100%"
             minW="75%"
@@ -432,85 +441,8 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
               </ResponsiveContainer>
             </VStack>
           </Box>
-
-  {/* Digital self */}
-          {/* <Text
-          fontSize="xl"
-          fontWeight="bold"
-          textAlign="left"
-          mt="40px" // Adjust this value to reduce the gap above the text
-          mb="-45px" // Adjust this value to reduce the gap below the text
-          ml={5}
-        >
-        Digital self 
-      </Text>
-
-          <Box
-            width="100%"
-            minW="75%"
-            pt="-60px" // Adjust this value to reduce the padding above the content inside the box
-            height="900px"
-            backgroundColor="white"
-            borderRadius="xl"
-          >
-            <VStack spacing={6}>
-              <ResponsiveContainer width="100%" height={100}>
-                <HStack spacing={5}>
-                  <Box width="100%" minW="25%" pt="10px" height="80px">
-                    <Box
-                      borderWidth="0px"
-                      borderColor="gray.300"
-                      borderRadius="md"
-                      overflow="hidden"
-                    >
-                      <DigitalShelfAnalysisTable />
-                    </Box>
-                  </Box>
-                </HStack>
-              </ResponsiveContainer>
-            </VStack>
-          </Box> */}
-  {/* Share of Search
-  <Text
-          fontSize="xl"
-          fontWeight="bold"
-          textAlign="left"
-          mt="40px" // Adjust this value to reduce the gap above the text
-          mb="-45px" // Adjust this value to reduce the gap below the text
-          ml={5}
-        >
-       Share of Search
-      </Text>
-
-          <Box
-            width="100%"
-            minW="75%"
-            pt="-60px" // Adjust this value to reduce the padding above the content inside the box
-            height="900px"
-            backgroundColor="white"
-            borderRadius="xl"
-          >
-            <VStack spacing={6}>
-              <ResponsiveContainer width="100%" height={100}>
-                <HStack spacing={5}>
-                  <Box width="100%" minW="25%" pt="10px" height="80px">
-                    <Box
-                      borderWidth="0px"
-                      borderColor="gray.300"
-                      borderRadius="md"
-                      overflow="hidden"
-                    >
-                      <Share_of_search />
-                    </Box>
-                  </Box>
-                </HStack>
-              </ResponsiveContainer>
-            </VStack>
-          </Box> */}
       </Box>
-</div>
-
-   
+</div>  
     );
   };
 
