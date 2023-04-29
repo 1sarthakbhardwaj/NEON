@@ -150,6 +150,13 @@ function Sidebar(props) {
   const chatSupportDisclosure = useDisclosure();
   const helpCenterDisclosure = useDisclosure();
 
+  const openDummyList = (listIndex) => {
+    setIsDummyListOpen(listIndex === 0 ? !isDummyListOpen : false);
+    setIsDummyList1Open(listIndex === 1 ? !isDummyList1Open : false);
+    setIsDummyList2Open(listIndex === 2 ? !isDummyList2Open : false);
+    setIsDummyList3Open(listIndex === 3 ? !isDummyList3Open : false);
+    setIsDummyList4Open(listIndex === 4 ? !isDummyList4Open : false);
+  };
 
   return (
     <>
@@ -186,7 +193,7 @@ function Sidebar(props) {
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList2Open}
-            setIsDummyListOpen={setIsDummyList2Open}
+            setIsDummyListOpen={() => openDummyList(2)}
             dummyName="Dashboard"
             icon={<FaChartLine />}
             subItems={["Executive Dashboard", "Scripts"]}
@@ -197,7 +204,7 @@ function Sidebar(props) {
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyListOpen}
-            setIsDummyListOpen={setIsDummyListOpen}
+            setIsDummyListOpen={() => openDummyList(0)}
             dummyName="AI-driven Automation"
             icon={<FaRobot />}
             subItems={["Create New Script", "Scripts"]}
@@ -207,7 +214,7 @@ function Sidebar(props) {
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList1Open}
-            setIsDummyListOpen={setIsDummyList1Open}
+            setIsDummyListOpen={() => openDummyList(1)}          
             dummyName="Intelligence"
             icon={<FaBrain />}
             subItems={["Share of Search", "Digital Shelf Analysis", "Sales", "Traffic Reporting","Target & Search"]}
@@ -216,7 +223,7 @@ function Sidebar(props) {
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList3Open}
-            setIsDummyListOpen={setIsDummyList3Open}
+            setIsDummyListOpen={() => openDummyList(3)}
             dummyName="Market Insights"
             icon={<FaChartBar />}
             subItems={["Business Insights", "Product", "Traffic"]}
@@ -225,7 +232,7 @@ function Sidebar(props) {
           <DummyList
             collapsed={collapsed}
             isDummyListOpen={isDummyList4Open}
-            setIsDummyListOpen={setIsDummyList4Open}
+            setIsDummyListOpen={() => openDummyList(4)}
             dummyName="Sponsored Solution"
             icon={<FaAd />}
             subItems={["Sponsored Search", "Sponsored Discovery","Affiliate"]}
