@@ -9,10 +9,12 @@ import tokopedia from '../../assets/img/MiniSidebar/tokopedia.png';
 import bukalapak from '../../assets/img/MiniSidebar/bukalapak.png';
 import tiki from '../../assets/img/MiniSidebar/tiki.jpeg';
 
-import { Image } from '@chakra-ui/react';
+import { Image, Avatar, Spacer } from '@chakra-ui/react';
+
 import { Box, Icon, VStack, useColorModeValue, Tooltip } from '@chakra-ui/react';
 import { AiFillHome, AiOutlineSetting } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
+
 
 export const PlatformContext = createContext();
 
@@ -37,6 +39,10 @@ const MiniSidebar = () => {
     history.push('/admin/automation');
   };
 
+  const handleProfileClick = () => {
+    history.push('/profile');
+  };
+
   return (
     <Box
       bg={backgroundColor}
@@ -54,6 +60,7 @@ const MiniSidebar = () => {
         h="100%"
         pt="1.5rem"
       >
+        
      <Tooltip label='Add New Platform' placement='right' hasArrow>
       <Icon
         as={AddIcon}
@@ -224,6 +231,18 @@ const MiniSidebar = () => {
         _hover={{ boxSize: 8, cursor: 'pointer' }}
         onClick={handleButtonClick2}
       />
+            
+      <Tooltip label="Profile" placement="right" hasArrow>
+      <Avatar
+        onClick={handleProfileClick}
+        name="KS"
+        size="sm"
+        mt="1rem"
+        mb="1rem"
+        cursor="pointer"
+      />
+    </Tooltip>
+
     </VStack>
     </Box>
     
