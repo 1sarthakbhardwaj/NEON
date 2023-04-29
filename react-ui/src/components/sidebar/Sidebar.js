@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 import companyLogo from '../../assets/img/Logo/logo.png';
 import { Image } from '@chakra-ui/react';
-
+import styles from './Sidebar.module.css';
 
 import MiniSidebar from './MiniSidebar';
 import { NavLink } from "react-router-dom";
@@ -161,7 +161,7 @@ function Sidebar(props) {
   return (
     <>
       <MiniSidebar />
-      <Box
+      <Box 
         bg={sidebarBg}
         transition={variantChange}
         w={collapsed ? "60px" : "250px"}
@@ -172,6 +172,7 @@ function Sidebar(props) {
         position="fixed"
         ml="60px"
         pt="20px"
+        className={styles.sidebar}
       >
         <Scrollbars
           autoHide

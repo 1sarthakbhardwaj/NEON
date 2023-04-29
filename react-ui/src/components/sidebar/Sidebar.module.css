@@ -1,0 +1,7 @@
+/* Sidebar.module.css */
+@media screen and (max-width: 1200px) {
+    .sidebar {
+      display: none;
+    }
+  }
+  
