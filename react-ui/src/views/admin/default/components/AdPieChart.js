@@ -97,7 +97,11 @@ const AdPieChart = ({ filteredData }) => {
             ))}
           </Pie>
           <Tooltip content={<CustomTooltip />} />
-          <Legend />
+          <Legend
+        formatter={(value) => (
+          <span style={{ fontSize: "13px" }}>{value}</span>
+        )}
+      />
         </PieChart>
       </ResponsiveContainer>
     </VStack>

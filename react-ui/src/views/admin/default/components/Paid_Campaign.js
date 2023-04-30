@@ -180,20 +180,20 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
       </div>
 
       {/* Simple-grid section */}
-
+     
       <Text
         fontSize="xl"
         fontWeight="bold"
         textAlign="left"
-        mt="50px"
+        mt="-10px"
         mb="-60px"
-        ml={5}
+        ml={6}
       >
         Aggregate Performance
       </Text>
 
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4, '2xl': 6 }} gap="20px" mb="10px">
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 4, '2xl': 6 }} gap="20px" mt="10px" mb="10px">
         <ClickableMiniStatistics
           onClick={() => handleMetricSelection('Impression')}
           name="Impressions"
@@ -263,6 +263,7 @@ const bgFocus = useColorModeValue({ bg: "secondaryGray.300" }, { bg: "whiteAlpha
 
         </SimpleGrid>
       </Box>
+     
 
       {/*...linechart*/}
 
