@@ -58,7 +58,7 @@ export default function Footer() {
             color={textColor}
             target='_blank'
             href='#'>
-            NeonCommerce
+            Neon Commerce
           </Link>
         </ListItem>        
         <ListItem

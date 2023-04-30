@@ -40,9 +40,6 @@ import { FaRobot, FaBrain, FaChartBar, FaAd, FaChartLine } from 'react-icons/fa'
 import { AiOutlineQuestionCircle, AiOutlineMessage, AiOutlineFileText, AiOutlineArrowRight } from 'react-icons/ai';
 import DummyList from './components/DummyList';
 
-
-
-
 function Sidebar(props) {
   const { routes } = props;
   const [collapsed, setCollapsed] = useState(false);
@@ -166,8 +163,8 @@ function Sidebar(props) {
       <Box 
         bg={sidebarBg}
         transition={variantChange}
-        w={collapsed ? "60px" : "250px"}
-        h="100vh"
+        w={collapsed ? '60px' : '250px'}
+        h="80vh" // Change this line
         minH="100%"
         overflowX="hidden"
         boxShadow={shadow}
@@ -201,7 +198,7 @@ function Sidebar(props) {
             dummyName="Dashboard"
             icon={<FaChartLine />}
             subItems={["Executive Dashboard", "Scripts"]}
-            subItemRoutes={["/admin/default", "/scripts"]} // Add subItemRoutes
+            subItemRoutes={["/admin/default", "scripts"]} // Add subItemRoutes
             textColor={textColor}
           />
 
@@ -243,7 +240,7 @@ function Sidebar(props) {
             subItemRoutes={["/sponsored-search", "/sponsored-discovery", "/affiliate"]} // Add subItemRoutes
           />
           </Box>
-          <Box mt={520} />
+          <Box mt={80} />
           // ...
         <HelpSection
           textColor={textColor}

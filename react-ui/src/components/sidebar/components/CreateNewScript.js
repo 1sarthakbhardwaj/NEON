@@ -39,20 +39,10 @@ const CreateNewScript = () => {
   return (
   <>
       <Flex justifyContent="flex-start" width="100%">
-      <Box
-        bg="white"
-        borderRadius="lg"
-        boxShadow="base"
-        p={4}
-        width="100%"
-        maxWidth="1500px"
-        marginRight="auto"
-        mt={4}
-      >
-  </Box>
+     
 </Flex>
 
-<VStack spacing={9} align="start" pl="0px">
+<VStack spacing={1} align="start" pl="0px">
   <Box bg="white" borderRadius="md" boxShadow="base" p={2}>
     <Heading as="h2" size="md">
       AI-Driven Automation/ Create New Script
@@ -77,7 +67,8 @@ const CreateNewScript = () => {
         <IconButton
           icon={isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
           onClick={handleToggle}
-          bgGradient="linear(to-r, blue.500, blue.200)"
+          bgGradient="linear(to-r, blue.400, teal.300)"
+          color="white"
         />
       </HStack>
       <Collapse in={isOpen}>
@@ -129,7 +120,7 @@ const CreateNewScript = () => {
 </Flex>
 </VStack>
 
-
+{/* Conditions : */}
 <Flex justifyContent="flex-start" width="100%">
       <Box
         bg="white"
@@ -198,7 +189,7 @@ const CreateNewScript = () => {
           ))}
           <IconButton
             onClick={addCondition}
-            bgGradient="linear(to-r, blue.500, blue.200)"
+            bgGradient="linear(to-r, blue.400, teal.300)"
             _hover={{ bgGradient: "linear(to-r, blue.400, blue.300)" }}
             borderRadius="md"
             p={2}
@@ -285,7 +276,9 @@ const CreateNewScript = () => {
     Cancel
   </Button>
   <Button
-    bgGradient="linear(to-r, blue.500, blue.200)"
+    color="white"
+    bgGradient="linear(to-r, blue.400, teal.300)"
+
     _hover={{ bgGradient: "linear(to-r, blue.400, blue.300)" }}
   >
     Submit

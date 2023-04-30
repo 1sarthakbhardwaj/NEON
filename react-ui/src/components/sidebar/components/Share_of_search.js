@@ -533,9 +533,6 @@ const DigitalShelfAnalysisTable = () => {
   </Table>
 </Box>
 
-
-
-
     </>
   );
 };

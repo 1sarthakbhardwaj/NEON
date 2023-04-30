@@ -47,7 +47,7 @@ const MiniSidebar = () => {
   return (
     <Box
       bg={backgroundColor}
-      borderRadius='5px'
+      borderRadius='1px'
       borderRight='0.1px solid #4A5568'
       w='60px'
       h='100vh'
@@ -71,12 +71,16 @@ const MiniSidebar = () => {
         
      <Tooltip label='Add New Platform' placement='right' hasArrow>
       <Icon
-        as={AddIcon}
-        color={iconColor}
-        boxSize={6}
-        _hover={{ boxSize: 8, cursor: 'pointer' }}
-        onClick={handleButtonClick}
-      />
+    as={AddIcon}
+    color="white"
+    boxSize="1.6rem"
+    border="1px"
+    borderColor="gray.300"
+    borderRadius="md"
+    padding="4px"
+    _hover={{ boxSize: "1.5rem", cursor: 'pointer' }}
+    onClick={handleButtonClick}
+  />
     </Tooltip>
 
         {/* Shopee */}
@@ -237,9 +241,8 @@ const MiniSidebar = () => {
         color={iconColor}
         boxSize={6}
         _hover={{ boxSize: 8, cursor: 'pointer' }}
-        onClick={handleButtonClick2}
+        // onClick={handleButtonClick2}
       />
-
       </VStack>
       <Spacer /> {/* Add this Spacer component here */}
 
@@ -247,7 +250,9 @@ const MiniSidebar = () => {
   <Tooltip label="Profile" placement="right" hasArrow>
   <Avatar name='Kris Sharma' 
   bg='blue.500'
-  mb={50} >
+  mb={50} 
+  mt={10} 
+  size="sm">
   <AvatarBadge boxSize='0.65em' bg='green.500' />
   </Avatar>
   </Tooltip>

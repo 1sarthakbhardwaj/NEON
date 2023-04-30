@@ -54,16 +54,16 @@ function FormStep2() {
                     _active={{ bg: 'blue.700' }}
                     onClick={() => handleContinentSelect(continent)}
                   >
-                    <HStack spacing={2} alignItems="flex-start">
+                    <HStack spacing={-5} alignItems="flex-start"> {/* Update this line */}
                       <Box
                         boxSize="7"
                         borderRadius="full"
-                        bg="blue.500"
+                        // bg="blue.500"
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
                       >
-                        <ArrowRightIcon color="white" />
+                        {/* <ArrowRightIcon color="white" /> */}
                       </Box>
                       <Text>{continent}</Text>
                     </HStack>
